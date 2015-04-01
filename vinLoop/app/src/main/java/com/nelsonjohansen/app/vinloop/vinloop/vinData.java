@@ -19,8 +19,8 @@ public class vinData {
         mWineries = new ArrayList<Winery>();
         for(int i = 0; i < 100; i++){
             Winery w = new Winery();
-            w.setName("Winery" + i);
-            w.setLocation(i / 2);
+            w.setName("Deal" + i);
+            w.setLocation("Winery" + i);
             mWineries.add(w);
         }
     }

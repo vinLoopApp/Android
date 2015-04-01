@@ -1,0 +1,81 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:padding="2dip" >
+
+    <ImageView
+        android:id="@+id/winery_list_item_iconImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="6dip"
+        android:contentDescription="Description"
+        android:src="@drawable/ic_launcher" />
+
+    <TextView
+        android:id="@+id/winery_list_item_dealTextView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@id/winery_list_item_iconImageView"
+        android:ellipsize="marquee"
+        android:singleLine="true"
+        android:text="Deal"
+        android:textSize="36sp" />
+
+    <TextView
+        android:id="@+id/winery_list_item_locTextView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignWithParentIfMissing="true"
+        android:layout_toEndOf="@id/winery_list_item_iconImageView"
+        android:gravity="center_vertical"
+        android:text="Location"
+        android:textSize="12sp"
+        android:layout_below="@+id/winery_list_item_dealTextView" />
+
+    <RatingBar
+        style="@style/wineRatingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="28dp"
+        android:scaleX="0.5"
+        android:scaleY="0.5"
+        android:layout_alignParentRight="true"
+        android:id="@+id/ratingBar"
+        android:layout_alignParentTop="true"
+        android:layout_alignEnd="@id/winery_list_item_dealTextView"
+        android:numStars="5"
+        android:longClickable="false"
+        android:indeterminateOnly="false"
+        android:layout_alignParentEnd="true" />
+
+    <RatingBar
+        style="@style/wineRatingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="28dp"
+        android:scaleX="0.5"
+        android:scaleY="0.5"
+        android:layout_alignParentRight="true"
+        android:id="@+id/ratingBar2"
+        android:layout_below="@+id/ratingBar"
+        android:layout_alignStart="@+id/ratingBar"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/winery_list_item_distTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="28dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignWithParentIfMissing="true"
+        android:gravity="center_vertical"
+        android:text="Distance"
+        android:textSize="12sp"
+        android:layout_below="@+id/ratingBar2" />
+
+</RelativeLayout>

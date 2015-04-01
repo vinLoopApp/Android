@@ -9,12 +9,12 @@ public class Winery {
 
     private UUID mID;
     private String name;
-    private int location;
+    private String location;
 
     public Winery(){
         mID = UUID.randomUUID();
-        name = "First Winery";
-        location = 3;
+        name = null;
+        location = null;
     }
 
     public UUID getID() {
@@ -29,7 +29,7 @@ public class Winery {
         this.name = name;
     }
 
-    public int getLocation() {
+    public String getLocation() {
 
         return location;
     }
@@ -39,7 +39,7 @@ public class Winery {
         return name;
     }
 
-    public void setLocation(int location) {
+    public void setLocation(String location) {
         this.location = location;
     }
 }
