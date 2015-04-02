@@ -20,7 +20,7 @@ public class vinData {
         for(int i = 0; i < 100; i++){
             Winery w = new Winery();
             w.setName("Deal" + i);
-            w.setLocation("Winery" + i);
+            w.setDescr("Winery" + i);
             mWineries.add(w);
         }
     }
@@ -38,7 +38,7 @@ public class vinData {
 
     public Winery getWinery(UUID id){
         for(Winery w : mWineries){ 
-            if(w.getID().equals(id)){
+            if(w.getmID().equals(id)){
                 return w;
             }
         }

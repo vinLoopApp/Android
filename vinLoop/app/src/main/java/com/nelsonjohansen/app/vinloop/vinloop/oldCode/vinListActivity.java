@@ -1,6 +1,8 @@
-package com.nelsonjohansen.app.vinloop.vinloop;
+package com.nelsonjohansen.app.vinloop.vinloop.oldCode;
 
 import android.support.v4.app.Fragment;
+
+import com.nelsonjohansen.app.vinloop.vinloop.SingleFragmentActivity;
 
 /**
  * Created by NelsonJ on 3/30/2015.

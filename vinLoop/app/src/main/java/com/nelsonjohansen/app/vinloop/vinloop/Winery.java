@@ -9,16 +9,20 @@ public class Winery {
 
     private UUID mID;
     private String name;
-    private String location;
+    private String descr;
+    private String dist;
+    private String thumbnailUrl;
 
     public Winery(){
         mID = UUID.randomUUID();
-        name = null;
-        location = null;
     }
 
-    public UUID getID() {
+    public UUID getmID() {
         return mID;
+    }
+
+    public void setmID(UUID mID) {
+        this.mID = mID;
     }
 
     public String getName() {
@@ -29,9 +33,28 @@ public class Winery {
         this.name = name;
     }
 
-    public String getLocation() {
+    public String getDist() {
+        return dist;
+    }
 
-        return location;
+    public void setDist(String dist) {
+        this.dist = dist;
+    }
+
+    public String getDescr() {
+        return descr;
+    }
+
+    public void setDescr(String descr) {
+        this.descr = descr;
+    }
+
+    public String getThumbnailUrl() {
+        return thumbnailUrl;
+    }
+
+    public void setThumbnailUrl(String thumbnailUrl) {
+        this.thumbnailUrl = thumbnailUrl;
     }
 
     @Override
@@ -39,7 +62,4 @@ public class Winery {
         return name;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
 }

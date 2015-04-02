@@ -1,38 +1,34 @@
-package com.nelsonjohansen.app.vinloop.vinloop;
+package com.nelsonjohansen.app.vinloop.vinloop.oldCode;
 
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-import java.lang.Object;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class vinListFragment extends ListFragment{
 
     private static final String TAG = "vinListFragment";
 
-    private ArrayList<Winery> mWineries;
+    //private List<Winery> mWineries;
 
     //private OnFragmentInteractionListener mListener;
 
     /**
      * The fragment's ListView/GridView.
      */
-    private AbsListView mListView;
+    //private AbsListView mListView;
 
     /**
      * The Adapter which will be used to populate the ListView/GridView with
      * Views.
      */
-    private ListAdapter mAdapter;
+    //private ListAdapter mAdapter;
 
     /*// TODO: Rename and change types of parameters
     public static vinListFragment newInstance(String param1, String param2) {
@@ -54,53 +50,23 @@ public class vinListFragment extends ListFragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
 
         //read book on this line
-        mWineries = vinData.get(getActivity()).getWineries();
+        //mWineries = vinData.get(getActivity()).getWineries();
 
         /*mAdapter = new ArrayAdapter<Winery>(getActivity(),
                 android.R.layout.simple_list_item_1,
                 mWineries);*/
-        WineryAdapter mAdapter = new WineryAdapter(mWineries);
-        setListAdapter(mAdapter);
+        //WineryAdapter mAdapter = new WineryAdapter(mWineries);
+        //setListAdapter(mAdapter);
     }
 
-    @Override
+    /*@Override
     public void onListItemClick(ListView l, View v, int position, long id){
         Winery w = ((WineryAdapter)getListAdapter()).getItem(position);
         Log.d(TAG, w.getName() + " was Clicked");
-    }
-
-    private class WineryAdapter extends ArrayAdapter<Winery>{
-        public WineryAdapter(ArrayList<Winery> wineries){
-            super(getActivity(), 0, wineries);
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent){
-            //If we were not given a view then inflate one
-            if(convertView == null){
-                convertView = getActivity().getLayoutInflater()
-                        .inflate(R.layout.list_item_winery, null);
-            }
-
-            //configure view for this winery
-            Winery w = getItem(position);
-
-            TextView nameTextView =
-                    (TextView)convertView.findViewById(R.id.winery_list_item_dealTextView);
-            nameTextView.setText(w.getName());
-
-            TextView locTextView =
-                    (TextView)convertView.findViewById(R.id.winery_list_item_locTextView);
-            locTextView.setText(w.getLocation());
-
-            ImageView imageView =
-                    (ImageView)convertView.findViewById(R.id.winery_list_item_iconImageView);
-            return convertView;
-
-        }
-    }
+    }*/
 
     /*@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

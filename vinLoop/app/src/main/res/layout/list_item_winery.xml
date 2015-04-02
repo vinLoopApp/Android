@@ -3,79 +3,96 @@
     android:layout_height="?android:attr/listPreferredItemHeight"
     android:padding="2dip" >
 
-    <ImageView
-        android:id="@+id/winery_list_item_iconImageView"
+    <!-- Thumbnail Image -->
+    <com.android.volley.toolbox.NetworkImageView
+        android:id="@+id/winery_list_item_iconNetworkImageView"
+        android:layout_width="60dp"
+        android:layout_height="fill_parent"
+        android:layout_alignParentStart="true"
+        android:layout_marginEnd="6dip"
+        android:contentDescription="Thumbnail"/>
+
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="6dip"
-        android:contentDescription="Description"
-        android:src="@drawable/ic_launcher" />
+        android:layout_toEndOf="@+id/winery_list_item_iconNetworkImageView"
+        android:id="@+id/linearLayout1">
 
-    <TextView
-        android:id="@+id/winery_list_item_dealTextView"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@id/winery_list_item_iconImageView"
-        android:ellipsize="marquee"
-        android:singleLine="true"
-        android:text="Deal"
-        android:textSize="36sp" />
+        <!-- Deal -->
+        <TextView
+            android:id="@+id/winery_list_item_dealTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@id/winery_list_item_iconNetworkImageView"
+            android:ellipsize="marquee"
+            android:singleLine="true"
+            android:text="Deal"
+            android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/winery_list_item_locTextView"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_alignWithParentIfMissing="true"
-        android:layout_toEndOf="@id/winery_list_item_iconImageView"
-        android:gravity="center_vertical"
-        android:text="Location"
-        android:textSize="12sp"
-        android:layout_below="@+id/winery_list_item_dealTextView" />
+        <!-- Location/Winery Name -->
+        <TextView
+            android:id="@+id/winery_list_item_locTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignWithParentIfMissing="true"
+            android:layout_toEndOf="@id/winery_list_item_iconNetworkImageView"
+            android:gravity="center_vertical"
+            android:text="Location"
+            android:textSize="12sp" />
+    </LinearLayout>
 
-    <RatingBar
-        style="@style/wineRatingBar"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="wrap_content"
-        android:layout_height="28dp"
-        android:scaleX="0.5"
-        android:scaleY="0.5"
-        android:layout_alignParentRight="true"
-        android:id="@+id/ratingBar"
-        android:layout_alignParentTop="true"
-        android:layout_alignEnd="@id/winery_list_item_dealTextView"
-        android:numStars="5"
-        android:longClickable="false"
-        android:indeterminateOnly="false"
-        android:layout_alignParentEnd="true" />
-
-    <RatingBar
-        style="@style/wineRatingBar"
-        android:layout_width="wrap_content"
-        android:layout_height="28dp"
-        android:scaleX="0.5"
-        android:scaleY="0.5"
-        android:layout_alignParentRight="true"
-        android:id="@+id/ratingBar2"
-        android:layout_below="@+id/ratingBar"
-        android:layout_alignStart="@+id/ratingBar"
-        android:layout_alignParentEnd="true" />
-
-    <TextView
-        android:id="@+id/winery_list_item_distTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="28dp"
+        android:layout_height="fill_parent"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignWithParentIfMissing="true"
-        android:gravity="center_vertical"
-        android:text="Distance"
-        android:textSize="12sp"
-        android:layout_below="@+id/ratingBar2" />
+        android:id="@+id/linearLayout2">
+
+        <!-- Winery Rating -->
+        <RatingBar
+            style="@style/wineRatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:scaleX="0.5"
+            android:scaleY="0.5"
+            android:layout_alignParentRight="true"
+            android:gravity="right"
+            android:id="@+id/ratingBar"
+            android:layout_alignParentTop="true"
+            android:numStars="5"
+            android:longClickable="false"
+            android:indeterminateOnly="false"
+            android:layout_alignParentEnd="true" />
+
+        <!-- Winery Cost -->
+        <RatingBar
+            style="@style/wineRatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:scaleX="0.5"
+            android:scaleY="0.5"
+            android:layout_alignParentRight="true"
+            android:id="@+id/ratingBar2"
+            android:layout_below="@+id/ratingBar"
+            android:layout_alignStart="@+id/ratingBar"
+            android:layout_alignParentEnd="true" />
+
+        <!-- Distance
+        <TextView
+            android:id="@+id/winery_list_item_distTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignWithParentIfMissing="true"
+            android:gravity="right"
+            android:layout_below="@+id/ratingBar2"
+            android:text="Distance"
+            android:textSize="12sp"
+            android:layout_alignParentEnd="true"/> -->
+    </LinearLayout>
 
 </RelativeLayout>
