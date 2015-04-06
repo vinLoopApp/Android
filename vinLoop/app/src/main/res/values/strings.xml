@@ -3,7 +3,11 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="action_search"> Search </string>
+    <string name="search_title"> Search by Winery Name or Location </string>
+    <string name="search_hint"> Winery or Location </string>
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_vin_maps">Map</string>
 </resources>

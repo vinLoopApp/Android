@@ -1,11 +1,19 @@
 package com.nelsonjohansen.app.vinloop.vinloop;
 
-import android.os.Bundle;
+import android.app.SearchManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.widget.ListView;
+import android.widget.SearchView;
 
-import com.nelsonjohansen.app.vinloop.vinloop.oldCode.vinListFragment;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by NelsonJ on 3/30/2015.
@@ -16,8 +24,19 @@ public abstract class SingleFragmentActivity extends ActionBarActivity {
 
     protected abstract Fragment createFragment();
 
+    protected int getLayoutResId(){
+        return R.layout.activity_fragment;
+    }
+
+    private static MainActivity mInstance;
+    private static Context mAppContext;
+
+    // Log tag
+    private static final String TAG = MainActivity.class.getSimpleName();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment);
 
@@ -30,6 +49,23 @@ public abstract class SingleFragmentActivity extends ActionBarActivity {
                     .add(R.id.fragmentContainer, fragment)
                     .commit();
         }
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+
+        // Associate searchable configuration with the SearchView
+        // Get the SearchView and set the searchable configuration
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
+        // Assumes current activity is the searchable activity
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+
+        return true;
     }
 
 }

@@ -7,8 +7,29 @@
 
     <style name="wineRatingBar" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/wine_rating_bar_full</item>
-        <item name="android:minHeight">10dip</item>
-        <item name="android:maxHeight">10dip</item>
+    </style>
+
+    <style name="MyTheme" parent="@style/Theme.AppCompat.Light">
+        <item name="android:actionBarStyle">@style/MyActionBar</item>
+
+        <!-- Support library compatibility -->
+        <item name="actionBarStyle">@style/MyActionBar</item>
+    </style>
+
+    <style name="MyActionBar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid">
+        <item name="android:titleTextStyle">@style/TitleBarTextColor</item>
+        <item name="android:background">@color/dark_purple</item>
+
+        <!-- Support library compatibility -->
+        <item name="titleTextStyle">@style/TitleBarTextColor</item>
+        <item name="background">@color/dark_purple</item>
+    </style>
+
+    <style name="TitleBarTextColor" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/text_white</item>
+
+        <!-- Support library compatibility -->
+
     </style>
 
 </resources>
