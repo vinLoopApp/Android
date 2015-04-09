@@ -5,8 +5,10 @@ package com.nelsonjohansen.app.vinloop.vinloop;
  * from url http://www.androidhive.info/2014/07/android-custom-listview-with-image-and-text-using-volley/
  * handles the image cache
  */
+
 import android.graphics.Bitmap;
 import android.support.v4.util.LruCache;
+
 import com.android.volley.toolbox.ImageLoader;
 
 public class bitmapLruCache extends LruCache<String, Bitmap> implements ImageLoader.ImageCache {

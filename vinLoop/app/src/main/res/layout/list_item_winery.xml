@@ -1,7 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="?android:attr/listPreferredItemHeight"
-    android:padding="2dip" >
+    android:padding="2dip"
+    android:descendantFocusability="blocksDescendants" >
 
     <!-- Thumbnail Image -->
     <com.android.volley.toolbox.NetworkImageView
@@ -64,7 +65,8 @@
             android:id="@+id/ratingBar"
             android:numStars="5"
             android:longClickable="false"
-            android:indeterminateOnly="false" />
+            android:indeterminateOnly="false"
+            />
 
         <!-- Winery Cost -->
         <RatingBar

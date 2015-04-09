@@ -1,29 +1,30 @@
+//ASUS ROG G751JY-DH71 17.3-inch Gaming Laptop, GeForce GTX 980M Graphics
+
+
+
 package com.nelsonjohansen.app.vinloop.vinloop;
 
 import android.app.SearchManager;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.widget.ListView;
 import android.widget.SearchView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by NelsonJ on 3/30/2015.
  */
 //Important note, ActionBarActivity also extends FragmentActivity thus to have
 //an action bar we must extend ActionBarActivity not the latter.
-public abstract class SingleFragmentActivity extends ActionBarActivity {
+public abstract class FragmentInitializeActivity extends ActionBarActivity {
 
     protected abstract Fragment createFragment();
 
+    //subclasses can choose to override this method to return a layout other than
+    //activity_fragment
     protected int getLayoutResId(){
         return R.layout.activity_fragment;
     }
@@ -38,7 +39,7 @@ public abstract class SingleFragmentActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fragment);
+        setContentView(getLayoutResId());
 
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.fragmentContainer);

@@ -6,7 +6,9 @@
 
     For more on layout aliases, see:
     http://developer.android.com/training/multiscreen/screensizes.html#TaskUseAliasFilters
-    -->
+
     <item name="fragment_item" type="layout">@layout/vin_list_fragment</item>
+    -->
+    <item name="activity_masterdetail" type="layout">@layout/activity_fragment</item>
 
 </resources>

@@ -1,13 +1,16 @@
 package com.nelsonjohansen.app.vinloop.vinloop;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -23,9 +26,22 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class vinListFragment extends ListFragment{
+
+    // Log tag
+    private static final String TAG = MainActivity.class.getSimpleName();
+
+    // Crime json url
+    private static final String url = "http://www.pandodroid.com/wine/jTest.php";
+    private static Context mAppContext;
+    private ProgressDialog pDialog;
+    private ArrayList<Winery> wineryList = new ArrayList<>();
+    private ListView listView;
+    private Callbacks mCallbacks;
+
+    private LayoutInflater inflater;
+    ImageLoader imageLoader = volleySingleton.getInstance().getImageLoader();
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -34,19 +50,23 @@ public class vinListFragment extends ListFragment{
     public vinListFragment() {
     }
 
-    // Log tag
-    private static final String TAG = MainActivity.class.getSimpleName();
+    public interface Callbacks {
+        void onWinerySelected(Winery winery);
+    }
 
-    // Movies json url
-    private static final String url = "http://www.pandodroid.com/wine/jTest.php";
-    private static Context mAppContext;
-    private ProgressDialog pDialog;
-    private List<Winery> wineryList = new ArrayList<>();
-    private ListView listView;
-    private WineryAdapter adapter;
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        //unchecked cast of activity to Callbacks which assumes activity has implemented
+        //the interface of Callbacks.
+        mCallbacks = (Callbacks)activity;
+    }
 
-    private LayoutInflater inflater;
-    ImageLoader imageLoader = volleySingleton.getInstance().getImageLoader();
+    @Override
+    public void onDetach(){
+        super.onDetach();
+        mCallbacks = null;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,7 +74,7 @@ public class vinListFragment extends ListFragment{
         setHasOptionsMenu(true);
 
         //listView = (ListView) findViewById(R.id.listView);
-        adapter = new WineryAdapter(getActivity(), wineryList);
+        final WineryAdapter adapter = new WineryAdapter(wineryList);
         setListAdapter(adapter);
 
         //handleIntent(getIntent());
@@ -126,52 +146,59 @@ public class vinListFragment extends ListFragment{
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id){
-        Winery w = (Winery)(getListAdapter()).getItem(position);
+        Winery w = ((WineryAdapter)getListAdapter()).getItem(position);
         Log.d(TAG, w.getName() + " was Clicked");
+
+        //Start intent
+        Intent i = new Intent(getActivity(), MainActivity.class);
+        startActivity(i);
     }
 
-    public View getView(int position, View convertView, ViewGroup parent){
-        //If we were not given a view then inflate one
+    private class WineryAdapter extends ArrayAdapter<Winery> {
+        private LayoutInflater inflater;
+        ImageLoader imageLoader = volleySingleton.getInstance().getImageLoader();
+
+        public WineryAdapter(ArrayList<Winery> wineryI) {
+            super(getActivity(),0,wineryI);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent){
+            //If we were not given a view then inflate one
         if(convertView == null){
             convertView = getActivity().getLayoutInflater()
                     .inflate(R.layout.list_item_winery, null);
         }
 
-        if (inflater == null)
-            inflater = (LayoutInflater) getActivity()
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        //If we were not given a view then inflate one
-        if (convertView == null)
-            convertView = inflater.inflate(R.layout.list_item_winery, null);
+            if (imageLoader == null)
+                imageLoader = volleySingleton.getInstance().getImageLoader();
 
-        if (imageLoader == null)
-            imageLoader = volleySingleton.getInstance().getImageLoader();
+            NetworkImageView thumbNail = (NetworkImageView) convertView
+                    .findViewById(R.id.winery_list_item_iconNetworkImageView);
 
-        NetworkImageView thumbNail = (NetworkImageView) convertView
-                .findViewById(R.id.winery_list_item_iconNetworkImageView);
-
-        TextView name = (TextView) convertView.findViewById(R.id.winery_list_item_locTextView);
-        TextView descr = (TextView) convertView.findViewById(R.id.winery_list_item_dealTextView);
-        //TextView dist = (TextView) convertView.findViewById(R.id.winery_list_item_distTextView);
+            TextView name = (TextView) convertView.findViewById(R.id.winery_list_item_locTextView);
+            TextView descr = (TextView) convertView.findViewById(R.id.winery_list_item_dealTextView);
+            //TextView dist = (TextView) convertView.findViewById(R.id.winery_list_item_distTextView);
 
 
-        //configure view for this winery
-        Winery w = wineryList.get(position);
+            //configure view for this winery
+            Winery w = getItem(position);
 
-        // thumbnail image
-        thumbNail.setImageUrl(w.getThumbnailUrl(), imageLoader);
+            // thumbnail image
+            thumbNail.setImageUrl(w.getThumbnailUrl(), imageLoader);
 
-        // name
-        name.setText(w.getName());
+            // name
+            name.setText(w.getName());
 
-        // descr
-        descr.setText(String.valueOf(w.getDescr()));
+            // descr
+            descr.setText(String.valueOf(w.getDescr()));
 
-        // release year
-        //dist.setText(String.valueOf(w.getDist()));
+            // release year
+            //dist.setText(String.valueOf(w.getDist()));
 
-        return convertView;
+            return convertView;
 
+        }
     }
 
     /*@Override

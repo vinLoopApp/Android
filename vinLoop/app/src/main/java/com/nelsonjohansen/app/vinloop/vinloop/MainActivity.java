@@ -1,6 +1,5 @@
 package com.nelsonjohansen.app.vinloop.vinloop;
 
-import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -8,14 +7,10 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.widget.ListView;
 import android.widget.SearchView;
 
-import java.util.ArrayList;
-import java.util.List;
 
-
-public class MainActivity extends SingleFragmentActivity {
+public class MainActivity extends FragmentInitializeActivity {
 
     private static MainActivity mInstance;
     private static Context mAppContext;
