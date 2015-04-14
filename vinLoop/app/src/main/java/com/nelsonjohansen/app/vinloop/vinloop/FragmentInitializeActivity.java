@@ -29,11 +29,11 @@ public abstract class FragmentInitializeActivity extends ActionBarActivity {
         return R.layout.activity_fragment;
     }
 
-    private static MainActivity mInstance;
+    private static vinActivity mInstance;
     private static Context mAppContext;
 
     // Log tag
-    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String TAG = vinActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

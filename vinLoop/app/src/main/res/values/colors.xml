@@ -4,5 +4,6 @@
     <color name="dark_purple">#4e0123</color>
     <color name="light_purple">#700f3a</color>
     <color name="text_white">#ffffff</color>
+    <color name="solid_line_color">#c0c0c0</color>
 
 </resources>

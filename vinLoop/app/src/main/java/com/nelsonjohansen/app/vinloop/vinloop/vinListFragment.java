@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,7 +31,7 @@ import java.util.ArrayList;
 public class vinListFragment extends ListFragment{
 
     // Log tag
-    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String TAG = vinActivity.class.getSimpleName();
 
     // Crime json url
     private static final String url = "http://www.pandodroid.com/wine/jTest.php";
@@ -39,6 +40,8 @@ public class vinListFragment extends ListFragment{
     private ArrayList<Winery> wineryList = new ArrayList<>();
     private ListView listView;
     private Callbacks mCallbacks;
+    boolean mDualPane;
+    int mCurCheckPosition = 0;
 
     private LayoutInflater inflater;
     ImageLoader imageLoader = volleySingleton.getInstance().getImageLoader();
@@ -100,9 +103,15 @@ public class vinListFragment extends ListFragment{
                                 Winery winery = new Winery();
 
                                 winery.setName(obj.getString("name"));
-                                winery.setDescr(obj.getString("deal"));
-                                winery.setDist(obj.getString("likes"));
+                                winery.setDeal(obj.getString("deal"));
+                                winery.setLikes(obj.getString("likes"));
                                 winery.setThumbnailUrl(obj.getString("image"));
+                                winery.setOrigPrice(obj.getString("origPrice"));
+                                winery.setNewPrice(obj.getString("newPrice"));
+                                winery.setPriceRate(obj.getString("priceRate"));
+                                winery.setOrigPrice(obj.getString("origPrice"));
+                                winery.setLatitude(obj.getString("lat"));
+                                winery.setLatitude(obj.getString("lng"));
 
                                 // adding winery to wineries array
                                 wineryList.add(winery);
@@ -129,6 +138,70 @@ public class vinListFragment extends ListFragment{
         // Adding request to request queue
         volleySingleton.getInstance().addToRequestQueue(vinReq);
 
+        // Check to see if we have a frame in which to embed the details
+        // fragment directly in the containing UI.
+
+        View detailsFrag = getActivity().findViewById(R.id.detailFragmentContainer);
+        mDualPane = detailsFrag != null && detailsFrag.getVisibility() == View.VISIBLE;
+
+        if (savedInstanceState != null) {
+            // Restore last state for checked position.
+            mCurCheckPosition = savedInstanceState.getInt("curChoice", 0);
+        }
+
+        if (mDualPane) {
+            // In dual-pane mode, the list view highlights the selected item.
+            getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+            // Make sure our UI is in the correct state.
+            showDetails(mCurCheckPosition);
+        }
+
+    }
+
+    /**
+     * Helper function to show the details of a selected item, either by
+     * displaying a fragment in-place in the current UI, or starting a
+     * whole new activity in which it is displayed.
+     */
+    void showDetails(int index) {
+        mCurCheckPosition = index;
+
+        Log.d("Dualpane mode", "on" + mDualPane);
+
+        if (mDualPane) {
+            // We can display everything in-place with fragments, so update
+            // the list to highlight the selected item and show the data.
+            getListView().setItemChecked(index, true);
+
+            // Check what fragment is currently shown, replace if needed.
+            vinDetailFragment details = (vinDetailFragment)
+                    getFragmentManager().findFragmentById(R.id.detailFragmentContainer);
+            if (details == null || details.getShownIndex() != index) {
+                // Make new fragment to show this selection.
+                details = vinDetailFragment.newInstance(index);
+
+                // Execute a transaction, replacing any existing fragment
+                // with this one inside the frame.
+                //will always be 0 since we are only opening a details fragment at the moment
+                //if wanted to open a different fragment would add more values.
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                if (index == 0) {
+                    ft.replace(R.id.detailFragmentContainer, details);
+                } else {
+                    ft.replace(R.id.detailFragmentContainer, details);
+                }
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                ft.commit();
+            }
+
+        } else {
+            // Otherwise we need to launch a new activity to display
+            // the dialog fragment with selected text.
+            Intent intent = new Intent();
+            intent.setClass(getActivity(), vinActivity.class);
+            intent.putExtra("index", 3);
+            startActivity(intent);
+        }
     }
 
     @Override
@@ -149,9 +222,7 @@ public class vinListFragment extends ListFragment{
         Winery w = ((WineryAdapter)getListAdapter()).getItem(position);
         Log.d(TAG, w.getName() + " was Clicked");
 
-        //Start intent
-        Intent i = new Intent(getActivity(), MainActivity.class);
-        startActivity(i);
+        showDetails(position);
     }
 
     private class WineryAdapter extends ArrayAdapter<Winery> {
@@ -165,10 +236,10 @@ public class vinListFragment extends ListFragment{
         @Override
         public View getView(int position, View convertView, ViewGroup parent){
             //If we were not given a view then inflate one
-        if(convertView == null){
-            convertView = getActivity().getLayoutInflater()
+            if(convertView == null){
+                convertView = getActivity().getLayoutInflater()
                     .inflate(R.layout.list_item_winery, null);
-        }
+            }
 
             if (imageLoader == null)
                 imageLoader = volleySingleton.getInstance().getImageLoader();
@@ -191,7 +262,7 @@ public class vinListFragment extends ListFragment{
             name.setText(w.getName());
 
             // descr
-            descr.setText(String.valueOf(w.getDescr()));
+            descr.setText(String.valueOf(w.getDeal()));
 
             // release year
             //dist.setText(String.valueOf(w.getDist()));
@@ -200,75 +271,5 @@ public class vinListFragment extends ListFragment{
 
         }
     }
-
-    /*@Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        //View view = inflater.inflate(R.layout.fragment_winery, container, false);
-
-        // Set the adapter
-        //mListView = (AbsListView) view.findViewById(android.R.id.list);
-        //((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
-
-        // Set OnItemClickListener so we can be notified on item clicks
-        //mListView.setOnItemClickListener(this);
-
-        //return view;
-    }*/
-
-    /*@Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (null != mListener) {
-            // Notify the active callbacks interface (the activity, if the
-            // fragment is attached to one) that an item has been selected.
-            mListener.onFragmentInteraction(DummyContent.ITEMS.get(position).id);
-        }
-    }
-
-    /**
-     * The default content for this Fragment has a TextView that is shown when
-     * the list is empty. If you would like to change the text, call this method
-     * to supply the text it should use.
-     */
-    /*public void setEmptyText(CharSequence emptyText) {
-        View emptyView = mListView.getEmptyView();
-
-        if (emptyView instanceof TextView) {
-            ((TextView) emptyView).setText(emptyText);
-        }
-    }*/
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    /*public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        public void onFragmentInteraction(String id);
-    }*/
 
 }

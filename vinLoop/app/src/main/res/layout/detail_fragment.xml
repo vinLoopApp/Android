@@ -1,34 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/text_white"
+    android:id="@+id/details_fragment_parent">
 
-    <ListView
-        android:layout_width="match_parent"
+    <ScrollView
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/listView2"
-        android:layout_weight="3" />
+        android:layout_alignParentBottom="true"
+        android:id="@+id/scrollViewIn"
+        android:layout_weight="3"
+        android:fillViewport="false">
+        <!-- scroll view can only contain a single child element -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.android.volley.toolbox.NetworkImageView
+                android:id="@+id/details_winery_list_item_iconNetworkImageView"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="3dp"
+                android:layout_marginTop="0dp"
+                android:contentDescription="Thumbnail"
+                android:layout_weight="4">
+            </com.android.volley.toolbox.NetworkImageView>
+
+            <TextView
+                android:id="@+id/details_deal"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:text="This is the best deal ever \n no one could ever ever do better"
+                android:layout_weight="1"
+                android:maxLines="10"
+                android:layout_marginBottom="3dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"
+                android:background="@drawable/user_border">
+            </TextView>
+
+            <TextView
+                android:id="@+id/details_description"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:text="This is the best deal ever \n no one could ever ever do better
+                \n no one could ever ever do better\n no one could ever ever do better\n no one could ever ever do better
+                \n no one could ever ever do better\n no one could ever ever do better\n no one could ever ever do better
+                \n no one could ever ever do better\n no one could ever ever do better\n no one could ever ever do better
+                \n no one could ever ever do better\n no one could ever ever do better\n no one could ever ever do better
+                \n no one could ever ever do better\n no one could ever ever do better\n no one could ever ever do better
+                \n no one could ever ever do better\n no one could ever ever do better\n no one could ever ever do better
+                \n no one could ever ever do betterv\n no one could ever ever do better
+                \n no one could ever ever do better\n no one could ever ever do better
+                \n no one could ever ever do better\n no one could ever ever do better
+                \n no one could ever ever do better
+                "
+                android:layout_weight="1"
+                android:layout_marginBottom="3dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"
+                android:background="@drawable/user_border">
+            </TextView>
+
+            <fragment
+                android:id="@+id/details_map"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                class="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_weight="4"
+                android:layout_marginBottom="3dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp">
+            </fragment>
+
+            <TextView
+                android:id="@+id/details_bio"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:text="Testing beep boop"
+                android:layout_weight="1"
+                android:layout_marginBottom="3dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"
+                android:background="@drawable/user_border">
+            </TextView>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@color/solid_line_color"/>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:id="@+id/linear_layout_details_fragment_child"
+        >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:align_parentRight="true"
             android:text="Get this Deal!"
             android:id="@+id/textView"
+            android:gravity="center_horizontal"
             android:layout_weight="4" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Button"
+            android:text="Get Deal!"
             android:id="@+id/button"
+            android:background="@color/dark_purple"
+            android:textColor="@color/text_white"
             android:layout_gravity="right"
             android:layout_weight="1"
-            android:layout_marginRight="10dp" />
+            android:layout_marginBottom="6dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"/>
     </LinearLayout>
 </LinearLayout>
