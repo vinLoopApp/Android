@@ -12,88 +12,356 @@
         android:layout_alignParentBottom="true"
         android:id="@+id/scrollViewIn"
         android:layout_weight="3"
-        android:fillViewport="false">
+        android:fillViewport="false"
+        android:background="@color/dark_purple">
         <!-- scroll view can only contain a single child element -->
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.android.volley.toolbox.NetworkImageView
-                android:id="@+id/details_winery_list_item_iconNetworkImageView"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_alignParentStart="true"
-                android:layout_marginBottom="3dp"
-                android:layout_marginTop="0dp"
-                android:contentDescription="Thumbnail"
-                android:layout_weight="4">
-            </com.android.volley.toolbox.NetworkImageView>
+            <!-- first box for details page -->
 
-            <TextView
-                android:id="@+id/details_deal"
+            <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="3"
+            android:background="@color/text_white">
+
+                <com.android.volley.toolbox.NetworkImageView
+                    android:id="@+id/details_winery_list_item_iconNetworkImageView"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_alignParentStart="true"
+                    android:contentDescription="Thumbnail"
+                    android:layout_weight="4">
+                </com.android.volley.toolbox.NetworkImageView>
+
+                <!-- Container for title and location -->
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gold"/>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_marginTop="6dp">
+
+                    <TextView
+                        android:id="@+id/details_deal_title"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="April 15-July 31, 2015: Two Adult General\nAdmission Tickets to 49ers Museum\nPresented by Sony"
+                        android:layout_weight="3"
+                        android:maxLines="3"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="3dp"
+                        android:gravity="left"
+                        android:layout_gravity="center">
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/details_deal_location"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Levi's Stadium"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:layout_gravity="center">
+                    </TextView>
+
+                </LinearLayout>
+
+                <!-- Container for deal price cut, discount, number bought and availability -->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginRight="6dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="6dp"
+                        android:layout_marginTop="6dp">
+
+                        <TextView
+                            android:id="@+id/details_deal_original_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="$34.50"
+                            android:gravity="left"
+                            android:layout_gravity="left">
+                        </TextView>
+
+                        <TextView
+                            android:id="@+id/details_deal_new_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" $15"
+                            android:paddingRight="3dp"
+                            android:layout_toEndOf="@id/details_deal_original_price">
+                        </TextView>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/gold"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="6dp"
+                        android:layout_marginTop="6dp">
+
+                        <TextView
+                            android:id="@+id/deals_discount_static_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Discount: "
+                            android:layout_weight="1"
+                            android:gravity="left">
+                        </TextView>
+
+                        <TextView
+                            android:id="@+id/details_deal_discount_percent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="57%"
+                            android:layout_weight="1"
+                            android:layout_toEndOf="@id/deals_discount_static_text">
+                        </TextView>
+
+                        <TextView
+                            android:id="@+id/deals_bought_static_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Bought: "
+                            android:layout_weight="1"
+                            android:layout_toEndOf="@id/details_deal_discount_percent">
+                        </TextView>
+
+                        <TextView
+                            android:id="@+id/details_deal_num_bought"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="70+"
+                            android:layout_weight="1"
+                            android:layout_toEndOf="@id/deals_bought_static_text">
+                        </TextView>
+
+                        <TextView
+                            android:id="@+id/details_deal_availability"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Limited Availability"
+                            android:layout_weight="2"
+                            android:layout_toEndOf="@id/details_deal_num_bought">
+                        </TextView>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
                 android:layout_width="fill_parent"
-                android:layout_height="match_parent"
-                android:text="This is the best deal ever \n no one could ever ever do better"
+                android:layout_height="1dp"
+                android:background="@color/gold"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="12dp"
+                android:layout_weight="3"
+                android:background="@color/text_white">
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gold"/>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp">
+
+                    <TextView
+                        android:id="@+id/details_description_title"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Deal Highlights">
+
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/details_description"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="See up to 40 museum-quality dinosaurs\nmodels, some of which move and roar at\nvisitors' command; kids pan for fossils and\ngems in a mine area">
+                    </TextView>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@color/gold"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="12dp"
+                android:layout_weight="3"
+                android:background="@color/text_white">
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gold"/>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp">
+
+                    <TextView
+                        android:id="@+id/details_fine_print_title"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Fine Print"
+                        android:paddingBottom="2dp">
+
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/details_fine_print"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:text="Expires Sun, April 26, 2015"
+                        android:paddingBottom="2dp">
+                    </TextView>
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Limit 8 per person. Valid only for option\npurchased. Redeem starting day of event for a\nticket at venue box office. Must show valid ID\nmatching name on Groupon at Cal Expo at the\nState Fairgrounds. Refundable only on day of\npurchase. Discount reflects Discover the\nDinosaurs' current tricket prices-price may\ndiffer on day of event. Doors open at 9am\non 4/25 and 10am on 4/26. For ADA seating,\ncall box office promptly upon receipt of\nvoucher- availability is limited.">
+                    </TextView>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@color/gold"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:orientation="vertical"
+                android:layout_marginTop="12dp"
                 android:layout_weight="1"
-                android:maxLines="10"
-                android:layout_marginBottom="3dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginLeft="6dp"
-                android:layout_marginRight="6dp"
-                android:background="@drawable/user_border">
-            </TextView>
+                android:background="@color/text_white">
 
-            <TextView
-                android:id="@+id/details_description"
-                android:layout_width="fill_parent"
-                android:layout_height="match_parent"
-                android:text="This is the best deal ever \n no one could ever ever do better
-                \n no one could ever ever do better\n no one could ever ever do better\n no one could ever ever do better
-                \n no one could ever ever do better\n no one could ever ever do better\n no one could ever ever do better
-                \n no one could ever ever do better\n no one could ever ever do better\n no one could ever ever do better
-                \n no one could ever ever do better\n no one could ever ever do better\n no one could ever ever do better
-                \n no one could ever ever do better\n no one could ever ever do better\n no one could ever ever do better
-                \n no one could ever ever do better\n no one could ever ever do better\n no one could ever ever do better
-                \n no one could ever ever do betterv\n no one could ever ever do better
-                \n no one could ever ever do better\n no one could ever ever do better
-                \n no one could ever ever do better\n no one could ever ever do better
-                \n no one could ever ever do better
-                "
-                android:layout_weight="1"
-                android:layout_marginBottom="3dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginLeft="6dp"
-                android:layout_marginRight="6dp"
-                android:background="@drawable/user_border">
-            </TextView>
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gold"/>
 
-            <fragment
-                android:id="@+id/details_map"
+                <FrameLayout
+                    android:name="com.google.android.gms.maps.MapFragment"
+                    android:id="@+id/details_map"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginRight="6dp">
+                </FrameLayout>
+
+            </LinearLayout>
+
+            <View
                 android:layout_width="fill_parent"
-                android:layout_height="match_parent"
-                class="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_height="1dp"
+                android:background="@color/gold"/>
+
+            <!-- Container for the ____ text boxes -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="12dp"
                 android:layout_weight="4"
-                android:layout_marginBottom="3dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginLeft="6dp"
-                android:layout_marginRight="6dp">
-            </fragment>
+                android:background="@color/text_white">
 
-            <TextView
-                android:id="@+id/details_bio"
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gold"/>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp">
+
+                    <TextView
+                        android:id="@+id/details_bio"
+                        android:layout_width="fill_parent"
+                        android:layout_height="match_parent"
+                        android:text="Testing beep boop"
+                        android:layout_marginBottom="3dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginRight="6dp">
+                    </TextView>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
                 android:layout_width="fill_parent"
-                android:layout_height="match_parent"
-                android:text="Testing beep boop"
-                android:layout_weight="1"
-                android:layout_marginBottom="3dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginLeft="6dp"
-                android:layout_marginRight="6dp"
-                android:background="@drawable/user_border">
-            </TextView>
+                android:layout_height="1dp"
+                android:background="@color/gold"/>
 
         </LinearLayout>
+
     </ScrollView>
 
     <View

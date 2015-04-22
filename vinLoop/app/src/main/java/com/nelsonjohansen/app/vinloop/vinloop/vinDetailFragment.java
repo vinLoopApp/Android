@@ -61,13 +61,18 @@ public class vinDetailFragment extends Fragment {
 
         thumbNail.setImageUrl("http://mthoodwinery.com/wp-content/uploads/2014/11/Winery-rows.jpg", imageLoader);
 
-        TextView deal = (TextView) v.findViewById(R.id.details_deal);
+        //http://stackoverflow.com/questions/21691656/solved-google-maps-mapfragment-causing-the-app-to-crash
 
-        LinearLayout transLayout = (LinearLayout) v.findViewById(R.id.linear_layout_details_fragment_child);
-        transLayout.setAlpha((float)0.8);
+        //TextView deal = (TextView) v.findViewById(R.id.details_deal);
+
+        //LinearLayout transLayout = (LinearLayout) v.findViewById(R.id.linear_layout_details_fragment_child);
+        //transLayout.setAlpha((float)0.8);
+
+        //if need to have bold and non-bold etc.. this will bring text in exactly as formated on db
+        //mytextview.setText(Html.fromHtml(sourceString));
 
         Log.d("Test index from EXTRA:", " value: "  + getShownIndex());
-        deal.setText(String.valueOf(getShownIndex()));
+        //deal.setText(String.valueOf(getShownIndex()));
         return v;
     }
 

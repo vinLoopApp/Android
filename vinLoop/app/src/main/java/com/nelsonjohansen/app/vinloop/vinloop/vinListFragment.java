@@ -7,12 +7,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.android.volley.Response;
@@ -27,6 +33,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
+
 
 public class vinListFragment extends ListFragment{
 
@@ -38,6 +46,7 @@ public class vinListFragment extends ListFragment{
     private static Context mAppContext;
     private ProgressDialog pDialog;
     private ArrayList<Winery> wineryList = new ArrayList<>();
+    private ArrayList<Winery> arrayListFiltered = new ArrayList<>();
     private ListView listView;
     private Callbacks mCallbacks;
     boolean mDualPane;
@@ -72,6 +81,64 @@ public class vinListFragment extends ListFragment{
     }
 
     @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_main, menu);
+
+        SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
+        searchView.setQueryHint("Search");
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if(!TextUtils.isEmpty(newText)) {
+                    // Call filter here
+                    return true;
+                }
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // Do something
+                return true;
+            }
+        });
+    }
+
+    /*@Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_main, menu);
+        SearchView searchView = (SearchView)menu.findItem(R.id.search).getActionView();
+        searchView.setOnQueryTextListener(queryListener);
+    }
+
+    private String grid_currentQuery = null; // holds the current query...
+
+    final private SearchView.OnQueryTextListener queryListener = new SearchView.OnQueryTextListener() {
+
+        @Override
+        public boolean onQueryTextChange(String newText) {
+            if (TextUtils.isEmpty(newText)) {
+                getActivity().getActionBar().setSubtitle("List");
+                grid_currentQuery = null;
+            } else {
+                getActivity().getActionBar().setSubtitle("List - Searching for: " + newText);
+                grid_currentQuery = newText;
+
+            }
+            getLoaderManager().restartLoader(0, null, vinListFragment.this);
+            return false;
+        }
+
+        @Override
+        public boolean onQueryTextSubmit(String query) {
+            Toast.makeText(getActivity(), "Searching for: " + query + "...", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+    };*/
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
@@ -80,12 +147,7 @@ public class vinListFragment extends ListFragment{
         final WineryAdapter adapter = new WineryAdapter(wineryList);
         setListAdapter(adapter);
 
-        //handleIntent(getIntent());
-
-        //pDialog = new ProgressDialog(mAppContext);
-        // Showing progress dialog before making http request
-        //.setMessage("Loading...");
-        //pDialog.show();
+        //THIS SHOULD BE DONE ASYNC
 
         // Creating volley request obj
         JsonArrayRequest vinReq = new JsonArrayRequest(url,
@@ -225,7 +287,9 @@ public class vinListFragment extends ListFragment{
         showDetails(position);
     }
 
-    private class WineryAdapter extends ArrayAdapter<Winery> {
+    private class WineryAdapter extends ArrayAdapter<Winery> implements Filterable {
+        //private ArrayList<Winery> arrayListFiltered = new ArrayList<>();
+
         private LayoutInflater inflater;
         ImageLoader imageLoader = volleySingleton.getInstance().getImageLoader();
 
@@ -255,6 +319,9 @@ public class vinListFragment extends ListFragment{
             //configure view for this winery
             Winery w = getItem(position);
 
+            //thumbNail.setDefaultImageResId(R.drawable._default);
+            //thumbNail.setErrorImageResId(R.drawable.error);
+
             // thumbnail image
             thumbNail.setImageUrl(w.getThumbnailUrl(), imageLoader);
 
@@ -269,6 +336,56 @@ public class vinListFragment extends ListFragment{
 
             return convertView;
 
+        }
+
+        @Override
+        public Filter getFilter() {
+            Filter filter = new Filter() {
+
+                @SuppressWarnings("unchecked")
+                @Override
+                protected void publishResults(CharSequence constraint, FilterResults results) {
+
+                    arrayListFiltered = (ArrayList<Winery>) results.values; // has the filtered values
+                    notifyDataSetChanged();  // notifies the data with new filtered values
+                }
+
+                @Override
+                protected FilterResults performFiltering(CharSequence constraint) {
+                    FilterResults results = new FilterResults();        // Holds the results of a filtering operation in values
+                    ArrayList<Winery> FilteredArrList = new ArrayList<Winery>();
+
+                    if (wineryList == null) {
+                        wineryList = new ArrayList<Winery>(wineryList); // saves the original data in mOriginalValues
+                    }
+
+                    /********
+                     *
+                     *  If constraint(CharSequence that is received) is null returns the mOriginalValues(Original) values
+                     *  else does the Filtering and returns FilteredArrList(Filtered)
+                     *
+                     ********/
+                    if (constraint == null || constraint.length() == 0) {
+
+                        // set the Original result to return
+                        results.count = wineryList.size();
+                        results.values = wineryList;
+                    } else {
+                        constraint = constraint.toString().toLowerCase();
+                        for (int i = 0; i < wineryList.size(); i++) {
+                            Winery data = wineryList.get(i);
+                            if (data.getName().toLowerCase().startsWith(constraint.toString())) {
+                                FilteredArrList.add(data);
+                            }
+                        }
+                        // set the Filtered result to return
+                        results.count = FilteredArrList.size();
+                        results.values = FilteredArrList;
+                    }
+                    return results;
+                }
+            };
+            return filter;
         }
     }
 

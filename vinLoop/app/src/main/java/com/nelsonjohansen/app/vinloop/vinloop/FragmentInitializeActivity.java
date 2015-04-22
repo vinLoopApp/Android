@@ -48,12 +48,13 @@ public abstract class FragmentInitializeActivity extends ActionBarActivity {
             fragment = new vinListFragment();
             fm.beginTransaction()
                     .add(R.id.fragmentContainer, fragment)
+                    .addToBackStack("vinListFragment_added_to_backstack")
                     .commit();
         }
 
     }
 
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         MenuInflater inflater = getMenuInflater();
@@ -67,6 +68,6 @@ public abstract class FragmentInitializeActivity extends ActionBarActivity {
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 
         return true;
-    }
+    }*/
 
 }
