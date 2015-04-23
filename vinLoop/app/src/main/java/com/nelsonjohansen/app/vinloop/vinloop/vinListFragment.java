@@ -15,8 +15,10 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -33,7 +35,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class vinListFragment extends ListFragment{
@@ -46,7 +47,7 @@ public class vinListFragment extends ListFragment{
     private static Context mAppContext;
     private ProgressDialog pDialog;
     private ArrayList<Winery> wineryList = new ArrayList<>();
-    private ArrayList<Winery> arrayListFiltered = new ArrayList<>();
+    private WineryAdapter adapter;
     private ListView listView;
     private Callbacks mCallbacks;
     boolean mDualPane;
@@ -85,24 +86,35 @@ public class vinListFragment extends ListFragment{
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu_main, menu);
 
+        //http://stackoverflow.com/questions/24794377/android-capture-searchview-text-clear-by-clicking-x-button
+
+        //Opening a dialog from another dialog button click. For Distance etc.
+        //http://stackoverflow.com/questions/5662538/android-display-another-dialog-from-a-dialog
+
         SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
         searchView.setQueryHint("Search");
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public boolean onQueryTextChange(String newText) {
-                if(!TextUtils.isEmpty(newText)) {
-                    // Call filter here
+            public boolean onQueryTextChange(String query) {
+                if(!TextUtils.isEmpty(query)) {
+                    adapter.getFilter().filter(query.toString());
+                    return true;
+                } else {
+                    adapter.getFilter().filter(query.toString());
+                    return true;
+                }
+            }
+
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                if(!TextUtils.isEmpty(query)) {
+                    adapter.getFilter().filter(query.toString());
                     return true;
                 }
 
                 return false;
             }
 
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                // Do something
-                return true;
-            }
         });
     }
 
@@ -144,11 +156,13 @@ public class vinListFragment extends ListFragment{
         setHasOptionsMenu(true);
 
         //listView = (ListView) findViewById(R.id.listView);
-        final WineryAdapter adapter = new WineryAdapter(wineryList);
+        //final WineryAdapter adapter = new WineryAdapter(wineryList);
+        adapter = new WineryAdapter(wineryList);
         setListAdapter(adapter);
 
         //THIS SHOULD BE DONE ASYNC
 
+        Log.d("Pulling from db: ", "true");
         // Creating volley request obj
         JsonArrayRequest vinReq = new JsonArrayRequest(url,
                 new Response.Listener<JSONArray>() {
@@ -289,6 +303,8 @@ public class vinListFragment extends ListFragment{
 
     private class WineryAdapter extends ArrayAdapter<Winery> implements Filterable {
         //private ArrayList<Winery> arrayListFiltered = new ArrayList<>();
+        ArrayList<Winery> mOriginalValue = null;
+        //ArrayList<Winery> FilteredArrList = new ArrayList<Winery>();
 
         private LayoutInflater inflater;
         ImageLoader imageLoader = volleySingleton.getInstance().getImageLoader();
@@ -300,6 +316,8 @@ public class vinListFragment extends ListFragment{
         @Override
         public View getView(int position, View convertView, ViewGroup parent){
             //If we were not given a view then inflate one
+            Log.d("getView", " ");
+
             if(convertView == null){
                 convertView = getActivity().getLayoutInflater()
                     .inflate(R.layout.list_item_winery, null);
@@ -315,7 +333,11 @@ public class vinListFragment extends ListFragment{
             TextView descr = (TextView) convertView.findViewById(R.id.winery_list_item_dealTextView);
             //TextView dist = (TextView) convertView.findViewById(R.id.winery_list_item_distTextView);
 
+            //for(int i = 0; i < wineryList.size(); i++){
+            //    Log.d("Name in view: ", wineryList.get(i).getName());
+            //}
 
+            //Log.d("Position in list", String.valueOf(position));
             //configure view for this winery
             Winery w = getItem(position);
 
@@ -339,15 +361,26 @@ public class vinListFragment extends ListFragment{
         }
 
         @Override
+        public int getCount() {
+            return wineryList.size();
+        }
+
+        @Override
         public Filter getFilter() {
             Filter filter = new Filter() {
 
                 @SuppressWarnings("unchecked")
                 @Override
                 protected void publishResults(CharSequence constraint, FilterResults results) {
-
-                    arrayListFiltered = (ArrayList<Winery>) results.values; // has the filtered values
-                    notifyDataSetChanged();  // notifies the data with new filtered values
+                    //wineryList.clear();
+                    //wineryList = new ArrayList<Winery>();
+                    ArrayList<Winery> temp = (ArrayList<Winery>) results.values;
+                    wineryList.clear();
+                    //wineryList = (ArrayList<Winery>) results.values; // has the filtered values
+                    for(int i = 0; i < temp.size();i++){
+                        wineryList.add(i, temp.get(i));
+                    }
+                    adapter.notifyDataSetChanged();  // notifies the data with new filtered values
                 }
 
                 @Override
@@ -355,8 +388,9 @@ public class vinListFragment extends ListFragment{
                     FilterResults results = new FilterResults();        // Holds the results of a filtering operation in values
                     ArrayList<Winery> FilteredArrList = new ArrayList<Winery>();
 
-                    if (wineryList == null) {
-                        wineryList = new ArrayList<Winery>(wineryList); // saves the original data in mOriginalValues
+                    if (mOriginalValue == null) {
+                        //Log.d("Checing creation: ", "origValueArr");
+                        mOriginalValue = new ArrayList<Winery>(wineryList); // saves the original data in mOriginalValues
                     }
 
                     /********
@@ -365,19 +399,25 @@ public class vinListFragment extends ListFragment{
                      *  else does the Filtering and returns FilteredArrList(Filtered)
                      *
                      ********/
+                    Log.d("Constraing size: ", String.valueOf(constraint.length()));
                     if (constraint == null || constraint.length() == 0) {
-
                         // set the Original result to return
-                        results.count = wineryList.size();
-                        results.values = wineryList;
+                        results.count = mOriginalValue.size();
+                        results.values = mOriginalValue;
+                        Log.d("Empty search: ", "true");
                     } else {
                         constraint = constraint.toString().toLowerCase();
-                        for (int i = 0; i < wineryList.size(); i++) {
-                            Winery data = wineryList.get(i);
+                        Log.d("Showing contraint: ", constraint.toString().toLowerCase());
+                        Log.d("originalvalues size: ", String.valueOf(mOriginalValue.size()));
+
+                        for (int i = 0; i < mOriginalValue.size(); i++) {
+                            Winery data = mOriginalValue.get(i);
                             if (data.getName().toLowerCase().startsWith(constraint.toString())) {
+                                Log.d("Showing data", data.getName().toLowerCase());
                                 FilteredArrList.add(data);
                             }
                         }
+                        Log.d("Showing filtered: ", String.valueOf(FilteredArrList.size()));
                         // set the Filtered result to return
                         results.count = FilteredArrList.size();
                         results.values = FilteredArrList;

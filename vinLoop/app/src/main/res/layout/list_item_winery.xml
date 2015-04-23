@@ -1,18 +1,18 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="?android:attr/listPreferredItemHeight"
-    android:padding="2dip"
-    android:descendantFocusability="blocksDescendants" >
+    android:descendantFocusability="blocksDescendants"
+    android:paddingTop="2.5dp"
+    android:paddingBottom="2.5dp">
 
     <!-- Thumbnail Image -->
     <com.android.volley.toolbox.NetworkImageView
         android:id="@+id/winery_list_item_iconNetworkImageView"
-        android:layout_width="60dp"
+        android:layout_width="120dp"
         android:layout_height="fill_parent"
         android:layout_alignParentStart="true"
-        android:layout_marginEnd="6dp"
-        android:layout_marginTop="3dp"
         android:contentDescription="Thumbnail"
+        android:paddingRight="5dp"
         />
 
     <LinearLayout
@@ -56,7 +56,7 @@
         android:layout_marginEnd="3dp"
         android:id="@+id/linearLayout2">
 
-        <!-- Winery Rating -->
+        <!-- Winery Rating
         <RatingBar
             style="@style/wineRatingBar"
             android:layout_width="wrap_content"
@@ -67,9 +67,9 @@
             android:numStars="5"
             android:longClickable="false"
             android:indeterminateOnly="false"
-            />
+            />  -->
 
-        <!-- Winery Cost -->
+        <!-- Winery Cost
         <RatingBar
             style="@style/wineRatingBar"
             android:layout_width="wrap_content"
@@ -79,7 +79,8 @@
             android:id="@+id/ratingBar2"
             android:numStars="5"
             android:longClickable="false"
-            android:indeterminateOnly="false"/>
+            android:indeterminateOnly="false"/>  -->
+
 
         <!-- Distance
         <TextView

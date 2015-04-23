@@ -48,10 +48,8 @@ public abstract class FragmentInitializeActivity extends ActionBarActivity {
             fragment = new vinListFragment();
             fm.beginTransaction()
                     .add(R.id.fragmentContainer, fragment)
-                    .addToBackStack("vinListFragment_added_to_backstack")
                     .commit();
         }
-
     }
 
     /*@Override
