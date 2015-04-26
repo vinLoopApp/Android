@@ -1,11 +1,13 @@
 package com.nelsonjohansen.app.vinloop.vinloop;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.text.TextUtils;
@@ -18,6 +20,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ListView;
@@ -42,6 +45,7 @@ public class vinListFragment extends ListFragment{
 
     // Log tag
     private static final String TAG = vinActivity.class.getSimpleName();
+    private static final int REQUEST_FILTERS = 0;
 
     // Crime json url
     private static final String url = "http://www.pandodroid.com/wine/jTest.php";
@@ -51,6 +55,7 @@ public class vinListFragment extends ListFragment{
     private WineryAdapter adapter;
     private ListView listView;
     private Callbacks mCallbacks;
+    int filterPrice;
     boolean mDualPane;
     int mCurCheckPosition = 0;
 
@@ -152,6 +157,17 @@ public class vinListFragment extends ListFragment{
     };*/
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        if(resultCode != Activity.RESULT_OK) return;
+        if(requestCode == REQUEST_FILTERS){
+            filterPrice = (int) data
+                    .getSerializableExtra(filterPickerDialogFragment.PRICE_FILTER_SELECTED);
+            //at this point we have the selected price filter so update the list somehow
+
+        }
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
@@ -162,7 +178,15 @@ public class vinListFragment extends ListFragment{
         setListAdapter(adapter);
 
         final SearchView searchView = (SearchView) getActivity().findViewById(R.id.search);
+        //remove blue line below search text in search view.
+        int searchPlateId = searchView.getContext().getResources()
+                .getIdentifier("android:id/search_plate", null, null);
+        View searchPlateView = searchView.findViewById(searchPlateId);
+        if (searchPlateView != null) {
+            //searchPlateView.setBackgroundColor(getResources().getColor(R.color.searchbar_background_color_lighter));
+        }
         searchView.setQueryHint(" Search");
+        searchView.clearFocus();
         searchView.setIconifiedByDefault(false);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -195,15 +219,26 @@ public class vinListFragment extends ListFragment{
         );
 
         final Button filterButton =  (Button) getActivity().findViewById(R.id.filter_button);
-        filterButton.setText("Test");
-        filterButton.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                //FragmentManager fm = getActivity().getSupportFragmentManager();
-                FilterPickerDialogFragment filter = new FilterPickerDialogFragment();
+        filterButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                filterPickerDialogFragment filter = filterPickerDialogFragment.newInstance(filterPrice);
+                //setting up communication between list fragment and dialog fragment
+                filter.setTargetFragment(vinListFragment.this, REQUEST_FILTERS);
+                //call filter in here somewhere, must change filter code to handle booleans coming
+                //from user input via the dialog box, perhaps make a new class called filter to hold
+                //all the options the user can choose.
                 final String TEST_DIALOG = "Test";
-                //filter.show();
+                filter.show(fm,TEST_DIALOG);
             }
         });
+
+        final Button favoritesButton = (Button) getActivity().findViewById(R.id.favorites_button);
+        /*favoritesButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                //open the favorites fragment!!
+            }
+        });*/
 
         //THIS SHOULD BE DONE ASYNC
 
@@ -478,6 +513,7 @@ public class vinListFragment extends ListFragment{
             };
             return filter;
         }
+
     }
 
 }

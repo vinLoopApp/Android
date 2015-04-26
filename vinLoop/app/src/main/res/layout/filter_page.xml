@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:gravity="right">
 
     <!-- Title for Filter page -->
 
@@ -11,186 +12,269 @@
 
         <TextView
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Filter"
-            android:gravity="center_horizontal">
+            android:layout_height="50dp"
+            android:text="Filters"
+            android:gravity="center_horizontal"
+            android:autoText="false"
+            android:textSize="30dp"
+            android:textColor="#000000">
         </TextView>
 
     </LinearLayout>
 
-    <!-- Price Title -->
-
-    <LinearLayout
+    <View
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Price"
-            android:gravity="bottom">
-        </TextView>
-
-    </LinearLayout>
-
-    <!-- Price buttons -->
+        android:layout_height="2dp"
+        android:background="@color/solid_line_color"/>
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp">
+
+        <!-- Price Title -->
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:gravity="bottom|left">
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Price"
+                android:gravity="bottom|left"
+                android:textSize="24dp"
+                android:textColor="#000000">
+            </TextView>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@color/solid_line_color"/>
+
+        <!-- Price buttons -->
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/oneDollarSignButton"
+                    android:text="$"
+                    android:layout_weight="1"
+                    android:textStyle="bold">
+
+                </Button>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/twoDollarSignButton"
+                    android:layout_toEndOf="@id/oneDollarSignButton"
+                    android:text="$$"
+                    android:layout_weight="1"
+                    android:textStyle="bold">
+
+                </Button>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/threeDollarSignButton"
+                    android:layout_toEndOf="@id/twoDollarSignButton"
+                    android:text="$$$"
+                    android:layout_weight="1"
+                    android:textStyle="bold">
+
+                </Button>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fourDollarSignButton"
+                    android:layout_toEndOf="@id/threeDollarSignButton"
+                    android:text="$$$$"
+                    android:layout_weight="1"
+                    android:textStyle="bold">
+
+                </Button>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Distance Title -->
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:gravity="bottom|left">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Distance"
+                android:gravity="bottom|left"
+                android:textColor="#000000"
+                android:textSize="24dp">
+            </TextView>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@color/solid_line_color"/>
+
+        <!-- Distance Button -->
+
+        <LinearLayout
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal">
 
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/oneDollarSignButton"
-                android:text="$">
-
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:text="Best Match"
+                android:id="@+id/BestMatchButton"
+                android:textStyle="bold">
             </Button>
 
-            <Button
+        </LinearLayout>
+
+        <!-- Sort by -->
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:gravity="bottom|left">
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/twoDollarSignButton"
-                android:layout_toEndOf="@id/oneDollarSignButton"
-                android:text="$$">
+                android:text="Sort By"
+                android:gravity="bottom|left"
+                android:textColor="#000000"
+                android:textSize="24dp">
+            </TextView>
 
-            </Button>
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@color/solid_line_color"/>
+
+        <!-- Sort by button -->
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal">
 
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/threeDollarSignButton"
-                android:layout_toEndOf="@id/twoDollarSignButton"
-                android:text="$$$">
-
-            </Button>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/fourDollarSignButton"
-                android:layout_toEndOf="@id/threeDollarSignButton"
-                android:text="$$$$">
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:text="Best Match"
+                android:textStyle="bold">
 
             </Button>
 
         </LinearLayout>
 
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:gravity="bottom|left">
 
-    <!-- Distance Title -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="General Features"
+                android:gravity="bottom|left"
+                android:textColor="#000000"
+                android:textSize="24dp">
+            </TextView>
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Distance">
-        </TextView>
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:background="@color/solid_line_color"/>
 
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal">
 
-    <!-- Distance Button -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Walk-In"
+                android:id="@+id/WalkInText"
+                android:gravity="center_horizontal|left"
+                android:textColor="#000000"
+                android:textSize="16dp">
+            </TextView>
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="end">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Best Match"
-            android:id="@+id/BestMatchButton">
-        </Button>
+                <Switch
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </Switch>
+            </LinearLayout>
 
-    </LinearLayout>
+        </LinearLayout>
 
-    <!-- Sort by -->
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal">
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="By Appointment"
+                android:id="@+id/ApptText"
+                android:textColor="#000000"
+                android:textSize="16dp">
+            </TextView>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sort By" >
-        </TextView>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="right">
 
-    </LinearLayout>
+                <Switch
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right">
+                </Switch>
+            </LinearLayout>
 
-    <!-- Sort by button -->
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Best Match">
-
-        </Button>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="General Features" >
-        </TextView>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Walk-In"
-            android:id="@+id/WalkInText">
-        </TextView>
-
-        <Switch
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="right">
-        </Switch>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="By Appointment"
-            android:id="@+id/ApptText">
-        </TextView>
-
-        <Switch
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="right">
-        </Switch>
+        </LinearLayout>
 
     </LinearLayout>
 

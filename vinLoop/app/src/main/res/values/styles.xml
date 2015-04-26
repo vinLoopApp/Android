@@ -11,20 +11,25 @@
 
     <style name="MyTheme" parent="@style/Theme.AppCompat.Light">
         <item name="android:actionBarStyle">@style/MyActionBar</item>
+        <!-- removes shadow under action bar -->
 
         <!-- Support library compatibility -->
         <item name="actionBarStyle">@style/MyActionBar</item>
+        <!-- removes shadow under action bar
+        <item name="windowContentOverlay">@null</item> -->
     </style>
 
     <style name="MyActionBar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid">
         <item name="android:titleTextStyle">@style/TitleBarTextColor</item>
-        <item name="android:background">@color/actionbar_searchbar_background_color</item>
+        <item name="android:background">@drawable/actionbar_background</item>
         <item name="android:actionOverflowButtonStyle">@color/text_white</item>
+        <item name="android:height">@dimen/bar_height</item>
 
         <!-- Support library compatibility -->
         <item name="titleTextStyle">@style/TitleBarTextColor</item>
-        <item name="background">@color/actionbar_searchbar_background_color</item>
+        <item name="background">@drawable/actionbar_background</item>
         <item name="actionOverflowButtonStyle">@color/text_white</item>
+        <item name="height">@dimen/bar_height</item>
     </style>
 
     <style name="TitleBarTextColor" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">

@@ -4,8 +4,8 @@
     android:shape="rectangle" android:padding="5dp">
     <solid android:color="@color/searchbar_background_color_lighter"/>
     <corners
-        android:bottomRightRadius="15dp"
-        android:bottomLeftRadius="15dp"
-        android:topLeftRadius="15dp"
-        android:topRightRadius="15dp"/>
+        android:bottomRightRadius="18dp"
+        android:bottomLeftRadius="18dp"
+        android:topLeftRadius="18dp"
+        android:topRightRadius="18dp"/>
 </shape>

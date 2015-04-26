@@ -12,8 +12,8 @@
     -->
 
     <item
-        android:id="@+id/action_cart"
-        android:title="Test"
+        android:id="@+id/favorites_button"
+        android:title="Favorites"
         android:icon="@android:drawable/ic_input_add"
         android:orderInCategory="100"
         app:showAsAction="always"/>

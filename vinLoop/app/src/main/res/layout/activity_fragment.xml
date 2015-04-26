@@ -12,24 +12,27 @@
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
         android:background="@color/actionbar_searchbar_background_color"
-        android:paddingLeft="7dp"
-        android:paddingTop="7dp"
-        android:paddingBottom="7dp">
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp">
         <!-- Search, should appear as action button -->
         <SearchView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:background="@drawable/rounded_box"
             android:id="@+id/search"
+            android:paddingRight="15dp"
             android:title="@string/search_title">
         </SearchView>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/filter_button">
+            android:id="@+id/filter_button"
+            android:background="@drawable/filter_button_drawable">
         </Button>
 
     </LinearLayout>
