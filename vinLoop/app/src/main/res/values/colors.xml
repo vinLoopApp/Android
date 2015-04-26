@@ -6,5 +6,9 @@
     <color name="text_white">#ffffff</color>
     <color name="gold">#ff9b07</color>
     <color name="solid_line_color">#c0c0c0</color>
+    <color name="actionbar_searchbar_background_color">#4a285d</color>
+    <color name="searchbar_background_color_darker">#acb62d</color>
+    <color name="searchbar_background_color_lighter">#b5bf32</color>
+    <color name="list_spacer_color">#807688</color>
 
 </resources>

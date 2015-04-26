@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
@@ -14,11 +15,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -91,7 +92,7 @@ public class vinListFragment extends ListFragment{
         //Opening a dialog from another dialog button click. For Distance etc.
         //http://stackoverflow.com/questions/5662538/android-display-another-dialog-from-a-dialog
 
-        SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
+        /*SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
         searchView.setQueryHint("Search");
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -115,7 +116,7 @@ public class vinListFragment extends ListFragment{
                 return false;
             }
 
-        });
+        });*/
     }
 
     /*@Override
@@ -159,6 +160,50 @@ public class vinListFragment extends ListFragment{
         //final WineryAdapter adapter = new WineryAdapter(wineryList);
         adapter = new WineryAdapter(wineryList);
         setListAdapter(adapter);
+
+        final SearchView searchView = (SearchView) getActivity().findViewById(R.id.search);
+        searchView.setQueryHint(" Search");
+        searchView.setIconifiedByDefault(false);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextChange(String query) {
+                if(!TextUtils.isEmpty(query)) {
+                    adapter.getFilter().filter(query.toString());
+                    return true;
+                } else {
+                    adapter.getFilter().filter(query.toString());
+                    searchView.clearFocus();
+                    return true;
+                }
+            }
+
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                if(!TextUtils.isEmpty(query)) {
+                    adapter.getFilter().filter(query.toString());
+                    searchView.clearFocus();
+                    return true;
+                }
+                searchView.clearFocus();
+                return false;
+            }
+
+        });
+
+        getActivity().getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
+        );
+
+        final Button filterButton =  (Button) getActivity().findViewById(R.id.filter_button);
+        filterButton.setText("Test");
+        filterButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                //FragmentManager fm = getActivity().getSupportFragmentManager();
+                FilterPickerDialogFragment filter = new FilterPickerDialogFragment();
+                final String TEST_DIALOG = "Test";
+                //filter.show();
+            }
+        });
 
         //THIS SHOULD BE DONE ASYNC
 
@@ -316,7 +361,6 @@ public class vinListFragment extends ListFragment{
         @Override
         public View getView(int position, View convertView, ViewGroup parent){
             //If we were not given a view then inflate one
-            Log.d("getView", " ");
 
             if(convertView == null){
                 convertView = getActivity().getLayoutInflater()
@@ -325,6 +369,13 @@ public class vinListFragment extends ListFragment{
 
             if (imageLoader == null)
                 imageLoader = volleySingleton.getInstance().getImageLoader();
+
+            ListView listView = getListView();
+            ColorDrawable myColor = new ColorDrawable(
+                    getResources().getColor(R.color.list_spacer_color)
+            );
+            listView.setDivider(myColor);
+            listView.setDividerHeight(10);
 
             NetworkImageView thumbNail = (NetworkImageView) convertView
                     .findViewById(R.id.winery_list_item_iconNetworkImageView);
@@ -399,7 +450,7 @@ public class vinListFragment extends ListFragment{
                      *  else does the Filtering and returns FilteredArrList(Filtered)
                      *
                      ********/
-                    Log.d("Constraing size: ", String.valueOf(constraint.length()));
+                    //Log.d("Constraing size: ", String.valueOf(constraint.length()));
                     if (constraint == null || constraint.length() == 0) {
                         // set the Original result to return
                         results.count = mOriginalValue.size();
@@ -407,17 +458,17 @@ public class vinListFragment extends ListFragment{
                         Log.d("Empty search: ", "true");
                     } else {
                         constraint = constraint.toString().toLowerCase();
-                        Log.d("Showing contraint: ", constraint.toString().toLowerCase());
-                        Log.d("originalvalues size: ", String.valueOf(mOriginalValue.size()));
+                        //Log.d("Showing contraint: ", constraint.toString().toLowerCase());
+                        //Log.d("originalvalues size: ", String.valueOf(mOriginalValue.size()));
 
                         for (int i = 0; i < mOriginalValue.size(); i++) {
                             Winery data = mOriginalValue.get(i);
                             if (data.getName().toLowerCase().startsWith(constraint.toString())) {
-                                Log.d("Showing data", data.getName().toLowerCase());
+                                //Log.d("Showing data", data.getName().toLowerCase());
                                 FilteredArrList.add(data);
                             }
                         }
-                        Log.d("Showing filtered: ", String.valueOf(FilteredArrList.size()));
+                        //Log.d("Showing filtered: ", String.valueOf(FilteredArrList.size()));
                         // set the Filtered result to return
                         results.count = FilteredArrList.size();
                         results.values = FilteredArrList;

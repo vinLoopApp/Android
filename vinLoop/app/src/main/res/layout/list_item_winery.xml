@@ -3,7 +3,8 @@
     android:layout_height="?android:attr/listPreferredItemHeight"
     android:descendantFocusability="blocksDescendants"
     android:paddingTop="2.5dp"
-    android:paddingBottom="2.5dp">
+    android:paddingBottom="2.5dp"
+    android:paddingLeft="2.5dp">
 
     <!-- Thumbnail Image -->
     <com.android.volley.toolbox.NetworkImageView
@@ -55,46 +56,6 @@
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="3dp"
         android:id="@+id/linearLayout2">
-
-        <!-- Winery Rating
-        <RatingBar
-            style="@style/wineRatingBar"
-            android:layout_width="wrap_content"
-            android:layout_height="28dp"
-            android:scaleType="fitCenter"
-            android:gravity="right"
-            android:id="@+id/ratingBar"
-            android:numStars="5"
-            android:longClickable="false"
-            android:indeterminateOnly="false"
-            />  -->
-
-        <!-- Winery Cost
-        <RatingBar
-            style="@style/wineRatingBar"
-            android:layout_width="wrap_content"
-            android:layout_height="28dp"
-            android:scaleType="fitCenter"
-            android:gravity="right"
-            android:id="@+id/ratingBar2"
-            android:numStars="5"
-            android:longClickable="false"
-            android:indeterminateOnly="false"/>  -->
-
-
-        <!-- Distance
-        <TextView
-            android:id="@+id/winery_list_item_distTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="28dp"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:layout_alignWithParentIfMissing="true"
-            android:gravity="right"
-            android:layout_below="@+id/ratingBar2"
-            android:text="Distance"
-            android:textSize="12sp"
-            android:layout_alignParentEnd="true"/> -->
     </LinearLayout>
 
 </RelativeLayout>

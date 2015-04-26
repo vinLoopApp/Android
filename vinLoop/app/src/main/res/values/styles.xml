@@ -18,12 +18,12 @@
 
     <style name="MyActionBar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid">
         <item name="android:titleTextStyle">@style/TitleBarTextColor</item>
-        <item name="android:background">@color/dark_purple</item>
+        <item name="android:background">@color/actionbar_searchbar_background_color</item>
         <item name="android:actionOverflowButtonStyle">@color/text_white</item>
 
         <!-- Support library compatibility -->
         <item name="titleTextStyle">@style/TitleBarTextColor</item>
-        <item name="background">@color/dark_purple</item>
+        <item name="background">@color/actionbar_searchbar_background_color</item>
         <item name="actionOverflowButtonStyle">@color/text_white</item>
     </style>
 

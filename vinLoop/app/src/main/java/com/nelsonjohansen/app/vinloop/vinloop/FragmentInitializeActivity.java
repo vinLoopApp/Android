@@ -8,8 +8,10 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.widget.SearchView;
@@ -19,7 +21,7 @@ import android.widget.SearchView;
  */
 //Important note, ActionBarActivity also extends FragmentActivity thus to have
 //an action bar we must extend ActionBarActivity not the latter.
-public abstract class FragmentInitializeActivity extends ActionBarActivity {
+public abstract class FragmentInitializeActivity extends AppCompatActivity {
 
     protected abstract Fragment createFragment();
 
