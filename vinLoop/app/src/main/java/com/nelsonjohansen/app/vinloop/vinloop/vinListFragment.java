@@ -1,6 +1,5 @@
 package com.nelsonjohansen.app.vinloop.vinloop;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -15,12 +14,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ListView;
@@ -44,7 +43,9 @@ import java.util.ArrayList;
 public class vinListFragment extends ListFragment{
 
     // Log tag
-    private static final String TAG = vinActivity.class.getSimpleName();
+    private static final String TAG = vinDetailActivity.class.getSimpleName();
+    private static final String DIALOG_FILTER_REQUEST = "DialogFilterRequest";
+    private static final String TEST_DIALOG = "TestDialog";
     private static final int REQUEST_FILTERS = 0;
 
     // Crime json url
@@ -55,7 +56,13 @@ public class vinListFragment extends ListFragment{
     private WineryAdapter adapter;
     private ListView listView;
     private Callbacks mCallbacks;
-    int filterPrice;
+    private filterHelper mFilterHelper;
+
+    boolean filterPrice1;
+    boolean filterPrice2;
+    boolean filterPrice3;
+    boolean filterPrice4;
+
     boolean mDualPane;
     int mCurCheckPosition = 0;
 
@@ -124,6 +131,29 @@ public class vinListFragment extends ListFragment{
         });*/
     }
 
+    //Handle actionbar button clicks
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle presses on the action bar items
+        switch (item.getItemId()) {
+            case R.id.favorites_button:
+                //openSearch();
+                Intent intent = new Intent();
+                intent.setClass(getActivity(), vinFavoriteActivity.class);
+                intent.putExtra("index", 3);
+                startActivity(intent);
+                return true;
+            case R.id.profile_button:
+                Intent intentProfile = new Intent();
+                intentProfile.setClass(getActivity(), vinProfileActivity.class);
+                //intentProfile.putExtra("index", 3);
+                startActivity(intentProfile);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     /*@Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_main, menu);
@@ -160,9 +190,26 @@ public class vinListFragment extends ListFragment{
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         if(resultCode != Activity.RESULT_OK) return;
         if(requestCode == REQUEST_FILTERS){
-            filterPrice = (int) data
-                    .getSerializableExtra(filterPickerDialogFragment.PRICE_FILTER_SELECTED);
+            //get data from the price buttons
+            mFilterHelper.setPriceButton1((boolean) data
+                    .getSerializableExtra(filterPickerDialogFragment.PRICE_FILTER_SELECTED_ONE));
+            mFilterHelper.setPriceButton2((boolean) data
+                    .getSerializableExtra(filterPickerDialogFragment.PRICE_FILTER_SELECTED_TWO));
+            mFilterHelper.setPriceButton3((boolean) data
+                    .getSerializableExtra(filterPickerDialogFragment.PRICE_FILTER_SELECTED_THREE));
+            mFilterHelper.setPriceButton4((boolean) data
+                    .getSerializableExtra(filterPickerDialogFragment.PRICE_FILTER_SELECTED_FOUR));
+            mFilterHelper.setDistance((String) data
+                    .getSerializableExtra(filterPickerDialogFragment.DISTANCE_FILTER_SELECTED));
+            mFilterHelper.setWalkIn((boolean) data
+                    .getSerializableExtra(filterPickerDialogFragment.WALK_IN_FILTER_SELECTED));
+            mFilterHelper.setByAppt((boolean) data
+                    .getSerializableExtra(filterPickerDialogFragment.BY_APPT_FILTER_SELECTED));
+
+            Log.d("Price1: ", String.valueOf(mFilterHelper.isPriceButton1()));
             //at this point we have the selected price filter so update the list somehow
+
+            adapter.getFilter().filter(DIALOG_FILTER_REQUEST);
 
         }
     }
@@ -176,6 +223,8 @@ public class vinListFragment extends ListFragment{
         //final WineryAdapter adapter = new WineryAdapter(wineryList);
         adapter = new WineryAdapter(wineryList);
         setListAdapter(adapter);
+
+        mFilterHelper = new filterHelper();
 
         final SearchView searchView = (SearchView) getActivity().findViewById(R.id.search);
         //remove blue line below search text in search view.
@@ -222,23 +271,23 @@ public class vinListFragment extends ListFragment{
         filterButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 FragmentManager fm = getActivity().getSupportFragmentManager();
-                filterPickerDialogFragment filter = filterPickerDialogFragment.newInstance(filterPrice);
+                filterPickerDialogFragment filter =
+                        filterPickerDialogFragment.newInstance(mFilterHelper.isPriceButton1()
+                                , mFilterHelper.isPriceButton2()
+                                , mFilterHelper.isPriceButton3()
+                                , mFilterHelper.isPriceButton4()
+                                , mFilterHelper.getDistance()
+                                , mFilterHelper.isWalkIn()
+                                , mFilterHelper.isByAppt());
+
                 //setting up communication between list fragment and dialog fragment
                 filter.setTargetFragment(vinListFragment.this, REQUEST_FILTERS);
                 //call filter in here somewhere, must change filter code to handle booleans coming
                 //from user input via the dialog box, perhaps make a new class called filter to hold
                 //all the options the user can choose.
-                final String TEST_DIALOG = "Test";
-                filter.show(fm,TEST_DIALOG);
+                filter.show(fm, TEST_DIALOG);
             }
         });
-
-        final Button favoritesButton = (Button) getActivity().findViewById(R.id.favorites_button);
-        /*favoritesButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                //open the favorites fragment!!
-            }
-        });*/
 
         //THIS SHOULD BE DONE ASYNC
 
@@ -322,9 +371,21 @@ public class vinListFragment extends ListFragment{
     void showDetails(int index) {
         mCurCheckPosition = index;
 
+        Winery wineryDetailInfo = wineryList.get(index);
+
         Log.d("Dualpane mode", "on" + mDualPane);
 
-        if (mDualPane) {
+        // Otherwise we need to launch a new activity to display
+        // the dialog fragment with selected text.
+        Intent intent = new Intent();
+        intent.setClass(getActivity(), vinDetailActivity.class);
+        intent.putExtra("index", index);
+        intent.putExtra("name", wineryDetailInfo.getName());
+        intent.putExtra("distance", wineryDetailInfo.getDist());
+        intent.putExtra("dealText", wineryDetailInfo.getDeal());
+        startActivity(intent);
+
+        /*if (mDualPane) {
             // We can display everything in-place with fragments, so update
             // the list to highlight the selected item and show the data.
             getListView().setItemChecked(index, true);
@@ -354,10 +415,13 @@ public class vinListFragment extends ListFragment{
             // Otherwise we need to launch a new activity to display
             // the dialog fragment with selected text.
             Intent intent = new Intent();
-            intent.setClass(getActivity(), vinActivity.class);
-            intent.putExtra("index", 3);
+            intent.setClass(getActivity(), vinDetailActivity.class);
+            intent.putExtra("index", index);
+            intent.putExtra("name", wineryDetailInfo.getName());
+            intent.putExtra("distance", wineryDetailInfo.getDist());
+            intent.putExtra("dealText", wineryDetailInfo.getDeal());
             startActivity(intent);
-        }
+        }*/
     }
 
     @Override
@@ -485,13 +549,18 @@ public class vinListFragment extends ListFragment{
                      *  else does the Filtering and returns FilteredArrList(Filtered)
                      *
                      ********/
+
                     //Log.d("Constraing size: ", String.valueOf(constraint.length()));
-                    if (constraint == null || constraint.length() == 0) {
+                    if(constraint == null || constraint.length() == 0){
                         // set the Original result to return
                         results.count = mOriginalValue.size();
                         results.values = mOriginalValue;
                         Log.d("Empty search: ", "true");
-                    } else {
+                    }else if(constraint == DIALOG_FILTER_REQUEST){
+                        Log.d("Filtering based on: ", "dialog");
+                        results.count = mOriginalValue.size();
+                        results.values = mOriginalValue;
+                    }else {
                         constraint = constraint.toString().toLowerCase();
                         //Log.d("Showing contraint: ", constraint.toString().toLowerCase());
                         //Log.d("originalvalues size: ", String.valueOf(mOriginalValue.size()));
@@ -508,6 +577,7 @@ public class vinListFragment extends ListFragment{
                         results.count = FilteredArrList.size();
                         results.values = FilteredArrList;
                     }
+
                     return results;
                 }
             };

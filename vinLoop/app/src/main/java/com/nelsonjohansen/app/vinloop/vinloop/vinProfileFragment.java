@@ -1,53 +1,33 @@
 package com.nelsonjohansen.app.vinloop.vinloop;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-
-import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.NetworkImageView;
+import android.widget.EditText;
+import android.widget.TextView;
 
 /**
- * Created by NelsonJ on 4/9/2015.
+ * Created by NelsonJ on 4/27/2015.
  */
+public class vinProfileFragment extends Fragment implements View.OnClickListener {
 
+    public static vinProfileFragment newInstance() {
 
-public class vinDetailFragment extends Fragment implements View.OnClickListener {
-
-    public static final String EXTRA_WINERY_ID =
-            "com.nelsonjohansen.app.vinloop.winery_id";
-
-    private static Winery w;
-    private static boolean fav = false;
-
-    public static vinDetailFragment newInstance(int index, String name, String distance, String dealText) {
-
-        vinDetailFragment f = new vinDetailFragment();
+        vinProfileFragment f = new vinProfileFragment();
 
         Bundle args = new Bundle();
-
-        args.putInt("index", index);
-        args.putString("name", name);
-        args.putString("distance", distance);
-        args.putString("dealText", dealText);
 
         f.setArguments(args);
 
         return f;
     }
-
-    private int getShownIndex() {
-        return getArguments().getInt("index", 0);
-    }
-    private String getShownName(){ return getArguments().getString("name", null); }
-    private String getShownDist(){ return getArguments().getString("distance", null); }
-    private String getShownDealText(){ return getArguments().getString("dealText", null); }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,8 +38,21 @@ public class vinDetailFragment extends Fragment implements View.OnClickListener 
 
     @Override
     public void onClick(View v){
-        //user has selected to favorite this winery, add it to the users favorites file
-        Log.d("Favorite add/removed", " ");
+
+        /*switch (v.getId()) {
+            case R.id.favorites_button:
+                //openSearch();
+
+                return;
+            case R.id.profile_button:
+                Intent intentProfile = new Intent();
+                intentProfile.setClass(getActivity(), vinProfileActivity.class);
+                //intentProfile.putExtra("index", 3);
+                startActivity(intentProfile);
+                return;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
         Context context = getActivity();
         SharedPreferences sharedPref = context.getSharedPreferences(
                 getString(R.string.get_favorites_list_file), Context.MODE_PRIVATE);
@@ -67,8 +60,8 @@ public class vinDetailFragment extends Fragment implements View.OnClickListener 
         SharedPreferences.Editor editor = sharedPref.edit();
         //user winery name as key since winery name should be unique for the moment
         //may need to use wineryUniqueID.
-        editor.putString(getShownName(), String.valueOf(!fav));
-        editor.commit();
+        //editor.putString(getShownName(), String.valueOf(!fav));
+        editor.commit();*/
 
     }
 
@@ -86,11 +79,19 @@ public class vinDetailFragment extends Fragment implements View.OnClickListener 
             return null;
         }
 
-        Log.d("items", getShownName() + " " + getShownDist() + " " + getShownDealText() + " " + getShownIndex());
 
-        View v = inflater.inflate(R.layout.detail_fragment, parent, false);
+        View v = inflater.inflate(R.layout.profile_fragment, parent, false);
 
-        final Button favButton = (Button) v.findViewById(R.id.detailFavButton);
+        EditText firstName = (EditText) v.findViewById(R.id.firstNameInput);
+        firstName.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.d("testing", " ");
+
+            }
+        });
+
+
+        /*final Button favButton = (Button) v.findViewById(R.id.detailFavButton);
         favButton.setOnClickListener(this);
 
         ImageLoader imageLoader = volleySingleton.getInstance().getImageLoader();
@@ -98,7 +99,7 @@ public class vinDetailFragment extends Fragment implements View.OnClickListener 
         NetworkImageView thumbNail = (NetworkImageView) v
                 .findViewById(R.id.details_winery_list_item_iconNetworkImageView);
 
-        thumbNail.setImageUrl("http://mthoodwinery.com/wp-content/uploads/2014/11/Winery-rows.jpg", imageLoader);
+        thumbNail.setImageUrl("http://mthoodwinery.com/wp-content/uploads/2014/11/Winery-rows.jpg", imageLoader);*/
 
         //http://stackoverflow.com/questions/21691656/solved-google-maps-mapfragment-causing-the-app-to-crash
 
@@ -113,5 +114,4 @@ public class vinDetailFragment extends Fragment implements View.OnClickListener 
         //deal.setText(String.valueOf(getShownIndex()));
         return v;
     }
-
 }

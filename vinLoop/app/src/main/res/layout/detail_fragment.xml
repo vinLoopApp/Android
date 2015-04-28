@@ -377,19 +377,20 @@
         android:id="@+id/linear_layout_details_fragment_child"
         >
 
-        <TextView
+        <Button
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="Get this Deal!"
-            android:id="@+id/textView"
-            android:gravity="center_horizontal"
-            android:layout_weight="4" />
+            android:layout_height="wrap_content"
+            android:text="Favorite"
+            android:id="@+id/detailFavButton"
+            android:layout_weight="1"
+            android:background="@color/dark_purple"
+            android:textColor="@color/text_white" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Get Deal!"
-            android:id="@+id/button"
+            android:id="@+id/detailGetButton"
             android:background="@color/dark_purple"
             android:textColor="@color/text_white"
             android:layout_gravity="right"

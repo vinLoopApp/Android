@@ -4,17 +4,11 @@
 
 package com.nelsonjohansen.app.vinloop.vinloop;
 
-import android.app.SearchManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.widget.SearchView;
 
 /**
  * Created by NelsonJ on 3/30/2015.
@@ -31,11 +25,11 @@ public abstract class FragmentInitializeActivity extends AppCompatActivity {
         return R.layout.activity_fragment;
     }
 
-    private static vinActivity mInstance;
+    private static vinDetailActivity mInstance;
     private static Context mAppContext;
 
     // Log tag
-    private static final String TAG = vinActivity.class.getSimpleName();
+    private static final String TAG = vinDetailActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

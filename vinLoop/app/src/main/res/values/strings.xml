@@ -12,4 +12,7 @@
     <string name="title_activity_vin_maps">Map</string>
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_maps_activity2">Map</string>
+
+    <string name="get_favorites_list_file">com.nelsonjohansen.app.vinloop.vinloop.favorites_list_file_key</string>
+    <string name="empty_list">You have no Favorites yet!</string>
 </resources>

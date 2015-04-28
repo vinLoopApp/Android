@@ -60,8 +60,18 @@
         </activity>
 
         <activity
-            android:name=".vinActivity"
+            android:name=".vinDetailActivity"
             android:label="@string/title_activity_vin_maps" >
+        </activity>
+
+        <activity
+            android:name=".vinFavoriteActivity">
+
+        </activity>
+
+        <activity
+            android:name=".vinProfileActivity">
+
         </activity>
 
         <meta-data
