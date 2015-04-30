@@ -8,12 +8,11 @@
 
     <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_height="0dp"
         android:id="@+id/scrollViewIn"
         android:layout_weight="3"
         android:fillViewport="false"
-        android:background="@color/dark_purple">
+        android:background="@color/detail_main_background_color">
         <!-- scroll view can only contain a single child element -->
         <LinearLayout
             android:layout_width="fill_parent"
@@ -27,15 +26,14 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_weight="3"
-            android:background="@color/text_white">
+            android:background="@color/detail_items_background">
 
                 <com.android.volley.toolbox.NetworkImageView
                     android:id="@+id/details_winery_list_item_iconNetworkImageView"
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_alignParentStart="true"
-                    android:contentDescription="Thumbnail"
-                    android:layout_weight="4">
+                    android:layout_height="0dp"
+                    android:contentDescription="@string/details_image_top"
+                    android:layout_weight = "4">
                 </com.android.volley.toolbox.NetworkImageView>
 
                 <!-- Container for title and location -->
@@ -43,7 +41,7 @@
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="1dp"
-                    android:background="@color/gold"/>
+                    android:background="@color/detail_spacer_line"/>
 
                 <LinearLayout
                     android:layout_width="fill_parent"
@@ -57,7 +55,7 @@
                         android:id="@+id/details_deal_title"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:text="April 15-July 31, 2015: Two Adult General\nAdmission Tickets to 49ers Museum\nPresented by Sony"
+                        android:text="@string/details_preview_deal_title"
                         android:layout_weight="3"
                         android:maxLines="3"
                         android:textStyle="bold"
@@ -70,7 +68,7 @@
                         android:id="@+id/details_deal_location"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:text="Levi's Stadium"
+                        android:text="@string/details_preview_deal_location"
                         android:layout_weight="1"
                         android:gravity="left"
                         android:layout_gravity="center">
@@ -98,7 +96,7 @@
                             android:id="@+id/details_deal_original_price"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="$34.50"
+                            android:text="@string/details_preview_deal_orig_price"
                             android:gravity="left"
                             android:layout_gravity="left">
                         </TextView>
@@ -107,9 +105,8 @@
                             android:id="@+id/details_deal_new_price"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=" $15"
-                            android:paddingRight="3dp"
-                            android:layout_toEndOf="@id/details_deal_original_price">
+                            android:text="@string/details_preview_deal_new_price"
+                            android:paddingRight="3dp">
                         </TextView>
 
                     </LinearLayout>
@@ -117,7 +114,7 @@
                     <View
                         android:layout_width="fill_parent"
                         android:layout_height="2dp"
-                        android:background="@color/gold"/>
+                        android:background="@color/detail_spacer_line"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -130,7 +127,7 @@
                             android:id="@+id/deals_discount_static_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Discount: "
+                            android:text="@string/details_discount_title_text"
                             android:layout_weight="1"
                             android:gravity="left">
                         </TextView>
@@ -139,7 +136,7 @@
                             android:id="@+id/details_deal_discount_percent"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="57%"
+                            android:text="@string/details_discount_text_preview"
                             android:layout_weight="1"
                             android:layout_toEndOf="@id/deals_discount_static_text">
                         </TextView>
@@ -148,7 +145,7 @@
                             android:id="@+id/deals_bought_static_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Bought: "
+                            android:text="@string/details_bought_title_text"
                             android:layout_weight="1"
                             android:layout_toEndOf="@id/details_deal_discount_percent">
                         </TextView>
@@ -157,7 +154,7 @@
                             android:id="@+id/details_deal_num_bought"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="70+"
+                            android:text="@string/details_bought_text_preview"
                             android:layout_weight="1"
                             android:layout_toEndOf="@id/deals_bought_static_text">
                         </TextView>
@@ -166,7 +163,7 @@
                             android:id="@+id/details_deal_availability"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Limited Availability"
+                            android:text="@string/details_availability_preview"
                             android:layout_weight="2"
                             android:layout_toEndOf="@id/details_deal_num_bought">
                         </TextView>
@@ -180,7 +177,7 @@
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
-                android:background="@color/gold"/>
+                android:background="@color/detail_spacer_line"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -188,12 +185,12 @@
                 android:orientation="vertical"
                 android:layout_marginTop="12dp"
                 android:layout_weight="3"
-                android:background="@color/text_white">
+                android:background="@color/detail_items_background">
 
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="1dp"
-                    android:background="@color/gold"/>
+                    android:background="@color/detail_spacer_line"/>
 
                 <LinearLayout
                     android:layout_width="fill_parent"
@@ -208,7 +205,7 @@
                         android:id="@+id/details_description_title"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:text="Deal Highlights">
+                        android:text="@string/details_deal_description_title_text">
 
                     </TextView>
 
@@ -216,7 +213,7 @@
                         android:id="@+id/details_description"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:text="See up to 40 museum-quality dinosaurs\nmodels, some of which move and roar at\nvisitors' command; kids pan for fossils and\ngems in a mine area">
+                        android:text="@string/details_deal_description_preview">
                     </TextView>
 
                 </LinearLayout>
@@ -226,64 +223,12 @@
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
-                android:background="@color/gold"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="12dp"
-                android:layout_weight="3"
-                android:background="@color/text_white">
-
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/gold"/>
-
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginLeft="6dp"
-                    android:layout_marginRight="6dp"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginBottom="6dp">
-
-                    <TextView
-                        android:id="@+id/details_fine_print_title"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Fine Print"
-                        android:paddingBottom="2dp">
-
-                    </TextView>
-
-                    <TextView
-                        android:id="@+id/details_fine_print"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:textStyle="bold"
-                        android:text="Expires Sun, April 26, 2015"
-                        android:paddingBottom="2dp">
-                    </TextView>
-
-                    <TextView
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Limit 8 per person. Valid only for option\npurchased. Redeem starting day of event for a\nticket at venue box office. Must show valid ID\nmatching name on Groupon at Cal Expo at the\nState Fairgrounds. Refundable only on day of\npurchase. Discount reflects Discover the\nDinosaurs' current tricket prices-price may\ndiffer on day of event. Doors open at 9am\non 4/25 and 10am on 4/26. For ADA seating,\ncall box office promptly upon receipt of\nvoucher- availability is limited.">
-                    </TextView>
-
-                </LinearLayout>
-
-
-            </LinearLayout>
-
+                android:background="@color/detail_spacer_line"/>
 
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
-                android:background="@color/gold"/>
+                android:background="@color/detail_spacer_line"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -291,12 +236,12 @@
                 android:orientation="vertical"
                 android:layout_marginTop="12dp"
                 android:layout_weight="1"
-                android:background="@color/text_white">
+                android:background="@color/detail_items_background">
 
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="1dp"
-                    android:background="@color/gold"/>
+                    android:background="@color/detail_spacer_line"/>
 
                 <FrameLayout
                     android:name="com.google.android.gms.maps.MapFragment"
@@ -314,7 +259,7 @@
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
-                android:background="@color/gold"/>
+                android:background="@color/detail_spacer_line"/>
 
             <!-- Container for the ____ text boxes -->
 
@@ -324,12 +269,12 @@
                 android:orientation="vertical"
                 android:layout_marginTop="12dp"
                 android:layout_weight="4"
-                android:background="@color/text_white">
+                android:background="@color/detail_items_background">
 
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="1dp"
-                    android:background="@color/gold"/>
+                    android:background="@color/detail_spacer_line"/>
 
                 <LinearLayout
                     android:layout_width="fill_parent"
@@ -344,11 +289,14 @@
                         android:id="@+id/details_bio"
                         android:layout_width="fill_parent"
                         android:layout_height="match_parent"
-                        android:text="Testing beep boop"
-                        android:layout_marginBottom="3dp"
-                        android:layout_marginTop="0dp"
-                        android:layout_marginLeft="6dp"
-                        android:layout_marginRight="6dp">
+                        android:text="@string/details_winery_bio_title_text">
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/details_bio_content"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/details_winery_bio_preview_text">
                     </TextView>
 
                 </LinearLayout>
@@ -358,7 +306,7 @@
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
-                android:background="@color/gold"/>
+                android:background="@color/detail_spacer_line"/>
 
         </LinearLayout>
 
@@ -380,19 +328,19 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Favorite"
+            android:text="@string/details_favorite_button_text"
             android:id="@+id/detailFavButton"
             android:layout_weight="1"
-            android:background="@color/dark_purple"
-            android:textColor="@color/text_white" />
+            android:background="@color/detail_button_background"
+            android:textColor="@color/detail_button_text" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Get Deal!"
+            android:text="@string/details_get_button_text"
             android:id="@+id/detailGetButton"
-            android:background="@color/dark_purple"
-            android:textColor="@color/text_white"
+            android:background="@color/detail_button_background"
+            android:textColor="@color/detail_button_text"
             android:layout_gravity="right"
             android:layout_weight="1"
             android:layout_marginBottom="6dp"
@@ -400,4 +348,5 @@
             android:layout_marginLeft="6dp"
             android:layout_marginRight="6dp"/>
     </LinearLayout>
+
 </LinearLayout>

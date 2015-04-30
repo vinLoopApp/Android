@@ -1,14 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- General purpose colors -->
     <color name="dark_purple">#4e0123</color>
+    <color name="new_purple">#4a285d</color>
     <color name="light_purple">#700f3a</color>
     <color name="text_white">#ffffff</color>
+    <color name="text_black">#000000</color>
     <color name="gold">#ff9b07</color>
     <color name="solid_line_color">#c0c0c0</color>
-    <color name="actionbar_searchbar_background_color">#4a285d</color>
+
+    <!-- Main List colors -->
+    <color name="actionbar_searchbar_background_color">@color/new_purple</color>
     <color name="searchbar_background_color_darker">#acb62d</color>
     <color name="searchbar_background_color_lighter">#b5bf32</color>
     <color name="list_spacer_color">#807688</color>
+
+    <!-- Details page colors -->
+    <color name="detail_main_background_color">@color/dark_purple</color>
+    <color name="detail_items_background">@color/text_white</color>
+    <color name="detail_spacer_line">@color/gold</color>
+    <color name="detail_button_background">@color/dark_purple</color>
+    <color name="detail_button_text">@color/text_white</color>
+
+    <!-- Filter page colors -->
+    <color name="filter_titles_text">@color/text_black</color>
+    <color name="filter_spacer_line">@color/solid_line_color</color>
+
+    <!-- Profile page colors -->
+    <color name="profile_titles_text">@color/text_black</color>
+
 
 </resources>

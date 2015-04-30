@@ -19,13 +19,14 @@
             android:layout_width="fill_parent"
             android:layout_height="40dp"
             android:gravity="bottom|left">
+
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="Price"
+                android:text="@string/filter_price_title_text"
                 android:gravity="bottom|left"
-                android:textSize="24dp"
-                android:textColor="#000000">
+                android:textSize="24sp"
+                android:textColor="@color/filter_titles_text">
             </TextView>
 
         </LinearLayout>
@@ -33,7 +34,7 @@
         <View
             android:layout_width="fill_parent"
             android:layout_height="1dp"
-            android:background="@color/solid_line_color"/>
+            android:background="@color/filter_spacer_line"/>
 
         <!-- Price buttons -->
 
@@ -51,7 +52,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/oneDollarSignButton"
-                    android:text="$"
+                    android:text="@string/filter_price_button_one_dollar"
                     android:layout_weight="1"
                     android:textStyle="bold">
 
@@ -61,8 +62,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/twoDollarSignButton"
-                    android:layout_toEndOf="@id/oneDollarSignButton"
-                    android:text="$$"
+                    android:text="@string/filter_price_button_two_dollar"
                     android:layout_weight="1"
                     android:textStyle="bold">
 
@@ -72,8 +72,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/threeDollarSignButton"
-                    android:layout_toEndOf="@id/twoDollarSignButton"
-                    android:text="$$$"
+                    android:text="@string/filter_price_button_three_dollar"
                     android:layout_weight="1"
                     android:textStyle="bold">
 
@@ -83,8 +82,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/fourDollarSignButton"
-                    android:layout_toEndOf="@id/threeDollarSignButton"
-                    android:text="$$$$"
+                    android:text="@string/filter_price_button_four_dollar"
                     android:layout_weight="1"
                     android:textStyle="bold">
 
@@ -104,10 +102,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Distance"
+                android:text="@string/filter_distance_title_text"
                 android:gravity="bottom|left"
-                android:textColor="#000000"
-                android:textSize="24dp">
+                android:textColor="@color/filter_titles_text"
+                android:textSize="24sp">
             </TextView>
 
         </LinearLayout>
@@ -115,7 +113,7 @@
         <View
             android:layout_width="fill_parent"
             android:layout_height="1dp"
-            android:background="@color/solid_line_color"/>
+            android:background="@color/filter_spacer_line"/>
 
         <!-- Distance Button -->
 
@@ -127,7 +125,7 @@
             <Button
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:text="Best Match"
+                android:text="@string/filter_distance_button_initial_text"
                 android:id="@+id/BestMatchButtonDistance"
                 android:textStyle="bold">
             </Button>
@@ -144,10 +142,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sort By"
+                android:text="@string/filter_sort_by_title_text"
                 android:gravity="bottom|left"
-                android:textColor="#000000"
-                android:textSize="24dp">
+                android:textColor="@color/filter_titles_text"
+                android:textSize="24sp">
             </TextView>
 
         </LinearLayout>
@@ -155,7 +153,7 @@
         <View
             android:layout_width="fill_parent"
             android:layout_height="1dp"
-            android:background="@color/solid_line_color"/>
+            android:background="@color/filter_spacer_line"/>
 
         <!-- Sort by button -->
 
@@ -168,7 +166,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:id="@+id/BestMatchButtonSortBy"
-                android:text="Best Match"
+                android:text="@string/filter_sort_by_button_initial_text"
                 android:textStyle="bold">
 
             </Button>
@@ -183,10 +181,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="General Features"
+                android:text="@string/filter_general_features_title_text"
                 android:gravity="bottom|left"
-                android:textColor="#000000"
-                android:textSize="24dp">
+                android:textColor="@color/filter_titles_text"
+                android:textSize="24sp">
             </TextView>
 
         </LinearLayout>
@@ -196,7 +194,7 @@
             android:layout_height="1dp"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
-            android:background="@color/solid_line_color"/>
+            android:background="@color/filter_spacer_line"/>
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -206,11 +204,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Walk-In"
+                android:text="@string/filter_walk_in_switch_text"
                 android:id="@+id/WalkInText"
                 android:gravity="center_horizontal|left"
-                android:textColor="#000000"
-                android:textSize="16dp">
+                android:textColor="@color/filter_titles_text"
+                android:textSize="16sp">
             </TextView>
 
             <LinearLayout
@@ -236,10 +234,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="By Appointment"
+                android:text="@string/filter_by_appt_switch_text"
                 android:id="@+id/ApptText"
-                android:textColor="#000000"
-                android:textSize="16dp">
+                android:textColor="@color/filter_titles_text"
+                android:textSize="16sp">
             </TextView>
 
             <LinearLayout
@@ -276,14 +274,14 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cancel"
+                android:text="@string/filter_CANCEL_button_text"
                 android:id="@+id/cancelButton"
                 android:layout_weight="1" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="OK"
+                android:text="@string/filter_OK_button_text"
                 android:id="@+id/okButton"
                 android:layout_weight="1" />
         </LinearLayout>

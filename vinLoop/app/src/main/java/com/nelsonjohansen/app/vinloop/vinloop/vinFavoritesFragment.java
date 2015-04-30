@@ -93,7 +93,9 @@ public class vinFavoritesFragment extends ListFragment {
 
                                 JSONObject obj = response.getJSONObject(i);
 
-                                if(sharedPref.getString(obj.getString("name"), null) != null) {
+                                String favorite = sharedPref.getString(obj.getString("name"), null);
+
+                                if(favorite != null) {
                                     Winery winery = new Winery();
                                     winery.setName(obj.getString("name"));
                                     winery.setDeal(obj.getString("deal"));
@@ -218,6 +220,7 @@ public class vinFavoritesFragment extends ListFragment {
             );
 
             TextView emptyText = new TextView(getContext());
+
             emptyText.setText("No favorites selected yet!");
             listView.setEmptyView(emptyText);
 

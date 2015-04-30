@@ -1,18 +1,91 @@
 <resources>
-    <string name="app_name">vinLoop</string>
 
-    <string name="hello_world">Hello world!</string>
+    <!-- General use strings -->
+    <string name="app_name">vinLoop</string>
     <string name="action_settings">Settings</string>
     <string name="action_search"> Search </string>
     <string name="search_title"> Search by Winery Name or Location </string>
     <string name="search_hint"> Winery or Location </string>
 
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Strings handling details activity/fragment -->
+    <string name="details_image_top"> Thumbnail </string>
+    <string name="details_preview_deal_title"> April 15-July 31, 2015: Two Adult General\nAdmission Tickets to 49ers Museum\nPresented by Sony </string>
+    <string name="details_preview_deal_location"> Levi\'s Stadium </string>
+
+    <string name="details_preview_deal_orig_price"> $34.50 </string>
+    <string name="details_preview_deal_new_price"> $15 </string>
+
+    <string name="details_discount_title_text"> Discount: </string>
+    <string name="details_discount_text_preview"> 57% </string>
+
+    <string name="details_bought_title_text"> Bought: </string>
+    <string name="details_bought_text_preview"> 70+ </string>
+
+    <string name="details_availability_preview"> Limited Availability </string>
+
+    <string name="details_deal_description_title_text"> Deal Description </string>
+    <string name="details_deal_description_preview"> See up to 40 museum-quality dinosaurs\nmodels, some of which move and roar at\nvisitors\' command; kids pan for fossils and\ngems in a mine area </string>
+
+    <string name="details_winery_bio_title_text"> Winery Bio </string>
+    <string name="details_winery_bio_preview_text"> Wineries Bio Preview </string>
+
+    <string name="details_favorite_button_text"> Favorite </string>
+    <string name="details_get_button_text"> Get! </string>
+
+    <!-- Strings handling filter dialogFragment -->
+    <string name="filter_price_title_text"> Price </string>
+    <string name="filter_price_button_one_dollar"> $ </string>
+    <string name="filter_price_button_two_dollar"> $$ </string>
+    <string name="filter_price_button_three_dollar"> $$$ </string>
+    <string name="filter_price_button_four_dollar"> $$$$ </string>
+
+    <string name="filter_distance_title_text"> Distance </string>
+    <string name="filter_distance_button_initial_text"> Best Match </string>
+
+    <string name="filter_varietal_title_text"> Varietal </string>
+    <string name="filter_varietal_button_initial_text"> None Selected </string>
+
+    <string name="filter_sort_by_title_text"> Sort By </string>
+    <string name="filter_sort_by_button_initial_text"> Best Match </string>
+
+    <string name="filter_general_features_title_text"> General Features </string>
+
+    <string name="filter_walk_in_switch_text"> Walk-In </string>
+
+    <string name="filter_by_appt_switch_text"> By Appointment </string>
+
+    <string name="filter_OK_button_text"> OK </string>
+    <string name="filter_CANCEL_button_text"> Cancel </string>
+
+    <!-- Strings handling profile fragment -->
+    <string name="profile_image_text"> Thumbnail </string>
+
+    <string name="profile_first_name_hint"> First Name </string>
+    <string name="profile_last_name_hint"> Last Name </string>
+
+    <string name="profile_address_title"> Address </string>
+    <string name="profile_address_hint_text"> Input Address </string>
+
+    <string name="profile_gender_title"> Gender </string>
+    <string name="profile_gender_male_button_text"> Male </string>
+    <string name="profile_gender_female_button_text"> Female </string>
+
+    <string name="profile_birthday_title"> Birthday </string>
+    <string name="profile_birthday_hint"> Add a Birthday </string>
+
+    <string name="profile_email_title"> Email </string>
+    <string name="profile_email_hint"> Input Email </string>
+
+    <string name="profile_notifications_switch"> Notifications </string>
+
+
+    <!-- Strings handling map fragment -->
+    <string name="hello_blank_fragment">Blank fragment</string>
     <string name="title_activity_vin_maps">Map</string>
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_maps_activity2">Map</string>
 
+    <!-- Strings handling favorites list activity/fragment -->
     <string name="get_favorites_list_file">com.nelsonjohansen.app.vinloop.vinloop.favorites_list_file_key</string>
     <string name="empty_list">You have no Favorites yet!</string>
 </resources>

@@ -3,7 +3,7 @@ package com.nelsonjohansen.app.vinloop.vinloop;
 /**
  * Created by NelsonJ on 4/1/2015.
  * from url http://www.androidhive.info/2014/07/android-custom-listview-with-image-and-text-using-volley/
- * handles the image cache
+ * handles the image cache within phone for fast loading into list.
  */
 
 import android.graphics.Bitmap;

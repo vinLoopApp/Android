@@ -13,8 +13,8 @@ import android.support.v7.app.AppCompatActivity;
 /**
  * Created by NelsonJ on 3/30/2015.
  */
-//Important note, ActionBarActivity also extends FragmentActivity thus to have
-//an action bar we must extend ActionBarActivity not the latter.
+//Important note, AppCompatActivity also extends FragmentActivity thus to have
+//an action bar we must extend AppCompatActivity  not the latter.
 public abstract class FragmentInitializeActivity extends AppCompatActivity {
 
     protected abstract Fragment createFragment();
@@ -50,18 +50,7 @@ public abstract class FragmentInitializeActivity extends AppCompatActivity {
 
     /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);
-
-        // Associate searchable configuration with the SearchView
-        // Get the SearchView and set the searchable configuration
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
-        // Assumes current activity is the searchable activity
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-
-        return true;
+        //handled within the fragments not the calling activities.
     }*/
 
 }
