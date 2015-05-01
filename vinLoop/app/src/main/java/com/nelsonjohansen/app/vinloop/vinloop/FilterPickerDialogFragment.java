@@ -1,13 +1,12 @@
 package com.nelsonjohansen.app.vinloop.vinloop;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +14,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Switch;
 
+/**
+ * Created by NelsonJ on 4/30/2015.
+ */
 public class filterPickerDialogFragment extends DialogFragment {
 
     //Strings and other types for data passed into and from this fragment back to calling activity
@@ -249,14 +251,12 @@ public class filterPickerDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState){
         final View v = getActivity().getLayoutInflater()
                 .inflate(R.layout.filter_page, null);
-
         return new AlertDialog.Builder(getActivity())
                 .setView(v)
                 .setPositiveButton("OK",
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-
                                 sendResults(Activity.RESULT_OK);
                             }
                         })
@@ -274,5 +274,4 @@ public class filterPickerDialogFragment extends DialogFragment {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
-
 }

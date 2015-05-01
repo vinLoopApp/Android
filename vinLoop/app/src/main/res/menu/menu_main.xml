@@ -12,17 +12,16 @@
     -->
 
     <item
-        android:id="@+id/profile_button"
-        android:title="Profile"
+        android:id="@+id/favorites_button"
+        android:title="Favorites"
         android:icon="@android:drawable/ic_input_add"
         android:orderInCategory="100"
         app:showAsAction="always"/>
 
-
     <item
-        android:id="@+id/favorites_button"
-        android:title="Favorites"
-        android:icon="@android:drawable/ic_input_add"
+        android:id="@+id/profile_button"
+        android:title="Profile"
+        android:icon="@drawable/profile_outline_hdpi"
         android:orderInCategory="100"
         app:showAsAction="always"/>
 
