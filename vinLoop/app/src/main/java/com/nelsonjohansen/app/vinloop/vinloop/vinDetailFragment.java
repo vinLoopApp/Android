@@ -10,8 +10,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.NetworkImageView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by NelsonJ on 4/9/2015.
@@ -25,6 +33,8 @@ public class vinDetailFragment extends Fragment implements View.OnClickListener 
 
     private static Winery w;
     private static boolean fav = false;
+    private static final String TAG = "details";
+    private static final String url = "http://zoomonby.com/vinLoop/wineryTable.php";
 
     public static vinDetailFragment newInstance(int index, String name, String distance, String dealText) {
 
@@ -85,6 +95,46 @@ public class vinDetailFragment extends Fragment implements View.OnClickListener 
             // the view hierarchy; it would just never be used.
             return null;
         }
+
+        final Winery winery = new Winery();
+
+        Log.d("Pulling from db: ", "true");
+        // Creating volley request obj
+        JsonArrayRequest vinReq = new JsonArrayRequest(url,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        Log.d(TAG, response.toString());
+                        //hidePDialog();
+
+                        // Parsing json
+                        for (int i = 0; i < response.length(); i++) {
+                            try {
+
+                                //name,address,phone,weburl,bio
+
+                                JSONObject obj = response.getJSONObject(i);
+
+
+                                // adding winery to wineries array
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+
+                        // notifying list adapter about data changes
+                        // so that it renders the list view with updated data
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d(TAG, "Error: " + error.getMessage());
+                //hidePDialog();
+
+            }
+        });
 
         Log.d("items", getShownName() + " " + getShownDist() + " " + getShownDealText() + " " + getShownIndex());
 

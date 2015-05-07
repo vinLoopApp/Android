@@ -1,6 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
 
     <!-- Search, should appear as action button -->
     <!--
@@ -14,14 +15,14 @@
     <item
         android:id="@+id/favorites_button"
         android:title="Favorites"
-        android:icon="@android:drawable/ic_input_add"
+        android:icon="@drawable/ic_heart_xxhdpi"
         android:orderInCategory="100"
         app:showAsAction="always"/>
 
     <item
         android:id="@+id/profile_button"
         android:title="Profile"
-        android:icon="@drawable/profile_outline_hdpi"
+        android:icon="@drawable/ic_profile_xxhdpi"
         android:orderInCategory="100"
         app:showAsAction="always"/>
 

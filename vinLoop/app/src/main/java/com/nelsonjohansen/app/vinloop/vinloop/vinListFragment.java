@@ -1,14 +1,17 @@
 package com.nelsonjohansen.app.vinloop.vinloop;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,6 +25,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -49,7 +53,7 @@ public class vinListFragment extends ListFragment{
     private static final int REQUEST_FILTERS = 0;
 
     // Crime json url
-    private static final String url = "http://www.pandodroid.com/wine/jTest.php";
+    private static final String url = "http://zoomonby.com/vinLoop/dealTable.php";
     private static Context mAppContext;
     private ProgressDialog pDialog;
     private ArrayList<Winery> wineryList = new ArrayList<>();
@@ -224,50 +228,92 @@ public class vinListFragment extends ListFragment{
         adapter = new WineryAdapter(wineryList);
         setListAdapter(adapter);
 
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setLogo(R.drawable.logo_xhdpi);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayUseLogoEnabled(true);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
+
         mFilterHelper = new filterHelper();
 
         final SearchView searchView = (SearchView) getActivity().findViewById(R.id.search);
+        final int id = searchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
+        final TextView textView = (TextView) searchView.findViewById(id);
         //remove blue line below search text in search view.
         int searchPlateId = searchView.getContext().getResources()
                 .getIdentifier("android:id/search_plate", null, null);
         View searchPlateView = searchView.findViewById(searchPlateId);
         if (searchPlateView != null) {
-            //searchPlateView.setBackgroundColor(getResources().getColor(R.color.searchbar_background_color_lighter));
+            searchPlateView.setBackgroundColor(getResources().getColor(R.color.searchbar_background_color_lighter));
         }
-        searchView.setQueryHint(" Search");
+        searchView.setQueryHint(" Search by Location or Winery ");
         searchView.clearFocus();
         searchView.setIconifiedByDefault(false);
+
+        searchView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                textView.setCursorVisible(true);
+            }
+        });
+
+        searchView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                textView.setCursorVisible(true);
+            }
+        });
+
+        searchView.setOnSearchClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                textView.setCursorVisible(true);
+            }
+        });
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextChange(String query) {
+
+                textView.setCursorVisible(true);
+
                 if(!TextUtils.isEmpty(query)) {
                     adapter.getFilter().filter(query.toString());
                     return true;
                 } else {
                     adapter.getFilter().filter(query.toString());
                     searchView.clearFocus();
+                    textView.setCursorVisible(false);
                     return true;
                 }
             }
 
             @Override
             public boolean onQueryTextSubmit(String query) {
+
+                textView.setCursorVisible(true);
+
                 if(!TextUtils.isEmpty(query)) {
                     adapter.getFilter().filter(query.toString());
                     searchView.clearFocus();
                     return true;
                 }
                 searchView.clearFocus();
+                textView.setCursorVisible(false);
                 return false;
             }
 
         });
 
+        //Applies white color on searchview text
+        textView.setHintTextColor(getResources().getColor(R.color.off_white));
+        textView.setTextColor(getResources().getColor(R.color.text_white));
+        textView.setCursorVisible(false);
+
         getActivity().getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
         );
 
-        final Button filterButton =  (Button) getActivity().findViewById(R.id.filter_button);
+        final ImageButton filterButton =  (ImageButton) getActivity().findViewById(R.id.filter_button);
         filterButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 FragmentManager fm = getActivity().getSupportFragmentManager();
@@ -306,17 +352,18 @@ public class vinListFragment extends ListFragment{
 
                                 JSONObject obj = response.getJSONObject(i);
                                 Winery winery = new Winery();
-
+                                winery.setDeal(obj.getString("title"));
                                 winery.setName(obj.getString("name"));
-                                winery.setDeal(obj.getString("deal"));
-                                winery.setLikes(obj.getString("likes"));
-                                winery.setThumbnailUrl(obj.getString("image"));
-                                winery.setOrigPrice(obj.getString("origPrice"));
-                                winery.setNewPrice(obj.getString("newPrice"));
-                                winery.setPriceRate(obj.getString("priceRate"));
-                                winery.setOrigPrice(obj.getString("origPrice"));
-                                winery.setLatitude(obj.getString("lat"));
-                                winery.setLatitude(obj.getString("lng"));
+                                winery.setNewPrice(obj.getString("price"));
+                                winery.setLikes(obj.getString("gets"));
+                                winery.setLatitude(obj.getString("latitude"));
+                                winery.setLongitude(obj.getString("longitude"));
+                                winery.setByAppt(obj.getString("byappt"));
+                                winery.setByWalk(obj.getString("bywalk"));
+                                winery.setVarietal(obj.getString("varietal"));
+                                winery.setThumbnailUrl(obj.getString("imgURL"));
+                                winery.setPriceRate(obj.getString("pricelevel"));
+                                winery.setOrigPrice(obj.getString("origprice"));
 
                                 // adding winery to wineries array
                                 wineryList.add(winery);
@@ -358,9 +405,9 @@ public class vinListFragment extends ListFragment{
             // In dual-pane mode, the list view highlights the selected item.
             getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
             // Make sure our UI is in the correct state.
+            Log.d("showing Detials page: ", "true");
             showDetails(mCurCheckPosition);
         }
-
     }
 
     /**
@@ -567,7 +614,7 @@ public class vinListFragment extends ListFragment{
 
                         for (int i = 0; i < mOriginalValue.size(); i++) {
                             Winery data = mOriginalValue.get(i);
-                            if (data.getName().toLowerCase().startsWith(constraint.toString())) {
+                            if (data.getName().toLowerCase().contains(constraint.toString())) {
                                 //Log.d("Showing data", data.getName().toLowerCase());
                                 FilteredArrList.add(data);
                             }

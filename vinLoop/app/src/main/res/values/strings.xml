@@ -63,8 +63,8 @@
     <string name="profile_first_name_hint"> First Name </string>
     <string name="profile_last_name_hint"> Last Name </string>
 
-    <string name="profile_address_title"> Address </string>
-    <string name="profile_address_hint_text"> Input Address </string>
+    <string name="profile_address_title"> ZIP Code </string>
+    <string name="profile_address_hint_text"> Input ZIP </string>
 
     <string name="profile_gender_title"> Gender </string>
     <string name="profile_gender_male_button_text"> Male </string>

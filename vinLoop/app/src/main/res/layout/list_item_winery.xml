@@ -14,12 +14,19 @@
         android:layout_alignParentStart="true"
         android:contentDescription="Thumbnail"
         android:paddingRight="5dp"
-        />
+    />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_toEndOf="@+id/winery_list_item_iconNetworkImageView">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
+        android:gravity="top"
         android:layout_toEndOf="@+id/winery_list_item_iconNetworkImageView"
         android:id="@+id/linearLayout1">
 
@@ -28,9 +35,8 @@
             android:id="@+id/winery_list_item_dealTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_toEndOf="@id/winery_list_item_iconNetworkImageView"
             android:ellipsize="marquee"
+            android:textStyle="bold"
             android:singleLine="true"
             android:text="Deal" />
 
@@ -39,23 +45,39 @@
             android:id="@+id/winery_list_item_locTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignWithParentIfMissing="true"
-            android:layout_toEndOf="@id/winery_list_item_iconNetworkImageView"
             android:gravity="center_vertical"
             android:text="Location"
             android:textSize="12sp"/>
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="vertical"
+        android:orientation="horizontal"
+        android:gravity="bottom"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/winery_list_item_iconNetworkImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="3dp"
         android:id="@+id/linearLayout2">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Price"
+            android:gravity="left"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:text="Gets"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text="Distance"/>
+    </LinearLayout>
+
     </LinearLayout>
 
 </RelativeLayout>

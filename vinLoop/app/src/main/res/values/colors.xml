@@ -3,17 +3,18 @@
 
     <!-- General purpose colors -->
     <color name="dark_purple">#4e0123</color>
-    <color name="new_purple">#4a285d</color>
+    <color name="new_purple">#934666</color>
     <color name="light_purple">#700f3a</color>
     <color name="text_white">#ffffff</color>
     <color name="text_black">#000000</color>
     <color name="gold">#ff9b07</color>
     <color name="solid_line_color">#c0c0c0</color>
+    <color name="off_white">#fdf9f3</color>
 
     <!-- Main List colors -->
     <color name="actionbar_searchbar_background_color">@color/new_purple</color>
-    <color name="searchbar_background_color_darker">#acb62d</color>
-    <color name="searchbar_background_color_lighter">#b5bf32</color>
+    <color name="searchbar_background_color_darker">#4e0123</color>
+    <color name="searchbar_background_color_lighter">#4e0123</color>
     <color name="list_spacer_color">#807688</color>
 
     <!-- Details page colors -->

@@ -97,16 +97,19 @@ public class vinFavoritesFragment extends ListFragment {
 
                                 if(favorite != null) {
                                     Winery winery = new Winery();
+
+                                    winery.setDeal(obj.getString("title"));
                                     winery.setName(obj.getString("name"));
-                                    winery.setDeal(obj.getString("deal"));
-                                    winery.setLikes(obj.getString("likes"));
-                                    winery.setThumbnailUrl(obj.getString("image"));
-                                    winery.setOrigPrice(obj.getString("origPrice"));
-                                    winery.setNewPrice(obj.getString("newPrice"));
-                                    winery.setPriceRate(obj.getString("priceRate"));
-                                    winery.setOrigPrice(obj.getString("origPrice"));
-                                    winery.setLatitude(obj.getString("lat"));
-                                    winery.setLatitude(obj.getString("lng"));
+                                    winery.setNewPrice(obj.getString("price"));
+                                    winery.setLikes(obj.getString("gets"));
+                                    winery.setLatitude(obj.getString("latitude"));
+                                    winery.setLongitude(obj.getString("longitude"));
+                                    winery.setByAppt(obj.getString("byappt"));
+                                    winery.setByWalk(obj.getString("bywalk"));
+                                    winery.setVarietal(obj.getString("varietal"));
+                                    //winery.setThumbnailUrl(obj.getString("imgURL"));
+                                    winery.setPriceRate(obj.getString("pricelevel"));
+                                    winery.setOrigPrice(obj.getString("origprice"));
 
                                     // adding winery to wineries array
                                     wineryList.add(winery);

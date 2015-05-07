@@ -18,10 +18,37 @@ public class Winery {
     private String likes;
     private String latitude;
     private String longitude;
+    private String byAppt;
+    private String byWalk;
+    private String varietal;
 
     //constructor
     public Winery(){
         mID = UUID.randomUUID();
+    }
+
+    public String getByAppt() {
+        return byAppt;
+    }
+
+    public void setByAppt(String byAppt) {
+        this.byAppt = byAppt;
+    }
+
+    public String getByWalk() {
+        return byWalk;
+    }
+
+    public void setByWalk(String byWalk) {
+        this.byWalk = byWalk;
+    }
+
+    public String getVarietal() {
+        return varietal;
+    }
+
+    public void setVarietal(String varietal) {
+        this.varietal = varietal;
     }
 
     public String getOrigPrice() {

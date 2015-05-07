@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -82,36 +84,50 @@ public class vinProfileFragment extends Fragment implements View.OnClickListener
 
         View v = inflater.inflate(R.layout.profile_fragment, parent, false);
 
-        EditText firstName = (EditText) v.findViewById(R.id.firstNameInput);
-        firstName.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Log.d("testing", " ");
+        final EditText firstName = (EditText) v.findViewById(R.id.firstNameInput);
+        firstName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Log.d("String input: ", firstName.getText().toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        firstName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                firstName.setText("Moo");
+            }
+        });
+
+        final EditText lastName = (EditText) v.findViewById(R.id.lastNameInput);
+        lastName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Log.d("String input: ", lastName.getText().toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
 
             }
         });
 
 
-        /*final Button favButton = (Button) v.findViewById(R.id.detailFavButton);
-        favButton.setOnClickListener(this);
-
-        ImageLoader imageLoader = volleySingleton.getInstance().getImageLoader();
-
-        NetworkImageView thumbNail = (NetworkImageView) v
-                .findViewById(R.id.details_winery_list_item_iconNetworkImageView);
-
-        thumbNail.setImageUrl("http://mthoodwinery.com/wp-content/uploads/2014/11/Winery-rows.jpg", imageLoader);*/
-
-        //http://stackoverflow.com/questions/21691656/solved-google-maps-mapfragment-causing-the-app-to-crash
-
-        //TextView deal = (TextView) v.findViewById(R.id.details_deal);
-
-        //LinearLayout transLayout = (LinearLayout) v.findViewById(R.id.linear_layout_details_fragment_child);
-        //transLayout.setAlpha((float)0.8);
-
-        //if need to have bold and non-bold etc.. this will bring text in exactly as formated on db
-        //mytextview.setText(Html.fromHtml(sourceString));
-
-        //deal.setText(String.valueOf(getShownIndex()));
         return v;
     }
 }
