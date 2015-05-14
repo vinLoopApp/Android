@@ -5,7 +5,7 @@ android {
     buildToolsVersion "21.1.2"
     defaultConfig {
         applicationId "com.nelsonjohansen.app.vinloop.vinloop"
-        minSdkVersion 17
+        minSdkVersion 14
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"

@@ -6,6 +6,7 @@
     <string name="action_search"> Search </string>
     <string name="search_title"> Search by Winery Name or Location </string>
     <string name="search_hint"> Winery or Location </string>
+    <string name="facebook_app_id">1580780188842932</string>
 
     <!-- Strings handling details activity/fragment -->
     <string name="details_image_top"> Thumbnail </string>
@@ -64,17 +65,19 @@
     <string name="profile_last_name_hint"> Last Name </string>
 
     <string name="profile_address_title"> ZIP Code </string>
-    <string name="profile_address_hint_text"> Input ZIP </string>
+    <string name="profile_address_hint_text"> ZIP </string>
 
     <string name="profile_gender_title"> Gender </string>
     <string name="profile_gender_male_button_text"> Male </string>
     <string name="profile_gender_female_button_text"> Female </string>
+    <string name="profile_gender_other_button_text"> Other </string>
+    <string name="profile_gender_hint"> Gender </string>
 
     <string name="profile_birthday_title"> Birthday </string>
-    <string name="profile_birthday_hint"> Add a Birthday </string>
+    <string name="profile_birthday_hint"> 7/11/1989 </string>
 
     <string name="profile_email_title"> Email </string>
-    <string name="profile_email_hint"> Input Email </string>
+    <string name="profile_email_hint"> Email </string>
 
     <string name="profile_notifications_switch"> Notifications </string>
 

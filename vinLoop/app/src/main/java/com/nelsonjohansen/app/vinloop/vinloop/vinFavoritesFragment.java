@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v4.app.ListFragment;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -159,7 +160,11 @@ public class vinFavoritesFragment extends ListFragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         menu.clear();
+
         inflater.inflate(R.menu.menu_favorites, menu);
+
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(true);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Favorites");
 
         //http://stackoverflow.com/questions/24794377/android-capture-searchview-text-clear-by-clicking-x-button
 
@@ -218,17 +223,14 @@ public class vinFavoritesFragment extends ListFragment {
                 imageLoader = volleySingleton.getInstance().getImageLoader();
 
             ListView listView = getListView();
+            //listView.setEmptyView(getActivity().findViewById(R.id.empty_list_view));
             ColorDrawable myColor = new ColorDrawable(
                     getResources().getColor(R.color.list_spacer_color)
             );
 
-            TextView emptyText = new TextView(getContext());
-
-            emptyText.setText("No favorites selected yet!");
-            listView.setEmptyView(emptyText);
-
             listView.setDivider(myColor);
             listView.setDividerHeight(10);
+
 
             NetworkImageView thumbNail = (NetworkImageView) convertView
                     .findViewById(R.id.winery_list_item_iconNetworkImageView);
@@ -259,6 +261,8 @@ public class vinFavoritesFragment extends ListFragment {
 
             // release year
             //dist.setText(String.valueOf(w.getDist()));
+
+            setEmptyText("No Favorites Yet!");
 
             return convertView;
 

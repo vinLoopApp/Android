@@ -1,15 +1,14 @@
 package com.nelsonjohansen.app.vinloop.vinloop;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.location.Location;
+import android.location.LocationListener;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -22,7 +21,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageButton;
@@ -36,21 +34,33 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.NetworkImageView;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 
-public class vinListFragment extends ListFragment{
+public class vinListFragment extends ListFragment
+                            implements GoogleApiClient.ConnectionCallbacks,
+                                       GoogleApiClient.OnConnectionFailedListener,
+                                       LocationListener{
 
     // Log tag
     private static final String TAG = vinDetailActivity.class.getSimpleName();
     private static final String DIALOG_FILTER_REQUEST = "DialogFilterRequest";
     private static final String TEST_DIALOG = "TestDialog";
     private static final int REQUEST_FILTERS = 0;
+
+    public static final int OUT_OF_SERVICE = 0;
+    public static final int TEMPORARILY_UNAVAILABLE = 1;
+    public static final int AVAILABLE = 2;
 
     // Crime json url
     private static final String url = "http://zoomonby.com/vinLoop/dealTable.php";
@@ -61,6 +71,8 @@ public class vinListFragment extends ListFragment{
     private ListView listView;
     private Callbacks mCallbacks;
     private filterHelper mFilterHelper;
+    GoogleApiClient mGoogleApiClient;
+    Location mLastLocation;
 
     boolean filterPrice1;
     boolean filterPrice2;
@@ -97,6 +109,61 @@ public class vinListFragment extends ListFragment{
         super.onDetach();
         mCallbacks = null;
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        stopLocationUpdates();
+    }
+
+    protected void stopLocationUpdates() {
+        //LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+    }
+
+    protected synchronized void buildGoogleApiClient() {
+        mGoogleApiClient = new GoogleApiClient.Builder(getActivity().getApplicationContext())
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+
+    }
+
+    @Override
+    public void onConnected(Bundle bundle) {
+        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
+                mGoogleApiClient);
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+        // called when the GPS provider is turned off (user turning off the GPS on the phone)
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+        // called when the GPS provider is turned on (user turning on the GPS on the phone)
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+        // called when the status of the GPS provider changes
+    }
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -228,10 +295,37 @@ public class vinListFragment extends ListFragment{
         adapter = new WineryAdapter(wineryList);
         setListAdapter(adapter);
 
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setLogo(R.drawable.logo_xhdpi);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayUseLogoEnabled(true);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
+        mGoogleApiClient = new GoogleApiClient.Builder(getActivity().getApplicationContext())
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+
+        /*FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
+
+        final LoginButton loginButton;
+        loginButton = (LoginButton) getActivity().findViewById(R.id.login_button);
+        loginButton.setReadPermissions("public_profile","user_friends");
+        loginButton.setFragment(this);
+
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                loginResult.getAccessToken();
+
+
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+
+            }
+        });*/
 
         mFilterHelper = new filterHelper();
 
@@ -361,7 +455,7 @@ public class vinListFragment extends ListFragment{
                                 winery.setByAppt(obj.getString("byappt"));
                                 winery.setByWalk(obj.getString("bywalk"));
                                 winery.setVarietal(obj.getString("varietal"));
-                                winery.setThumbnailUrl(obj.getString("imgURL"));
+                                //winery.setThumbnailUrl(obj.getString("imgURL"));
                                 winery.setPriceRate(obj.getString("pricelevel"));
                                 winery.setOrigPrice(obj.getString("origprice"));
 
@@ -407,6 +501,15 @@ public class vinListFragment extends ListFragment{
             // Make sure our UI is in the correct state.
             Log.d("showing Detials page: ", "true");
             showDetails(mCurCheckPosition);
+        }
+
+        if(((AppCompatActivity) getActivity()).getSupportActionBar() != null) {
+
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setLogo(R.drawable.logo_xhdpi);
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayUseLogoEnabled(true);
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
+
         }
     }
 

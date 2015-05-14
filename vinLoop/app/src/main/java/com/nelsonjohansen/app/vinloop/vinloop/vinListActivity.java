@@ -1,11 +1,7 @@
 package com.nelsonjohansen.app.vinloop.vinloop;
 
-import android.app.SearchManager;
-import android.content.Context;
 import android.support.v4.app.Fragment;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.widget.SearchView;
+
 
 /**
  * Created by NelsonJ on 3/30/2015.
@@ -16,6 +12,16 @@ public class vinListActivity extends FragmentInitializeActivity
     @Override
     protected Fragment createFragment(){
         return new vinListFragment();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
     }
 
     @Override

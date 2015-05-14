@@ -25,6 +25,7 @@
         <item name="android:actionOverflowButtonStyle">@color/text_white</item>
         <item name="android:title">@string/app_name</item>
         <item name="android:icon">@drawable/logo_hdpi</item>
+        <item name="android:titleTextStyle">@style/ProjActionBar.TitleTextStyle</item>
         <item name="android:height">@dimen/bar_height</item>
 
         <!-- Support library compatibility -->
@@ -32,7 +33,13 @@
         <item name="actionOverflowButtonStyle">@color/text_white</item>
         <item name="title">@string/app_name</item>
         <item name="icon">@drawable/logo_hdpi</item>
+        <item name="titleTextStyle">@style/ProjActionBar.TitleTextStyle</item>
         <item name="height">@dimen/bar_height</item>
+    </style>
+
+    <style name="ProjActionBar.TitleTextStyle" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/text_white</item>
+        <item name="android:textSize">24sp</item>
     </style>
 
 
