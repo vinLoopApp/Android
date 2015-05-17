@@ -329,6 +329,8 @@ public class vinListFragment extends ListFragment
 
         mFilterHelper = new filterHelper();
 
+        //http://stackoverflow.com/questions/11276043/how-to-add-a-searchwidget-to-the-actionbar
+
         final SearchView searchView = (SearchView) getActivity().findViewById(R.id.search);
         final int id = searchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
         final TextView textView = (TextView) searchView.findViewById(id);
@@ -339,7 +341,7 @@ public class vinListFragment extends ListFragment
         if (searchPlateView != null) {
             searchPlateView.setBackgroundColor(getResources().getColor(R.color.searchbar_background_color_lighter));
         }
-        searchView.setQueryHint(" Search by Location or Winery ");
+        searchView.setQueryHint(" Search by Location, Winery or Deal");
         searchView.clearFocus();
         searchView.setIconifiedByDefault(false);
 
@@ -399,6 +401,7 @@ public class vinListFragment extends ListFragment
         });
 
         //Applies white color on searchview text
+        textView.setTextSize(14);
         textView.setHintTextColor(getResources().getColor(R.color.off_white));
         textView.setTextColor(getResources().getColor(R.color.text_white));
         textView.setCursorVisible(false);
@@ -455,7 +458,7 @@ public class vinListFragment extends ListFragment
                                 winery.setByAppt(obj.getString("byappt"));
                                 winery.setByWalk(obj.getString("bywalk"));
                                 winery.setVarietal(obj.getString("varietal"));
-                                //winery.setThumbnailUrl(obj.getString("imgURL"));
+                                winery.setThumbnailUrl(obj.getString("imgURL"));
                                 winery.setPriceRate(obj.getString("pricelevel"));
                                 winery.setOrigPrice(obj.getString("origprice"));
 
@@ -505,10 +508,17 @@ public class vinListFragment extends ListFragment
 
         if(((AppCompatActivity) getActivity()).getSupportActionBar() != null) {
 
-            ((AppCompatActivity) getActivity()).getSupportActionBar().setLogo(R.drawable.logo_xhdpi);
-            ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayUseLogoEnabled(true);
-            ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+            LayoutInflater inflator = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View v = inflator.inflate(R.layout.action_bar_custom, null);
+
+            //((AppCompatActivity) getActivity()).getSupportActionBar().setLogo(R.drawable.logo186x62);
+            //((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayUseLogoEnabled(true);
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(false);
             ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowCustomEnabled(true);
+
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setCustomView(v);
 
         }
     }
