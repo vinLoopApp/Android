@@ -9,6 +9,7 @@ public class Winery {
 
     private UUID mID;
     private String name;
+    private String address;
     private String deal;
     private String dist;
     private String thumbnailUrl;
@@ -20,11 +21,46 @@ public class Winery {
     private String longitude;
     private String byAppt;
     private String byWalk;
+    private String phoneNum;
+    private String webURL;
+    private String bio;
     private String varietal;
 
     //constructor
     public Winery(){
         mID = UUID.randomUUID();
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public String getWebURL() {
+        return webURL;
+    }
+
+    public void setWebURL(String webURL) {
+        this.webURL = webURL;
+    }
+
+    public String getPhoneNum() {
+        return phoneNum;
+    }
+
+    public void setPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getByAppt() {

@@ -289,6 +289,7 @@ public class vinListFragment extends ListFragment
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        setRetainInstance(true);
 
         //listView = (ListView) findViewById(R.id.listView);
         //final WineryAdapter adapter = new WineryAdapter(wineryList);

@@ -12,10 +12,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 
 public class vinDetailActivity extends FragmentActivity {
 
-    private static vinDetailActivity mInstance;
-    private static Context mAppContext;
-
-    // Log tag
+    //Log tag
     private static final String TAG = vinDetailActivity.class.getSimpleName();
 
     @Override
@@ -26,11 +23,7 @@ public class vinDetailActivity extends FragmentActivity {
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.detailFragmentContainer);
 
-        //vinDetailFragment details = new vinDetailFragment();
-        //details.setArguments(getIntent().getExtras());
-
         if(fragment == null){
-            //fragment = new vinDetailFragment();
             vinDetailFragment details = new vinDetailFragment();
             Log.d("fragmentArgsSetNull", "");
             details.setArguments(getIntent().getExtras());
@@ -39,17 +32,9 @@ public class vinDetailActivity extends FragmentActivity {
                     .commit();
         }else {
             Log.d("fragmentArgsSetNonNull", "");
-            fragment.setArguments(getIntent().getExtras());
+            //trying to reset arguments when orientation changes, causes crash and probably bad idea!
+            //fragment.setArguments(getIntent().getExtras());
         }
-
-        //getSupportFragmentManager().beginTransaction().add(R.id.detailFragmentContainer, details).commit();
-
-        /*final Button favButton = (Button) findViewById(R.id.favorites_button);
-        favButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Log.d("favButton", " clicked");
-            }
-        });*/
 
         SupportMapFragment mMapFragment = (SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.details_map);
 

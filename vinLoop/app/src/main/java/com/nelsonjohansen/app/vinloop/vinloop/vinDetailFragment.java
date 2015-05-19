@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -20,6 +21,7 @@ import com.android.volley.toolbox.NetworkImageView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 /**
  * Created by NelsonJ on 4/9/2015.
@@ -31,10 +33,14 @@ public class vinDetailFragment extends Fragment implements View.OnClickListener 
     public static final String EXTRA_WINERY_ID =
             "com.nelsonjohansen.app.vinloop.winery_id";
 
-    private static Winery w;
+    private static final Winery w = new Winery();
     private static boolean fav = false;
     private static final String TAG = "details";
     private static final String url = "http://zoomonby.com/vinLoop/wineryTable.php";
+
+    NetworkImageView thumbNail;
+    TextView dealLoc;
+    TextView dealTitle;
 
     public static vinDetailFragment newInstance(int index, String name, String distance, String dealText) {
 
@@ -63,23 +69,72 @@ public class vinDetailFragment extends Fragment implements View.OnClickListener 
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+
+        //setup winery data structure to hold info from JSON
+
+        Log.d("Pulling from db: ", "true");
+
+        // Creating volley request obj
+        JsonArrayRequest vinReq = new JsonArrayRequest(url,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        Log.d(TAG, response.toString());
+                        //hidePDialog();
+
+                        // Parsing json
+                        for (int i = 0; i < response.length(); i++) {
+                            try {
+
+                                JSONObject obj = response.getJSONObject(i);
+
+                                String winName = obj.getString("name");
+
+                                Log.d(winName, getShownName());
+
+                                if(getShownName().toLowerCase().equals(winName.toLowerCase())) {
+                                    Log.d("creating winery ", getShownName());
+                                    w.setName(winName);
+                                    w.setAddress(obj.getString("address"));
+                                    w.setPhoneNum(obj.getString("phone"));
+                                    w.setWebURL(obj.getString("weburl"));
+                                    w.setBio(obj.getString("bio"));
+
+                                    initialize();
+
+                                    //found our winery so stop search
+                                    break;
+                                }
+
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+
+                        // notifying list adapter about data changes
+                        // so that it renders the list view with updated data
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d(TAG, "Error: " + error.getMessage());
+                //hidePDialog();
+
+            }
+        });
+
+        // Adding request to request queue, start async
+        volleySingleton.getInstance().addToRequestQueue(vinReq);
 
     }
 
-    @Override
-    public void onClick(View v){
-        //user has selected to favorite this winery, add it to the users favorites file
-        Log.d("Favorite add/removed", " ");
-        Context context = getActivity();
-        SharedPreferences sharedPref = context.getSharedPreferences(
-                getString(R.string.get_favorites_list_file), Context.MODE_PRIVATE);
-
-        SharedPreferences.Editor editor = sharedPref.edit();
-        //user winery name as key since winery name should be unique for the moment
-        //may need to use wineryUniqueID.
-        editor.putString(getShownName(), String.valueOf(!fav));
-        editor.commit();
-
+    private void initialize(){
+        dealTitle.setText(getShownDealText());
+        dealLoc.setText(w.getName());
     }
 
     @Override
@@ -96,46 +151,6 @@ public class vinDetailFragment extends Fragment implements View.OnClickListener 
             return null;
         }
 
-        final Winery winery = new Winery();
-
-        Log.d("Pulling from db: ", "true");
-        // Creating volley request obj
-        JsonArrayRequest vinReq = new JsonArrayRequest(url,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        Log.d(TAG, response.toString());
-                        //hidePDialog();
-
-                        // Parsing json
-                        for (int i = 0; i < response.length(); i++) {
-                            try {
-
-                                //name,address,phone,weburl,bio
-
-                                JSONObject obj = response.getJSONObject(i);
-
-
-                                // adding winery to wineries array
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
-                        }
-
-                        // notifying list adapter about data changes
-                        // so that it renders the list view with updated data
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                VolleyLog.d(TAG, "Error: " + error.getMessage());
-                //hidePDialog();
-
-            }
-        });
-
         Log.d("items", getShownName() + " " + getShownDist() + " " + getShownDealText() + " " + getShownIndex());
 
         View v = inflater.inflate(R.layout.detail_fragment, parent, false);
@@ -145,23 +160,38 @@ public class vinDetailFragment extends Fragment implements View.OnClickListener 
 
         ImageLoader imageLoader = volleySingleton.getInstance().getImageLoader();
 
-        NetworkImageView thumbNail = (NetworkImageView) v
+        thumbNail = (NetworkImageView) v
                 .findViewById(R.id.details_winery_list_item_iconNetworkImageView);
 
         thumbNail.setImageUrl("http://mthoodwinery.com/wp-content/uploads/2014/11/Winery-rows.jpg", imageLoader);
 
+        dealTitle = (TextView) v.findViewById(R.id.details_deal_title);
+
+        dealLoc = (TextView) v.findViewById(R.id.details_deal_location);
+
         //http://stackoverflow.com/questions/21691656/solved-google-maps-mapfragment-causing-the-app-to-crash
 
-        //TextView deal = (TextView) v.findViewById(R.id.details_deal);
-
-        //LinearLayout transLayout = (LinearLayout) v.findViewById(R.id.linear_layout_details_fragment_child);
-        //transLayout.setAlpha((float)0.8);
-
-        //if need to have bold and non-bold etc.. this will bring text in exactly as formated on db
+        //If need to have bold and non-bold etc.. this will bring text in exactly as formated on db
         //mytextview.setText(Html.fromHtml(sourceString));
 
-        //deal.setText(String.valueOf(getShownIndex()));
         return v;
+    }
+
+    @Override
+    public void onClick(View v){
+        //user has selected to favorite this winery, add it to the users favorites file
+        Log.d("Favorite add/removed", " ");
+        Context context = getActivity();
+        SharedPreferences sharedPref = context.getSharedPreferences(
+                getString(R.string.get_favorites_list_file), Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = sharedPref.edit();
+        //user winery name as key since winery name should be unique for the moment
+
+        //may need to use wineryUniqueID.
+        editor.putString(getShownName(), String.valueOf(!fav));
+        editor.apply();
+
     }
 
 }

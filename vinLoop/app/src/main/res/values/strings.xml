@@ -16,13 +16,13 @@
     <string name="details_preview_deal_orig_price"> $34.50 </string>
     <string name="details_preview_deal_new_price"> $15 </string>
 
-    <string name="details_discount_title_text"> Discount: </string>
+    <string name="details_discount_title_text"> Discount:  </string>
     <string name="details_discount_text_preview"> 57% </string>
 
-    <string name="details_bought_title_text"> Bought: </string>
+    <string name="details_bought_title_text"> Bought:  </string>
     <string name="details_bought_text_preview"> 70+ </string>
 
-    <string name="details_availability_preview"> Limited Availability </string>
+    <string name="details_availability_preview"> Gets:  </string>
 
     <string name="details_deal_description_title_text"> Deal Description </string>
     <string name="details_deal_description_preview"> See up to 40 museum-quality dinosaurs\nmodels, some of which move and roar at\nvisitors\' command; kids pan for fossils and\ngems in a mine area </string>

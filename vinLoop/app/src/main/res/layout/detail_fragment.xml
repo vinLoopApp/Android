@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -8,11 +8,11 @@
 
     <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:id="@+id/scrollViewIn"
-        android:layout_weight="3"
         android:fillViewport="false"
         android:background="@color/detail_main_background_color">
+
         <!-- scroll view can only contain a single child element -->
         <LinearLayout
             android:layout_width="fill_parent"
@@ -25,15 +25,14 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_weight="3"
+            android:layout_weight="4"
             android:background="@color/detail_items_background">
 
                 <com.android.volley.toolbox.NetworkImageView
                     android:id="@+id/details_winery_list_item_iconNetworkImageView"
                     android:layout_width="fill_parent"
-                    android:layout_height="0dp"
-                    android:contentDescription="@string/details_image_top"
-                    android:layout_weight = "4">
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/details_image_top">
                 </com.android.volley.toolbox.NetworkImageView>
 
                 <!-- Container for title and location -->
@@ -47,19 +46,19 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_marginLeft="6dp"
+                    android:layout_marginLeft="18dp"
                     android:layout_marginRight="6dp"
-                    android:layout_marginTop="6dp">
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp">
 
                     <TextView
                         android:id="@+id/details_deal_title"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/details_preview_deal_title"
-                        android:layout_weight="3"
                         android:maxLines="3"
                         android:textStyle="bold"
                         android:layout_marginBottom="3dp"
+                        android:text="2 for 1 Tasting"
                         android:gravity="left"
                         android:layout_gravity="center">
                     </TextView>
@@ -68,8 +67,7 @@
                         android:id="@+id/details_deal_location"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/details_preview_deal_location"
-                        android:layout_weight="1"
+                        android:text="St. Supreme Cellars, Yountville, CA"
                         android:gravity="left"
                         android:layout_gravity="center">
                     </TextView>
@@ -78,95 +76,85 @@
 
                 <!-- Container for deal price cut, discount, number bought and availability -->
 
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/detail_spacer_line"/>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
                     android:layout_marginLeft="6dp"
-                    android:layout_marginRight="6dp">
+                    android:layout_marginRight="6dp"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginTop="6dp">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginBottom="6dp"
-                        android:layout_marginTop="6dp">
-
-                        <TextView
-                            android:id="@+id/details_deal_original_price"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/details_preview_deal_orig_price"
-                            android:gravity="left"
-                            android:layout_gravity="left">
-                        </TextView>
-
-                        <TextView
-                            android:id="@+id/details_deal_new_price"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/details_preview_deal_new_price"
-                            android:paddingRight="3dp">
-                        </TextView>
-
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="fill_parent"
-                        android:layout_height="2dp"
-                        android:background="@color/detail_spacer_line"/>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginBottom="6dp"
-                        android:layout_marginTop="6dp">
+                        android:layout_marginLeft="35dp"
+                        android:layout_weight="1">
 
                         <TextView
                             android:id="@+id/deals_discount_static_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/details_discount_title_text"
-                            android:layout_weight="1"
-                            android:gravity="left">
+                            android:text="@string/details_discount_title_text">
                         </TextView>
 
                         <TextView
                             android:id="@+id/details_deal_discount_percent"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/details_discount_text_preview"
-                            android:layout_weight="1"
-                            android:layout_toEndOf="@id/deals_discount_static_text">
+                            android:layout_marginLeft="5dp"
+                            android:layout_gravity="end"
+                            android:text="@string/details_discount_text_preview">
                         </TextView>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
 
                         <TextView
                             android:id="@+id/deals_bought_static_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/details_bought_title_text"
-                            android:layout_weight="1"
-                            android:layout_toEndOf="@id/details_deal_discount_percent">
+                            android:text="@string/details_bought_title_text">
                         </TextView>
 
                         <TextView
                             android:id="@+id/details_deal_num_bought"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
                             android:text="@string/details_bought_text_preview"
-                            android:layout_weight="1"
-                            android:layout_toEndOf="@id/deals_bought_static_text">
+                            >
+                        </TextView>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/details_deal_gets"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/details_availability_preview">
                         </TextView>
 
                         <TextView
-                            android:id="@+id/details_deal_availability"
+                            android:id="@+id/details_deal_gets_count"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/details_availability_preview"
-                            android:layout_weight="2"
-                            android:layout_toEndOf="@id/details_deal_num_bought">
-                        </TextView>
+                            android:layout_marginLeft="5dp"
+                            android:text="12+"/>
 
                     </LinearLayout>
 
@@ -196,7 +184,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_marginLeft="6dp"
+                    android:layout_marginLeft="18dp"
                     android:layout_marginRight="6dp"
                     android:layout_marginTop="6dp"
                     android:layout_marginBottom="6dp">
@@ -205,14 +193,21 @@
                         android:id="@+id/details_description_title"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="6dp"
                         android:text="@string/details_deal_description_title_text">
 
                     </TextView>
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/detail_spacer_line"/>
 
                     <TextView
                         android:id="@+id/details_description"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
                         android:text="@string/details_deal_description_preview">
                     </TextView>
 
@@ -248,13 +243,74 @@
                     android:id="@+id/details_map"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="3dp"
+                    android:layout_marginBottom="1dp"
                     android:layout_marginTop="0dp"
-                    android:layout_marginLeft="6dp"
-                    android:layout_marginRight="6dp">
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="0dp">
                 </FrameLayout>
 
             </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/detail_items_background"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/grape_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_marginBottom="6dp"/>
+
+                <TextView
+                    android:id="@+id/winery_street_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="text"
+                    android:layout_toRightOf="@id/grape_icon"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginBottom="6dp"/>
+
+                <View
+                    android:id="@+id/belowMapLine"
+                    android:layout_width="fill_parent"
+                    android:layout_height="2dp"
+                    android:layout_below="@id/winery_street_address"
+                    android:background="@color/detail_spacer_line"/>
+
+                <TextView
+                    android:id="@+id/phone_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginRight="18dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_below="@id/belowMapLine"
+                    android:text="text"/>
+
+                <ImageView
+                    android:id="@+id/phone_web_seperation_line"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/belowMapLine"
+                    android:layout_toRightOf="@id/phone_number"
+                    android:layout_marginTop="6dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/belowMapLine"
+                    android:layout_toRightOf="@id/phone_web_seperation_line"
+                    android:layout_marginRight="18dp"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginTop="6dp"
+                    android:text="text"/>
+
+            </RelativeLayout>
 
             <View
                 android:layout_width="fill_parent"
@@ -262,7 +318,6 @@
                 android:background="@color/detail_spacer_line"/>
 
             <!-- Container for the ____ text boxes -->
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -282,18 +337,24 @@
                     android:orientation="vertical"
                     android:layout_marginLeft="6dp"
                     android:layout_marginRight="6dp"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginBottom="6dp">
+                    android:layout_marginTop="6dp">
 
                     <TextView
                         android:id="@+id/details_bio"
+                        android:layout_marginBottom="6dp"
                         android:layout_width="fill_parent"
                         android:layout_height="match_parent"
                         android:text="@string/details_winery_bio_title_text">
                     </TextView>
 
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/detail_spacer_line"/>
+
                     <TextView
                         android:id="@+id/details_bio_content"
+                        android:layout_marginTop="6dp"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/details_winery_bio_preview_text">
@@ -303,10 +364,11 @@
 
             </LinearLayout>
 
+            <!-- This is so that the buttons will scroll past the bio so it is readable -->
             <View
                 android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:background="@color/detail_spacer_line"/>
+                android:layout_height="75dp"
+                android:background="@color/detail_main_background_color"/>
 
         </LinearLayout>
 
@@ -315,14 +377,18 @@
     <View
         android:layout_width="fill_parent"
         android:layout_height="1dp"
+        android:layout_below="@id/scrollViewIn"
+        android:id="@+id/lineBelowScroll"
         android:background="@color/solid_line_color"/>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_marginTop="6dp"
         android:id="@+id/linear_layout_details_fragment_child"
+        style="?android:attr/buttonBarStyle"
         >
 
         <Button
@@ -331,8 +397,11 @@
             android:text="@string/details_favorite_button_text"
             android:id="@+id/detailFavButton"
             android:layout_weight="1"
+            android:layout_marginTop="0dp"
+            android:layout_marginLeft="6dp"
             android:background="@color/detail_button_background"
-            android:textColor="@color/detail_button_text" />
+            android:textColor="@color/detail_button_text"
+            style="?android:attr/buttonBarButtonStyle"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -341,12 +410,12 @@
             android:id="@+id/detailGetButton"
             android:background="@color/detail_button_background"
             android:textColor="@color/detail_button_text"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_gravity="right"
             android:layout_weight="1"
-            android:layout_marginBottom="6dp"
             android:layout_marginTop="0dp"
             android:layout_marginLeft="6dp"
             android:layout_marginRight="6dp"/>
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>
