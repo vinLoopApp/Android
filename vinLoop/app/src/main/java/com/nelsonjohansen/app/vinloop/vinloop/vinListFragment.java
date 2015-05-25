@@ -24,6 +24,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -637,8 +638,8 @@ public class vinListFragment extends ListFragment
             listView.setDivider(myColor);
             listView.setDividerHeight(10);
 
-            NetworkImageView thumbNail = (NetworkImageView) convertView
-                    .findViewById(R.id.winery_list_item_iconNetworkImageView);
+            //NetworkImageView thumbNail = (NetworkImageView) convertView
+            //       .findViewById(R.id.winery_list_item_iconNetworkImageView);
 
             TextView name = (TextView) convertView.findViewById(R.id.winery_list_item_locTextView);
             TextView descr = (TextView) convertView.findViewById(R.id.winery_list_item_dealTextView);
@@ -656,7 +657,7 @@ public class vinListFragment extends ListFragment
             //thumbNail.setErrorImageResId(R.drawable.error);
 
             // thumbnail image
-            thumbNail.setImageUrl(w.getThumbnailUrl(), imageLoader);
+            //thumbNail.setImageUrl(w.getThumbnailUrl(), imageLoader);
 
             // name
             name.setText(w.getName());

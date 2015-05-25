@@ -2,26 +2,38 @@
     android:layout_width="fill_parent"
     android:layout_height="?android:attr/listPreferredItemHeight"
     android:descendantFocusability="blocksDescendants"
-    android:paddingTop="2.5dp"
-    android:paddingBottom="2.5dp"
-    android:paddingLeft="2.5dp"
-    android:paddingRight="2.5dp">
+    android:background="@color/text_white"
+    android:paddingTop="0dp"
+    android:paddingBottom="2.5dp">
 
-    <!-- Thumbnail Image -->
+    <!-- Thumbnail Image
     <com.android.volley.toolbox.NetworkImageView
         android:id="@+id/winery_list_item_iconNetworkImageView"
         android:layout_alignParentLeft="true"
-        android:layout_width="120dp"
-        android:layout_height="fill_parent"
-        android:paddingRight="5dp"
+        android:layout_width="fill_parent"
+        android:layout_height="250dp"
+        android:paddingRight="0dp"
         android:paddingLeft="0dp"
         android:layout_gravity="left"
-    />
+        android:scaleType="fitXY"
+    /> -->
+
+    <ImageView
+        android:id="@+id/winery_list_item_iconNetworkImageView"
+        android:layout_alignParentLeft="true"
+        android:layout_width="fill_parent"
+        android:layout_height="215dp"
+        android:paddingRight="0dp"
+        android:paddingLeft="0dp"
+        android:src="@drawable/photo6"
+        android:layout_gravity="left" />
 
     <LinearLayout
         android:id="@+id/LLdeal"
-        android:layout_marginRight="5dp"
-        android:layout_toRightOf="@id/winery_list_item_iconNetworkImageView"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/winery_list_item_iconNetworkImageView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -34,6 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textStyle="bold"
+            android:textSize="18sp"
             android:text="Deal" />
 
         <TextView
@@ -53,21 +66,21 @@
     <!-- Location/Winery Name -->
     <TextView
         android:id="@+id/winery_list_item_locTextView"
-        android:layout_toRightOf="@id/winery_list_item_iconNetworkImageView"
         android:layout_below="@id/LLdeal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
+        android:layout_marginLeft="15dp"
         android:text="Location"
         android:textSize="12sp"/>
 
     <TextView
         android:id="@+id/winery_list_item_locCityTextView"
-        android:layout_toRightOf="@id/winery_list_item_iconNetworkImageView"
         android:layout_below="@id/winery_list_item_locTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
+        android:layout_marginLeft="15dp"
         android:text="City"
         android:textSize="12sp"/>
 
@@ -92,10 +105,10 @@
     <LinearLayout
         android:layout_marginTop="10dp"
         android:layout_marginBottom="3dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:orientation="horizontal"
-        android:layout_toRightOf="@id/winery_list_item_iconNetworkImageView"
-        android:layout_alignBottom="@id/winery_list_item_iconNetworkImageView"
+        android:layout_below="@id/winery_list_item_locCityTextView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
 

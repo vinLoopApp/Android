@@ -15,7 +15,7 @@ import android.widget.Button;
 import android.widget.Switch;
 
 /**
- * Created by NelsonJ on 5/17/2015.
+ * Created by NelsonJ on 5/19/2015.
  */
 public class filterPickerDialogFragment extends DialogFragment {
 
