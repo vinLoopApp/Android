@@ -25,6 +25,7 @@
         android:layout_height="215dp"
         android:paddingRight="0dp"
         android:paddingLeft="0dp"
+        android:scaleType="fitXY"
         android:src="@drawable/photo6"
         android:layout_gravity="left" />
 
@@ -81,7 +82,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:layout_marginLeft="15dp"
-        android:text="City"
+        android:text="Napa, CA"
         android:textSize="12sp"/>
 
     <TextView

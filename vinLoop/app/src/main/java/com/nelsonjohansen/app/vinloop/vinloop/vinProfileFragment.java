@@ -15,13 +15,25 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 
 /**
  * Created by NelsonJ on 4/27/2015.
  */
 public class vinProfileFragment extends Fragment implements View.OnClickListener {
+
+    private final static String profileFirstNameKey = "PROFILE_FIRST_NAME_KEY";
+    private final static String profileLastNameKey = "PROFILE_LAST_NAME_KEY";
+    private final static String profileZIPKey = "PROFILE_ZIP_KEY";
+    private final static String profileGenderKey = "PROFILE_GENDER_KEY";
+    private final static String profileBirthdayKey = "PROFILE_BIRTHDAY_KEY";
+    private final static String profileEmailKey = "PROFILE_EMAIL_KEY";
+    private final static String profileNotificationsKey = "PROFILE_NOTIFICATIONS_KEY";
+
 
     public static vinProfileFragment newInstance() {
 
@@ -111,6 +123,14 @@ public class vinProfileFragment extends Fragment implements View.OnClickListener
         });*/
     }
 
+    private void hideKeyboard(View view) {
+        // Check if no view has focus:
+        if (view != null) {
+            InputMethodManager inputManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
 
@@ -125,20 +145,36 @@ public class vinProfileFragment extends Fragment implements View.OnClickListener
             return null;
         }
 
+        SharedPreferences sharedPref = getActivity().getSharedPreferences(
+                getString(R.string.get_favorites_list_file), Context.MODE_PRIVATE);
+
+        final SharedPreferences.Editor editor = sharedPref.edit();
+        //user winery name as key since winery name should be unique for the moment
+
+        //may need to use wineryUniqueID.
+        //editor.putString(getShownName(), String.valueOf(!fav));
+        //editor.apply();
 
         View v = inflater.inflate(R.layout.profile_fragment, parent, false);
 
         final EditText firstName = (EditText) v.findViewById(R.id.firstNameInput);
+        String firstNameText = sharedPref.getString(profileFirstNameKey, null);
+
+        //if user has already created a profile, reload that data
+        if(firstNameText != null){
+            firstName.setText(firstNameText);
+        }
+
         firstName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                firstName.getText().clear();
+
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                firstName.getText().clear();
-                Log.d("String input: ", firstName.getText().toString());
+                editor.putString(profileFirstNameKey, firstName.getText().toString());
+                editor.apply();
             }
 
             @Override
@@ -147,7 +183,24 @@ public class vinProfileFragment extends Fragment implements View.OnClickListener
             }
         });
 
+        //used to close keyboard if the user clicks off the edittext box
+        firstName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus){
+                    hideKeyboard(v);
+                }
+            }
+        });
+
         final EditText lastName = (EditText) v.findViewById(R.id.lastNameInput);
+        String lastNameText = sharedPref.getString(profileLastNameKey, null);
+
+        //if user has already created a profile, reload that data
+        if(lastNameText != null){
+            lastName.setText(lastNameText);
+        }
+
         lastName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -156,7 +209,8 @@ public class vinProfileFragment extends Fragment implements View.OnClickListener
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Log.d("String input: ", lastName.getText().toString());
+                editor.putString(profileLastNameKey, lastName.getText().toString());
+                editor.apply();
             }
 
             @Override
@@ -165,7 +219,177 @@ public class vinProfileFragment extends Fragment implements View.OnClickListener
             }
         });
 
+        lastName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus){
+                    hideKeyboard(v);
+                }
+            }
+        });
+
+        final EditText zipInput = (EditText) v.findViewById(R.id.addressInput);
+        String zipInputText = sharedPref.getString(profileZIPKey, null);
+
+        //if user has already created a profile, reload that data
+        if(zipInputText != null){
+            zipInput.setText(zipInputText);
+        }
+
+        zipInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                editor.putString(profileZIPKey, zipInput.getText().toString());
+                editor.apply();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        zipInput.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                }
+            }
+        });
+
+        final EditText genderInput = (EditText) v.findViewById(R.id.genderInput);
+        String genderInputText = sharedPref.getString(profileGenderKey, null);
+
+        //if user has already created a profile, reload that data
+        if(genderInputText != null){
+            genderInput.setText(genderInputText);
+        }
+
+        genderInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                editor.putString(profileGenderKey, genderInput.getText().toString());
+                editor.apply();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        genderInput.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus){
+                    hideKeyboard(v);
+                }
+            }
+        });
+
+        final EditText birthdayInput = (EditText) v.findViewById(R.id.birthdayInput);
+        String birthdayInputText = sharedPref.getString(profileBirthdayKey, null);
+
+        //if user has already created a profile, reload that data
+        if(birthdayInputText != null){
+            birthdayInput.setText(birthdayInputText);
+        }
+
+        birthdayInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                editor.putString(profileBirthdayKey, birthdayInput.getText().toString());
+                editor.apply();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        birthdayInput.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus){
+                    hideKeyboard(v);
+                }
+            }
+        });
+
+        final EditText emailInput = (EditText) v.findViewById(R.id.emailInput);
+        String emailInputText = sharedPref.getString(profileEmailKey, null);
+
+        //if user has already created a profile, reload that data
+        if(emailInputText != null){
+            emailInput.setText(emailInputText);
+        }
+
+        emailInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                editor.putString(profileEmailKey, emailInput.getText().toString());
+                editor.apply();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        emailInput.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                }
+            }
+        });
+
+        final Switch notifications = (Switch) v.findViewById(R.id.notificationSwitch);
+        Boolean notificationsBoolean = sharedPref.getBoolean(profileNotificationsKey, false);
+
+        if(notificationsBoolean){
+            notifications.setChecked(true);
+        }
+
+        notifications.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    editor.putBoolean(profileNotificationsKey, true);
+                    editor.apply();
+                }else{
+                    editor.putBoolean(profileNotificationsKey, false);
+                    editor.apply();
+                }
+            }
+        });
 
         return v;
     }
 }
+
+

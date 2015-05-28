@@ -63,6 +63,8 @@ public class vinListFragment extends ListFragment
     public static final int TEMPORARILY_UNAVAILABLE = 1;
     public static final int AVAILABLE = 2;
 
+    public static final double meterToMileConversionValue = 0.000621371;
+
     // Crime json url
     private static final String url = "http://zoomonby.com/vinLoop/dealTable.php";
     private static Context mAppContext;
@@ -82,6 +84,9 @@ public class vinListFragment extends ListFragment
 
     boolean mDualPane;
     int mCurCheckPosition = 0;
+
+    Location deviceLoc = new Location("Device");
+    Location wineryLoc = new Location("Winery");
 
     private LayoutInflater inflater;
     ImageLoader imageLoader = volleySingleton.getInstance().getImageLoader();
@@ -138,6 +143,11 @@ public class vinListFragment extends ListFragment
     public void onConnected(Bundle bundle) {
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
                 mGoogleApiClient);
+
+        if (mLastLocation != null) {
+            deviceLoc.setLatitude(mLastLocation.getLatitude());
+            deviceLoc.setLongitude(mLastLocation.getLongitude());
+        }
     }
 
     @Override
@@ -643,6 +653,8 @@ public class vinListFragment extends ListFragment
 
             TextView name = (TextView) convertView.findViewById(R.id.winery_list_item_locTextView);
             TextView descr = (TextView) convertView.findViewById(R.id.winery_list_item_dealTextView);
+            TextView dist = (TextView) convertView.findViewById(R.id.winery_list_item_locDistTextView);
+
             //TextView dist = (TextView) convertView.findViewById(R.id.winery_list_item_distTextView);
 
             //for(int i = 0; i < wineryList.size(); i++){
@@ -664,6 +676,12 @@ public class vinListFragment extends ListFragment
 
             // descr
             descr.setText(String.valueOf(w.getDeal()));
+
+            wineryLoc.setLongitude(Double.valueOf(w.getLongitude()));
+            wineryLoc.setLatitude(Double.valueOf(w.getLatitude()));
+
+            //dist
+            dist.setText(String.format("%.2f mi" , deviceLoc.distanceTo(wineryLoc) * meterToMileConversionValue));
 
             // release year
             //dist.setText(String.valueOf(w.getDist()));

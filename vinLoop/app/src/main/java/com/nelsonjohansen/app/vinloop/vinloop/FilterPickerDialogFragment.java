@@ -15,7 +15,7 @@ import android.widget.Button;
 import android.widget.Switch;
 
 /**
- * Created by NelsonJ on 5/19/2015.
+ * Created by NelsonJ on 5/25/2015.
  */
 public class filterPickerDialogFragment extends DialogFragment {
 
@@ -274,4 +274,5 @@ public class filterPickerDialogFragment extends DialogFragment {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
+
 }

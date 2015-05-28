@@ -1,13 +1,17 @@
 package com.nelsonjohansen.app.vinloop.vinloop;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.support.v4.app.ListFragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.internal.widget.AdapterViewCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -45,7 +49,7 @@ public class vinFavoritesFragment extends ListFragment {
     //private OnFragmentInteractionListener mListener;
 
     private static final String TAG = vinFavoriteActivity.class.getSimpleName();
-    private static final String url = "http://www.pandodroid.com/wine/jTest.php";
+    private static final String url = "http://zoomonby.com/vinLoop/dealTable.php";
 
     private AbsListView mListView;
     private ArrayList<Winery> wineryList = new ArrayList<>();
@@ -224,16 +228,62 @@ public class vinFavoritesFragment extends ListFragment {
 
             ListView listView = getListView();
             //listView.setEmptyView(getActivity().findViewById(R.id.empty_list_view));
-            ColorDrawable myColor = new ColorDrawable(
+            final ColorDrawable myColor = new ColorDrawable(
                     getResources().getColor(R.color.list_spacer_color)
             );
 
             listView.setDivider(myColor);
             listView.setDividerHeight(10);
 
+            listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
 
-            NetworkImageView thumbNail = (NetworkImageView) convertView
-                    .findViewById(R.id.winery_list_item_iconNetworkImageView);
+                @Override
+                public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+
+                    AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
+                    builder1.setMessage("Delete this Winery from favorites?");
+                    builder1.setCancelable(true);
+                    builder1.setPositiveButton("Yes",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+
+                                    //delete key value pair
+                                    Context context = getActivity();
+                                    SharedPreferences sharedPref = context.getSharedPreferences(
+                                            getString(R.string.get_favorites_list_file), Context.MODE_PRIVATE);
+
+                                    SharedPreferences.Editor editor = sharedPref.edit();
+                                    //user winery name as key since winery name should be unique for the moment
+
+                                    //may need to use wineryUniqueID.
+                                    editor.remove(wineryList.get(position).getName()).apply();
+
+                                    //delete from current array to update list in real time.
+                                    wineryList.remove(position);
+
+                                    mAdapter.notifyDataSetChanged();
+
+                                    dialog.cancel();
+                                }
+                            });
+                    builder1.setNegativeButton("No",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+
+                    AlertDialog alert11 = builder1.create();
+                    alert11.show();
+
+                    return false;
+                }
+
+            });
+
+
+            //NetworkImageView thumbNail = (NetworkImageView) convertView
+            //        .findViewById(R.id.winery_list_item_iconNetworkImageView);
 
             TextView name = (TextView) convertView.findViewById(R.id.winery_list_item_locTextView);
             TextView descr = (TextView) convertView.findViewById(R.id.winery_list_item_dealTextView);
@@ -251,7 +301,7 @@ public class vinFavoritesFragment extends ListFragment {
             //thumbNail.setErrorImageResId(R.drawable.error);
 
             // thumbnail image
-            thumbNail.setImageUrl(w.getThumbnailUrl(), imageLoader);
+            //thumbNail.setImageUrl(w.getThumbnailUrl(), imageLoader);
 
             // name
             name.setText(w.getName());

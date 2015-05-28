@@ -34,7 +34,7 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/profile_first_name_hint"
+            android:hint="@string/profile_first_name_hint"
             android:layout_gravity="left"
             android:id="@+id/firstNameInput"
             android:layout_weight="1"
@@ -43,7 +43,7 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/profile_last_name_hint"
+            android:hint="@string/profile_last_name_hint"
             android:layout_gravity="right"
             android:id="@+id/lastNameInput"
             android:layout_weight="1"
@@ -57,7 +57,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/profile_address_hint_text"
+        android:hint="@string/profile_address_hint_text"
         android:id="@+id/addressInput"
         android:gravity="center_horizontal"
         android:layout_below="@id/LL1"
@@ -69,7 +69,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/profile_gender_hint"
+        android:hint="@string/profile_gender_hint"
         android:id="@+id/genderInput"
         android:gravity="center_horizontal"
         android:layout_below="@id/addressInput"
@@ -81,7 +81,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/profile_birthday_hint"
+        android:hint="@string/profile_birthday_hint"
         android:id="@+id/birthdayInput"
         android:gravity="center_horizontal"
         android:layout_below="@id/genderInput"
@@ -95,7 +95,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/profile_email_hint"
+        android:hint="@string/profile_email_hint"
         android:id="@+id/emailInput"
         android:gravity="center_horizontal"
         android:layout_below="@id/birthdayInput"
@@ -117,7 +117,7 @@
             android:layout_height="fill_parent"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/profile_notifications_switch"
-            android:id="@+id/switch1" />
+            android:id="@+id/notificationSwitch" />
 
     </LinearLayout>
 

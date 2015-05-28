@@ -74,7 +74,7 @@
     <string name="profile_gender_hint"> Gender </string>
 
     <string name="profile_birthday_title"> Birthday </string>
-    <string name="profile_birthday_hint"> 7/11/1989 </string>
+    <string name="profile_birthday_hint"> m/d/yr </string>
 
     <string name="profile_email_title"> Email </string>
     <string name="profile_email_hint"> Email </string>
