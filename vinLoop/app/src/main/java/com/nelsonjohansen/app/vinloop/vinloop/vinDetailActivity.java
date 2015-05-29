@@ -5,12 +5,13 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.google.android.gms.maps.SupportMapFragment;
 
 
-public class vinDetailActivity extends FragmentActivity {
+public class vinDetailActivity extends AppCompatActivity {
 
     //Log tag
     private static final String TAG = vinDetailActivity.class.getSimpleName();

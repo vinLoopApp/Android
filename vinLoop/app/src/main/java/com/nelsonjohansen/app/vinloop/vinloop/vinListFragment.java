@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
@@ -119,7 +120,22 @@ public class vinListFragment extends ListFragment
     @Override
     public void onPause() {
         super.onPause();
+        hideKeyboard(getView());
         stopLocationUpdates();
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        hideKeyboard(getView());
+    }
+
+    private void hideKeyboard(View view) {
+        // Check if no view has focus:
+        if (view != null) {
+            InputMethodManager inputManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
     }
 
     protected void stopLocationUpdates() {
@@ -681,7 +697,7 @@ public class vinListFragment extends ListFragment
             wineryLoc.setLatitude(Double.valueOf(w.getLatitude()));
 
             //dist
-            dist.setText(String.format("%.2f mi" , deviceLoc.distanceTo(wineryLoc) * meterToMileConversionValue));
+            dist.setText(String.format("%.2f mi", deviceLoc.distanceTo(wineryLoc) * meterToMileConversionValue));
 
             // release year
             //dist.setText(String.valueOf(w.getDist()));
@@ -747,7 +763,9 @@ public class vinListFragment extends ListFragment
 
                         for (int i = 0; i < mOriginalValue.size(); i++) {
                             Winery data = mOriginalValue.get(i);
-                            if (data.getName().toLowerCase().contains(constraint.toString())) {
+                            //filter by winery of deal, add location search
+                            if (data.getName().toLowerCase().contains(constraint.toString()) ||
+                                    data.getDeal().toLowerCase().contains(constraint.toString())) {
                                 //Log.d("Showing data", data.getName().toLowerCase());
                                 FilteredArrList.add(data);
                             }

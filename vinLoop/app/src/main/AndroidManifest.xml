@@ -55,28 +55,37 @@
                 android:resource="@xml/searchable" />
         </activity>
 
+        <!-- child activities of main list -->
         <activity
             android:name=".vinDetailActivity"
-            android:label="@string/title_activity_vin_maps" >
+            android:label="@string/title_activity_vin_maps"
+            android:parentActivityName=".vinListActivity">
+            <!-- parent activity meta data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".vinListActivity" />
+
         </activity>
 
         <activity
-            android:name=".vinFavoriteActivity">
+            android:name=".vinFavoriteActivity"
+            android:parentActivityName=".vinListActivity">
+            <!-- parent activity meta data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".vinListActivity" />
 
         </activity>
 
         <activity
-            android:name=".vinProfileActivity">
+            android:name=".vinProfileActivity"
+            android:parentActivityName=".vinListActivity">
+            <!-- parent activity meta data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".vinListActivity" />
 
         </activity>
-
-        <activity android:name="com.facebook.FacebookActivity"
-            android:configChanges=
-                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:label="@string/app_name" />
-
-        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
 
         <meta-data
             android:name="com.google.android.gms.version"

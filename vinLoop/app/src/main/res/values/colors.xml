@@ -11,6 +11,7 @@
     <color name="dollar_sign_green">#8eb60e</color>
     <color name="solid_line_color">#c0c0c0</color>
     <color name="off_white">#fdf9f3</color>
+    <color name="shadow_color">#b1afb3</color>
 
     <!-- Main List colors -->
     <color name="actionbar_searchbar_background_color">@color/new_purple</color>
@@ -19,9 +20,9 @@
     <color name="list_spacer_color">#807688</color>
 
     <!-- Details page colors -->
-    <color name="detail_main_background_color">@color/dark_purple</color>
+    <color name="detail_main_background_color">@color/text_white</color>
     <color name="detail_items_background">@color/text_white</color>
-    <color name="detail_spacer_line">@color/gold</color>
+    <color name="detail_spacer_line">#dddddd</color>
     <color name="detail_button_background">@color/dark_purple</color>
     <color name="detail_button_text">@color/text_white</color>
 
