@@ -24,7 +24,7 @@ public class DrawerRecyclerAdapter extends RecyclerView.Adapter<DrawerRecyclerAd
     private static final int PROFILE_POSITION = 1;
     private static final int FAVORITES_POSITION = 2;
     private static final int SETTINGS_POSITION = 3;
-    private static final int UPCOMING_FEATURES_POSITION = 4;
+    private static final int ABOUT_POSITION = 4;
 
     private String mNavTitles[]; // String Array to store the passed titles Value from MainActivity.java
     private int mIcons[];       // Int Array to store the passed icons resource value from MainActivity.java
@@ -95,8 +95,11 @@ public class DrawerRecyclerAdapter extends RecyclerView.Adapter<DrawerRecyclerAd
                     contxt.startActivity(intent);
                     break;
                 case SETTINGS_POSITION:
+                    intent.setClass(contxt, vinSettingsActivity.class);
+                    intent.putExtra("index", 3);
+                    contxt.startActivity(intent);
                     break;
-                case UPCOMING_FEATURES_POSITION:
+                case ABOUT_POSITION:
                     break;
                 default:
                     break;

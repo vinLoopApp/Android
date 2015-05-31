@@ -88,8 +88,8 @@ public class vinProfileFragment extends Fragment implements View.OnClickListener
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu_profile, menu);
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(true);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Profile");
+        //((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(true);
+        //((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Profile");
 
         //http://stackoverflow.com/questions/24794377/android-capture-searchview-text-clear-by-clicking-x-button
 

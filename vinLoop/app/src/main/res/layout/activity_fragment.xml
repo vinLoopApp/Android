@@ -29,10 +29,10 @@
             </SearchView>
 
             <ImageButton
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_marginRight="2.5dp"
-                android:layout_marginLeft="7.5dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginLeft="10dp"
                 android:gravity="right"
                 android:id="@+id/filter_button"
                 android:background="@drawable/ic_filter_new">

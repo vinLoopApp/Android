@@ -48,8 +48,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.NetworkImageView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
 import org.json.JSONArray;
@@ -76,7 +78,7 @@ public class vinListFragment extends ListFragment
 
     public static final double meterToMileConversionValue = 0.000621371;
 
-    String TITLES[] = {"Profile", "Favorites", "Settings", "Upcoming Features"};
+    String TITLES[] = {"Profile", "Favorites", "Settings", "About vinLoop"};
     int ICONS[] = {R.drawable.ic_account_circle_black_48dp, R.drawable.ic_favorite_border_black_48dp, R.drawable.ic_more_vert_black_24dp, R.drawable.ic_bug_report_black_48dp};
 
     RecyclerView mRecyclerView;                           // Declaring RecyclerView
@@ -98,6 +100,7 @@ public class vinListFragment extends ListFragment
 
     GoogleApiClient mGoogleApiClient;
     Location mLastLocation;
+    LocationRequest mLocationRequest = LocationRequest.create();
 
     private ArrayAdapter<String> mAdapter;
 
@@ -157,7 +160,7 @@ public class vinListFragment extends ListFragment
     }
 
     protected void stopLocationUpdates() {
-        //LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+        //LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, getActivity());
     }
 
     protected synchronized void buildGoogleApiClient() {
@@ -166,6 +169,17 @@ public class vinListFragment extends ListFragment
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
                 .build();
+    }
+
+    protected void createLocationRequest() {
+        LocationRequest mLocationRequest = new LocationRequest();
+        mLocationRequest.setInterval(10000);
+        mLocationRequest.setFastestInterval(5000);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+    }
+
+    protected void startLocationUpdates() {
+        //LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, );
     }
 
     @Override
@@ -178,10 +192,20 @@ public class vinListFragment extends ListFragment
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
                 mGoogleApiClient);
 
+        Log.d("GPS connected", " ");
+
         if (mLastLocation != null) {
             deviceLoc.setLatitude(mLastLocation.getLatitude());
             deviceLoc.setLongitude(mLastLocation.getLongitude());
         }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mGoogleApiClient.connect();
+        Log.e("Connected?", String.valueOf(mGoogleApiClient.isConnected()));
+        //new Thread(new GetContent()).start();
     }
 
     @Override
@@ -912,8 +936,8 @@ public class vinListFragment extends ListFragment
             listView.setDivider(myColor);
             listView.setDividerHeight(10);
 
-            //NetworkImageView thumbNail = (NetworkImageView) convertView
-            //       .findViewById(R.id.winery_list_item_iconNetworkImageView);
+            NetworkImageView thumbNail = (NetworkImageView) convertView
+                   .findViewById(R.id.winery_list_item_iconNetworkImageView);
 
             TextView name = (TextView) convertView.findViewById(R.id.winery_list_item_locTextView);
             TextView descr = (TextView) convertView.findViewById(R.id.winery_list_item_dealTextView);
@@ -933,7 +957,7 @@ public class vinListFragment extends ListFragment
             //thumbNail.setErrorImageResId(R.drawable.error);
 
             // thumbnail image
-            //thumbNail.setImageUrl(w.getThumbnailUrl(), imageLoader);
+            thumbNail.setImageUrl(w.getThumbnailUrl(), imageLoader);
 
             // name
             name.setText(w.getName());
@@ -943,6 +967,9 @@ public class vinListFragment extends ListFragment
 
             wineryLoc.setLongitude(Double.valueOf(w.getLongitude()));
             wineryLoc.setLatitude(Double.valueOf(w.getLatitude()));
+
+            Log.d("Lat", String.valueOf(deviceLoc.getLatitude()));
+            Log.d("Lng", String.valueOf(deviceLoc.getLongitude()));
 
             //dist
             dist.setText(String.format("%.2f mi", deviceLoc.distanceTo(wineryLoc) * meterToMileConversionValue));

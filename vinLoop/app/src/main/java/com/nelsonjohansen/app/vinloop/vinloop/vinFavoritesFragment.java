@@ -112,7 +112,7 @@ public class vinFavoritesFragment extends ListFragment {
                                     winery.setByAppt(obj.getString("byappt"));
                                     winery.setByWalk(obj.getString("bywalk"));
                                     winery.setVarietal(obj.getString("varietal"));
-                                    //winery.setThumbnailUrl(obj.getString("imgURL"));
+                                    winery.setThumbnailUrl(obj.getString("imgURL"));
                                     winery.setPriceRate(obj.getString("pricelevel"));
                                     winery.setOrigPrice(obj.getString("origprice"));
 
@@ -282,8 +282,8 @@ public class vinFavoritesFragment extends ListFragment {
             });
 
 
-            //NetworkImageView thumbNail = (NetworkImageView) convertView
-            //        .findViewById(R.id.winery_list_item_iconNetworkImageView);
+            NetworkImageView thumbNail = (NetworkImageView) convertView
+                    .findViewById(R.id.winery_list_item_iconNetworkImageView);
 
             TextView name = (TextView) convertView.findViewById(R.id.winery_list_item_locTextView);
             TextView descr = (TextView) convertView.findViewById(R.id.winery_list_item_dealTextView);
@@ -301,7 +301,7 @@ public class vinFavoritesFragment extends ListFragment {
             //thumbNail.setErrorImageResId(R.drawable.error);
 
             // thumbnail image
-            //thumbNail.setImageUrl(w.getThumbnailUrl(), imageLoader);
+            thumbNail.setImageUrl(w.getThumbnailUrl(), imageLoader);
 
             // name
             name.setText(w.getName());

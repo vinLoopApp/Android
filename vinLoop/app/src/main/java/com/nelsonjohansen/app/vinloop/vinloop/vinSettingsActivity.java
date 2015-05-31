@@ -1,6 +1,5 @@
 package com.nelsonjohansen.app.vinloop.vinloop;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,38 +8,33 @@ import android.util.Log;
 
 import com.google.android.gms.maps.SupportMapFragment;
 
-
-public class vinDetailActivity extends AppCompatActivity {
+/**
+ * Created by NelsonJ on 5/31/2015.
+ */
+public class vinSettingsActivity extends AppCompatActivity {
 
     //Log tag
-    private static final String TAG = vinDetailActivity.class.getSimpleName();
+    private static final String TAG = vinSettingsActivity.class.getSimpleName();
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_details);
+        setContentView(R.layout.activity_settings);
 
         FragmentManager fm = getSupportFragmentManager();
-        Fragment fragment = fm.findFragmentById(R.id.detailFragmentContainer);
+        Fragment fragment = fm.findFragmentById(R.id.settingsFragmentContainer);
 
         if(fragment == null){
-            vinDetailFragment details = new vinDetailFragment();
+            vinSettingsFragment settings = new vinSettingsFragment();
             Log.d("fragmentArgsSetNull", "");
-            details.setArguments(getIntent().getExtras());
+            settings.setArguments(getIntent().getExtras());
             fm.beginTransaction()
-                    .add(R.id.detailFragmentContainer, details)
+                    .add(R.id.settingsFragmentContainer, settings)
                     .commit();
         }else {
             Log.d("fragmentArgsSetNonNull", "");
             //trying to reset arguments when orientation changes, causes crash and probably bad idea!
             //fragment.setArguments(getIntent().getExtras());
-        }
-
-        SupportMapFragment mMapFragment = (SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.details_map);
-
-        if (mMapFragment == null) {
-            mMapFragment = SupportMapFragment.newInstance();
-            fm.beginTransaction().replace(R.id.details_map, mMapFragment).commit();
         }
     }
 }

@@ -6,18 +6,19 @@
     android:paddingTop="0dp"
     android:paddingBottom="2.5dp">
 
-    <!-- Thumbnail Image
+    <!--  Thumbnail Image  -->
     <com.android.volley.toolbox.NetworkImageView
         android:id="@+id/winery_list_item_iconNetworkImageView"
         android:layout_alignParentLeft="true"
         android:layout_width="fill_parent"
-        android:layout_height="250dp"
+        android:layout_height="215dp"
         android:paddingRight="0dp"
         android:paddingLeft="0dp"
         android:layout_gravity="left"
         android:scaleType="fitXY"
-    /> -->
+    />
 
+    <!--
     <ImageView
         android:id="@+id/winery_list_item_iconNetworkImageView"
         android:layout_alignParentLeft="true"
@@ -28,6 +29,8 @@
         android:scaleType="fitXY"
         android:src="@drawable/photo6"
         android:layout_gravity="left" />
+
+        -->
 
     <LinearLayout
         android:id="@+id/LLdeal"
@@ -43,13 +46,15 @@
         <TextView
             android:id="@+id/winery_list_item_dealTextView"
             android:layout_marginTop="0.5dp"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textStyle="bold"
             android:textSize="18sp"
+            android:textColor="@color/headline"
             android:text="Deal" />
 
+        <!--
         <TextView
             android:layout_marginTop="5dp"
             android:gravity="end"
@@ -60,7 +65,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textSize="12sp"
-            android:text="$$$$$"/>
+            android:text="$$$$$"/> -->
 
     </LinearLayout>
 
@@ -73,38 +78,43 @@
         android:gravity="center_vertical"
         android:layout_marginLeft="15dp"
         android:text="Location"
+        android:textColor="@color/address_miles_walkIn_buys"
         android:textSize="12sp"/>
 
     <TextView
         android:id="@+id/winery_list_item_locCityTextView"
-        android:layout_below="@id/winery_list_item_locTextView"
+        android:layout_toRightOf="@id/winery_list_item_locTextView"
+        android:layout_below="@id/LLdeal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:layout_marginLeft="15dp"
-        android:text="Napa, CA"
+        android:layout_marginLeft="0dp"
+        android:text=", Napa, CA"
+        android:textColor="@color/address_miles_walkIn_buys"
         android:textSize="12sp"/>
 
     <TextView
         android:id="@+id/dot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/winery_list_item_locTextView"
         android:layout_toRightOf="@id/winery_list_item_locCityTextView"
+        android:layout_below="@id/LLdeal"
+        android:textColor="@color/address_miles_walkIn_buys"
         android:text="  •  "/>
 
     <TextView
         android:id="@+id/winery_list_item_locDistTextView"
         android:layout_toRightOf="@id/dot"
-        android:layout_below="@id/winery_list_item_locTextView"
+        android:layout_below="@id/LLdeal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:text="Distance"
+        android:textColor="@color/address_miles_walkIn_buys"
         android:textSize="12sp"/>
 
-    <LinearLayout
-        android:layout_marginTop="10dp"
+    <RelativeLayout
+        android:layout_marginTop="2dp"
         android:layout_marginBottom="3dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
@@ -117,20 +127,45 @@
             android:id="@+id/walkInOrAppt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:textSize="12sp"
+            android:textColor="@color/address_miles_walkIn_buys"
             android:text="Walk-In"/>
 
         <TextView
-            android:gravity="end"
             android:singleLine="true"
-            android:layout_gravity="right"
-            android:layout_width="70dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@id/walkInOrAppt"
+            android:id="@+id/number_buys"
             android:textSize="12sp"
+            android:textStyle="bold"
+            android:textColor="@color/address_miles_walkIn_buys"
             android:text="10+ Buys"/>
 
-    </LinearLayout>
+        <TextView
+            android:singleLine="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/new_price"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/reduced_price"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:text="$150"/>
+
+        <TextView
+            android:singleLine="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/new_price"
+            android:layout_marginTop="1.5dp"
+            android:layout_marginRight="10dp"
+            android:textSize="12sp"
+            android:gravity="center_vertical"
+            android:text="$300"/>
+
+
+    </RelativeLayout>
 
 </RelativeLayout>

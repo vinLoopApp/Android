@@ -1,7 +1,10 @@
 package com.nelsonjohansen.app.vinloop.vinloop;
 
+import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +23,14 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.NetworkImageView;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,7 +42,7 @@ import org.w3c.dom.Text;
  */
 
 
-public class vinDetailFragment extends Fragment implements View.OnClickListener {
+public class vinDetailFragment extends Fragment implements View.OnClickListener, OnMapReadyCallback {
 
     public static final String EXTRA_WINERY_ID =
             "com.nelsonjohansen.app.vinloop.winery_id";
@@ -44,6 +55,9 @@ public class vinDetailFragment extends Fragment implements View.OnClickListener 
     NetworkImageView thumbNail;
     TextView dealLoc;
     TextView dealTitle;
+    TextView dealAddr;
+    TextView dealPhoneNum;
+    TextView dealWebsiteURL;
 
     public static vinDetailFragment newInstance(int index, String name, String distance, String dealText) {
 
@@ -74,8 +88,6 @@ public class vinDetailFragment extends Fragment implements View.OnClickListener 
         menu.clear();
 
         inflater.inflate(R.menu.detail_menu, menu);
-
-
     }
 
     @Override
@@ -84,7 +96,6 @@ public class vinDetailFragment extends Fragment implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(false);
         setRetainInstance(true);
-
 
         //setup winery data structure to hold info from JSON
 
@@ -147,9 +158,62 @@ public class vinDetailFragment extends Fragment implements View.OnClickListener 
 
     }
 
+    static final CameraPosition NAPA =
+            new CameraPosition.Builder().target(new LatLng(38.3047, 122.2989))
+                    .zoom(15.5f)
+                    .bearing(0)
+                    .tilt(25)
+                    .build();
+
+    @Override
+    public void onMapReady(GoogleMap map) {
+        //map.setMyLocationEnabled(true);
+        Log.d("map portion executed", " ");
+        map.moveCamera(CameraUpdateFactory.newCameraPosition(NAPA));
+    }
+
     private void initialize(){
         dealTitle.setText(getShownDealText());
         dealLoc.setText(w.getName());
+
+        dealAddr.setText(w.getAddress());
+        dealAddr.setFocusableInTouchMode(false);
+        dealAddr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("geo:" + "0,0?q=1600+Amphitheatre+Parkway%2C+CA"));
+                if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+                    startActivity(intent);
+                }
+            }
+        });
+
+        dealPhoneNum.setText("+1" + w.getPhoneNum());
+        dealPhoneNum.setFocusableInTouchMode(false);
+        dealPhoneNum.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:" + w.getPhoneNum()));
+                if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+                    startActivity(intent);
+                }
+            }
+        });
+
+        dealWebsiteURL.setText("Website");
+        dealWebsiteURL.setFocusableInTouchMode(false);
+        dealWebsiteURL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
+                intent.putExtra(SearchManager.QUERY, w.getWebURL());
+                if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
     @Override
@@ -180,9 +244,21 @@ public class vinDetailFragment extends Fragment implements View.OnClickListener 
 
         thumbNail.setImageUrl("http://mthoodwinery.com/wp-content/uploads/2014/11/Winery-rows.jpg", imageLoader);
 
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.details_map);
+
+        mapFragment.getMapAsync(this);
+
+        //map.setMyLocationEnabled(true);
+
         dealTitle = (TextView) v.findViewById(R.id.details_deal_title);
 
         dealLoc = (TextView) v.findViewById(R.id.details_deal_location);
+
+        dealAddr = (TextView) v.findViewById(R.id.winery_street_address);
+
+        dealPhoneNum = (TextView) v.findViewById(R.id.phone_number);
+
+        dealWebsiteURL = (TextView) v.findViewById(R.id.winery_website_url);
 
         //http://stackoverflow.com/questions/21691656/solved-google-maps-mapfragment-causing-the-app-to-crash
 
