@@ -14,8 +14,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Switch;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 /**
- * Created by NelsonJ on 5/27/2015.
+ * Created by NelsonJ on 5/29/2015.
  */
 public class filterPickerDialogFragment extends DialogFragment {
 
@@ -26,6 +29,8 @@ public class filterPickerDialogFragment extends DialogFragment {
     public static final String PRICE_FILTER_SELECTED_FOUR = "com.nelsonjohansen.app.vinloop.vinloop.price2";
 
     public static final String DISTANCE_FILTER_SELECTED = "com.nelsonjohansen.app.vinloop.vinloop.distance";
+    public static final String VARIETAL_FILTER_SELECTED = "com.nelsonjohansen.app.vinloop.vinloop.varietal";
+    public static final String SORT_OPTION_FILTER_SELECTED = "com.nelsonjohansen.app.vinloop.vinloop.sortOptions";
 
     public static final String WALK_IN_FILTER_SELECTED = "com.nelsonjohansen.app.vinloop.vinloop.walkIn";
     public static final String BY_APPT_FILTER_SELECTED = "com.nelsonjohansen.app.vinloop.vinloop.byAppt";
@@ -35,10 +40,17 @@ public class filterPickerDialogFragment extends DialogFragment {
     private boolean threeDollarBool = false;
     private boolean fourDollarBool = false;
 
-    CharSequence[] arrayDist = {"0.5", "1.0", "2.5","5", "10","25", "50"};
-    CharSequence[] arraySort = {"stuff","better stuff","best stuff"};
+    CharSequence[] arrayDist = {"0.5", "1.0", "2.5", "5", "10", "25", "50+"};
+    CharSequence[] arrayVarietals = {"Cabernet Savignon", "Merlot", "Syrah", "Cabernet Franc", "Red Zinfandel",
+                                        "Chardonnay", "Sauvignon Blanc", "Pinot Grigio", "Riesling", "Viognier"};
+    CharSequence[] arraySort = {"Distance","Gets"};
+
+    boolean itemSelected[] = new boolean[arrayVarietals.length];
+
+    private ArrayList<String> varietals = new ArrayList<>();
 
     private String distance;
+    private String sortOption;
 
     private boolean walkIn = false;
     private boolean byAppt = false;
@@ -53,6 +65,8 @@ public class filterPickerDialogFragment extends DialogFragment {
         i.putExtra(PRICE_FILTER_SELECTED_THREE, threeDollarBool);
         i.putExtra(PRICE_FILTER_SELECTED_FOUR, fourDollarBool);
         i.putExtra(DISTANCE_FILTER_SELECTED, distance);
+        i.putExtra(VARIETAL_FILTER_SELECTED, varietals);
+        i.putExtra(SORT_OPTION_FILTER_SELECTED, sortOption);
         i.putExtra(WALK_IN_FILTER_SELECTED, walkIn);
         i.putExtra(BY_APPT_FILTER_SELECTED, byAppt);
         getTargetFragment()
@@ -188,6 +202,48 @@ public class filterPickerDialogFragment extends DialogFragment {
             }
         });
 
+        final Button varietalChoice = (Button) v.findViewById(R.id.BestMatchButtonVarietal);
+        varietalChoice.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                // Perform action on click
+                Log.d("Varietal ", "clicked");
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("Select Varietals");
+                builder.setMultiChoiceItems(arrayVarietals, itemSelected, new DialogInterface.OnMultiChoiceClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                        if(isChecked){
+                            varietals.add(String.valueOf(arrayVarietals[which]));
+                            varietalChoice.setText("Varietals Selected");
+                        }else if(varietals.contains(String.valueOf(arrayVarietals[which]))){
+                            varietals.remove(String.valueOf(arrayVarietals[which]));
+                            if(varietals.size() == 0){
+                                varietalChoice.setText("None Selected");
+                            }
+                        }
+                    }
+                });
+
+                builder.setPositiveButton("OK",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                //sendResults(Activity.RESULT_OK);
+                            }
+                        });
+                builder.setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+
+                builder.show();
+            }
+        });
+
         final Button sortByChoice = (Button) v.findViewById(R.id.BestMatchButtonSortBy);
 
         sortByChoice.setOnClickListener(new View.OnClickListener() {
@@ -199,8 +255,8 @@ public class filterPickerDialogFragment extends DialogFragment {
                 builder.setSingleChoiceItems(arraySort, 1, new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialog, int which){
-                        distance = String.valueOf(arraySort[which]);
-                        distanceChoice.setText(arraySort[which] + " sort option");
+                        sortOption = String.valueOf(arraySort[which]);
+                        sortByChoice.setText("Sort by: " + arraySort[which]);
                     }
                 });
 
@@ -246,29 +302,6 @@ public class filterPickerDialogFragment extends DialogFragment {
 
         return v;
     }
-
-    /*@Override
-    public Dialog onCreateDialog(Bundle savedInstanceState){
-        final View v = getActivity().getLayoutInflater()
-                .inflate(R.layout.filter_page, null);
-        return new AlertDialog.Builder(getActivity())
-                .setView(v)
-                .setPositiveButton("OK",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                sendResults(Activity.RESULT_OK);
-                            }
-                        })
-                .setNegativeButton("Cancel",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                sendResults(Activity.RESULT_CANCELED);
-                            }
-                        })
-                .create();
-    }*/
 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name

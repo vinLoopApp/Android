@@ -31,7 +31,7 @@
 
                 <!-- Container for title and location -->
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -39,8 +39,7 @@
                     android:layout_below="@id/details_winery_list_item_iconNetworkImageView"
                     android:layout_marginLeft="18dp"
                     android:layout_marginRight="6dp"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginBottom="6dp">
+                    android:layout_marginTop="6dp">
 
                     <TextView
                         android:id="@+id/details_deal_title"
@@ -59,11 +58,17 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:text="St. Supreme Cellars, Yountville, CA"
-                        android:gravity="left"
-                        android:layout_gravity="center">
+                        android:layout_below="@id/details_deal_title">
                     </TextView>
 
-                </LinearLayout>
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/wine_bottle"/>
+
+                </RelativeLayout>
 
                 <!-- Container for deal price cut, discount, number bought and availability -->
 
@@ -255,8 +260,9 @@
 
                 <ImageView
                     android:id="@+id/grape_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/grapes"
                     android:layout_marginLeft="18dp"
                     android:layout_marginRight="6dp"
                     android:layout_marginBottom="6dp"/>

@@ -1,17 +1,49 @@
 package com.nelsonjohansen.app.vinloop.vinloop;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
 
 
 /**
  * Created by NelsonJ on 3/30/2015.
  */
-public class vinListActivity extends FragmentInitializeActivity
-        implements vinListFragment.Callbacks {
+public class vinListActivity extends AppCompatActivity {
+
+    private DrawerLayout mDrawerLayout;
+    private ListView mDrawerList;
+    private ArrayAdapter<String> mAdapter;
+
+    //@Override
+    //protected Fragment createFragment(){
+        //return new vinListFragment();
+    //}
 
     @Override
-    protected Fragment createFragment(){
-        return new vinListFragment();
+    public void onCreate(Bundle savedInstanceState){
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_fragment);
+
+        FragmentManager fm = getSupportFragmentManager();
+        Fragment fragment = fm.findFragmentById(R.id.container);
+
+        if(fragment == null){
+            fragment = new vinListFragment();
+            fm.beginTransaction()
+                    .add(R.id.container, fragment)
+                    .commit();
+        }
+
     }
 
     @Override
@@ -24,10 +56,10 @@ public class vinListActivity extends FragmentInitializeActivity
         super.onPause();
     }
 
-    @Override
-    protected  int getLayoutResId(){
-        return R.layout.activity_masterdetail;
-    }
+    //@Override
+    //protected  int getLayoutResId(){
+    //    return R.layout.activity_masterdetail;
+    //}
 
     public void onWinerySelected(Winery winery){
         if(findViewById(R.id.detailFragmentContainer) == null){

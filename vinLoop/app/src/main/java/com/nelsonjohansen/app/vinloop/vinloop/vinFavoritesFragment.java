@@ -143,8 +143,6 @@ public class vinFavoritesFragment extends ListFragment {
         // Adding request to request queue
         volleySingleton.getInstance().addToRequestQueue(vinReq);
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
     }
 
     /*@Override

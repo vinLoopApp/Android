@@ -7,6 +7,8 @@
     <string name="search_title"> Search by Winery Name or Location </string>
     <string name="search_hint"> Winery or Location </string>
     <string name="facebook_app_id">1580780188842932</string>
+    <string name="drawer_open">  </string>
+    <string name="drawer_close">  </string>
 
     <!-- Strings handling details activity/fragment -->
     <string name="details_image_top"> Thumbnail </string>

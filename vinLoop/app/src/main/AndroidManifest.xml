@@ -32,6 +32,8 @@
         android:allowBackup="true"
         android:icon="@drawable/logo_hdpi"
         android:debuggable="true"
+        android:screenOrientation="portrait"
+        android:windowSoftInputMode="stateHidden"
         android:theme="@style/MyTheme">
 
         <!-- The main/home activity (it has no parent activity) -->
@@ -41,6 +43,7 @@
             android:launchMode="singleTop"
             android:icon="@drawable/logo_hdpi"
             android:label="@string/app_name"
+            android:windowSoftInputMode="stateHidden"
             android:configChanges="keyboardHidden|orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

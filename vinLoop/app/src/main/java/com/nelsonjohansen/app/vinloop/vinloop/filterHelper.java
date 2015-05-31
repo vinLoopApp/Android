@@ -1,5 +1,7 @@
 package com.nelsonjohansen.app.vinloop.vinloop;
 
+import java.util.ArrayList;
+
 /**
  * Created by NelsonJ on 4/26/2015.
  */
@@ -12,6 +14,7 @@ public class filterHelper {
 
     private String distance;
     private String sortBy;
+    private ArrayList<String> varietal;
 
     private boolean walkIn;
     private boolean byAppt;
@@ -24,6 +27,7 @@ public class filterHelper {
 
         distance = null;
         sortBy = null;
+        varietal = new ArrayList<String>();
 
         walkIn = false;
         byAppt = false;
@@ -91,5 +95,13 @@ public class filterHelper {
 
     public void setByAppt(boolean byAppt) {
         this.byAppt = byAppt;
+    }
+
+    public ArrayList<String> getVarietal() {
+        return varietal;
+    }
+
+    public void setVarietal(ArrayList<String> varietal) {
+        this.varietal = varietal;
     }
 }

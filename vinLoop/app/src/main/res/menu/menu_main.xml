@@ -4,16 +4,17 @@
     tools:context=".MainActivity">
 
     <!-- Search, should appear as action button -->
+
     <!--
+
     <item android:id="@+id/search"
         android:title="@string/search_title"
         android:icon="@android:drawable/ic_menu_search"
-        app:showAsAction="collapseActionView|ifRoom"
+        app:showAsAction="ifRoom"
         app:actionViewClass="android.widget.SearchView" />
-    -->
 
     <item
-        android:id="@+id/favorites_button"
+        android:id="@+id/a_button"
         android:title="Favorites"
         android:icon="@drawable/ic_heart_xxhdpi"
         android:orderInCategory="100"
@@ -26,5 +27,6 @@
         android:orderInCategory="100"
         app:showAsAction="always"/>
 
+    -->
 
 </menu>

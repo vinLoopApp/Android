@@ -1,15 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal" >
+    android:layout_height="50dp">
 
-    <ImageView
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:src="@drawable/logo279x99"
+    <!-- android:background="@drawable/rounded_box" -->
+
+    <ImageButton
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginRight="10dp"
         android:gravity="left"
         android:layout_alignParentLeft="true"
-        android:id="@+id/imageView2" />
+        android:id="@+id/favorites_button"
+        android:background="@drawable/ic_menu_white_48dp">
+
+    </ImageButton>
+
+    <SearchView
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_box"
+        android:layout_toRightOf="@id/favorites_button"
+        android:id="@+id/search"
+        android:layout_gravity="center"
+        android:title="@string/search_title">
+    </SearchView>
+
+    <ImageButton
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/search"
+        android:layout_alignParentRight="true"
+        android:id="@+id/filter_button"
+        android:background="@drawable/ic_filter_new">
+    </ImageButton>
 
 </RelativeLayout>
