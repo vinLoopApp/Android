@@ -1,5 +1,6 @@
 package com.nelsonjohansen.app.vinloop.vinloop;
 
+import android.graphics.Paint;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -843,6 +844,8 @@ public class vinListFragment extends ListFragment
         intent.putExtra("name", wineryDetailInfo.getName());
         intent.putExtra("distance", wineryDetailInfo.getDist());
         intent.putExtra("dealText", wineryDetailInfo.getDeal());
+        intent.putExtra("origPrice", wineryDetailInfo.getOrigPrice());
+        intent.putExtra("newPrice", wineryDetailInfo.getNewPrice());
         startActivity(intent);
 
         /*if (mDualPane) {
@@ -939,9 +942,12 @@ public class vinListFragment extends ListFragment
             NetworkImageView thumbNail = (NetworkImageView) convertView
                    .findViewById(R.id.winery_list_item_iconNetworkImageView);
 
+            //move outside adapter perhaps
             TextView name = (TextView) convertView.findViewById(R.id.winery_list_item_locTextView);
             TextView descr = (TextView) convertView.findViewById(R.id.winery_list_item_dealTextView);
             TextView dist = (TextView) convertView.findViewById(R.id.winery_list_item_locDistTextView);
+            TextView newPrice = (TextView) convertView.findViewById(R.id.winery_list_item_new_price);
+            TextView origPrice = (TextView) convertView.findViewById(R.id.winery_list_item_orig_price);
 
             //TextView dist = (TextView) convertView.findViewById(R.id.winery_list_item_distTextView);
 
@@ -973,6 +979,10 @@ public class vinListFragment extends ListFragment
 
             //dist
             dist.setText(String.format("%.2f mi", deviceLoc.distanceTo(wineryLoc) * meterToMileConversionValue));
+
+            origPrice.setText("$" + w.getOrigPrice());
+            origPrice.setPaintFlags(origPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            newPrice.setText("$" + w.getNewPrice());
 
             // release year
             //dist.setText(String.valueOf(w.getDist()));

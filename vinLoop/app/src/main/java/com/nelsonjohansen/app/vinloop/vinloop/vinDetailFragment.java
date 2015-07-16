@@ -4,6 +4,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -23,14 +24,19 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.NetworkImageView;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -58,8 +64,14 @@ public class vinDetailFragment extends Fragment implements View.OnClickListener,
     TextView dealAddr;
     TextView dealPhoneNum;
     TextView dealWebsiteURL;
+    TextView origPriceTextV;
+    TextView newPriceTextV;
 
-    public static vinDetailFragment newInstance(int index, String name, String distance, String dealText) {
+    MapView mapView;
+    //GoogleMap map;
+    private SupportMapFragment map;
+
+    public static vinDetailFragment newInstance(int index, String name, String distance, String dealText, String origPrice, String newPrice) {
 
         vinDetailFragment f = new vinDetailFragment();
 
@@ -69,6 +81,8 @@ public class vinDetailFragment extends Fragment implements View.OnClickListener,
         args.putString("name", name);
         args.putString("distance", distance);
         args.putString("dealText", dealText);
+        args.putString("origPrice", origPrice);
+        args.putString("newPrice", newPrice);
 
         f.setArguments(args);
 
@@ -81,6 +95,8 @@ public class vinDetailFragment extends Fragment implements View.OnClickListener,
     private String getShownName(){ return getArguments().getString("name", null); }
     private String getShownDist(){ return getArguments().getString("distance", null); }
     private String getShownDealText(){ return getArguments().getString("dealText", null); }
+    private String getOrigPrice(){return getArguments().getString("origPrice", null); }
+    private String getNewPrice(){return getArguments().getString("newPrice", null); }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -169,12 +185,40 @@ public class vinDetailFragment extends Fragment implements View.OnClickListener,
     public void onMapReady(GoogleMap map) {
         //map.setMyLocationEnabled(true);
         Log.d("map portion executed", " ");
-        map.moveCamera(CameraUpdateFactory.newCameraPosition(NAPA));
+        //map.moveCamera(CameraUpdateFactory.newCameraPosition(NAPA));
+
+        // Updates the location and zoom of the MapView
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(43.1, -87.9), 10);
+        map.moveCamera(cameraUpdate);
+
+        map.addMarker(new MarkerOptions()
+                .position(new LatLng(0, 0))
+                .title("Marker"));
+        map.addMarker(new MarkerOptions()
+                .position(new LatLng(1, 0))
+                .title("Marker"));
+        map.addMarker(new MarkerOptions()
+                .position(new LatLng(2, 0))
+                .title("Marker"));
+        map.addMarker(new MarkerOptions()
+                .position(new LatLng(3, 0))
+                .title("Marker"));
+        map.addMarker(new MarkerOptions()
+                .position(new LatLng(4, 0))
+                .title("Marker"));
+        map.addMarker(new MarkerOptions()
+                .position(new LatLng(5, 0))
+                .title("Marker"));
+
     }
 
     private void initialize(){
         dealTitle.setText(getShownDealText());
         dealLoc.setText(w.getName());
+
+        origPriceTextV.setText("$" + getOrigPrice());
+        origPriceTextV.setPaintFlags(origPriceTextV.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        newPriceTextV.setText("$" + getNewPrice());
 
         dealAddr.setText(w.getAddress());
         dealAddr.setFocusableInTouchMode(false);
@@ -238,30 +282,22 @@ public class vinDetailFragment extends Fragment implements View.OnClickListener,
         favButton.setOnClickListener(this);
 
         ImageLoader imageLoader = volleySingleton.getInstance().getImageLoader();
-
         thumbNail = (NetworkImageView) v
                 .findViewById(R.id.details_winery_list_item_iconNetworkImageView);
-
         thumbNail.setImageUrl("http://mthoodwinery.com/wp-content/uploads/2014/11/Winery-rows.jpg", imageLoader);
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.details_map);
-
-        mapFragment.getMapAsync(this);
-
-        //map.setMyLocationEnabled(true);
+        map = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.details_map);
+        map.getMapAsync(this);
 
         dealTitle = (TextView) v.findViewById(R.id.details_deal_title);
-
         dealLoc = (TextView) v.findViewById(R.id.details_deal_location);
-
+        origPriceTextV = (TextView) v.findViewById(R.id.details_deal_orig_price);
+        newPriceTextV = (TextView) v.findViewById(R.id.details_deal_new_price);
         dealAddr = (TextView) v.findViewById(R.id.winery_street_address);
-
         dealPhoneNum = (TextView) v.findViewById(R.id.phone_number);
-
         dealWebsiteURL = (TextView) v.findViewById(R.id.winery_website_url);
 
         //http://stackoverflow.com/questions/21691656/solved-google-maps-mapfragment-causing-the-app-to-crash
-
         //If need to have bold and non-bold etc.. this will bring text in exactly as formated on db
         //mytextview.setText(Html.fromHtml(sourceString));
 
