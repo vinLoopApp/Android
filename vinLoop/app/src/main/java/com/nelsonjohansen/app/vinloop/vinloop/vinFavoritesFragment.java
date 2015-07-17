@@ -12,6 +12,7 @@ import android.support.v4.app.ListFragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.internal.widget.AdapterViewCompat;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -161,14 +162,22 @@ public class vinFavoritesFragment extends ListFragment {
     }*/
 
     @Override
+    public void onActivityCreated(Bundle savedInstanceState){
+
+        super.onActivityCreated(savedInstanceState);
+        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.my_awesome_toolbar_favorite);
+        toolbar.setTitleTextColor(getActivity().getResources().getColor(R.color.text_white));
+        toolbar.setTitle("Favorite");
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         menu.clear();
 
         inflater.inflate(R.menu.menu_favorites, menu);
-
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(true);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Favorites");
 
         //http://stackoverflow.com/questions/24794377/android-capture-searchview-text-clear-by-clicking-x-button
 

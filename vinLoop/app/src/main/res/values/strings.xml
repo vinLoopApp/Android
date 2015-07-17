@@ -29,8 +29,8 @@
     <string name="details_deal_description_title_text"> Deal Description </string>
     <string name="details_deal_description_preview"> See up to 40 museum-quality dinosaurs\nmodels, some of which move and roar at\nvisitors\' command; kids pan for fossils and\ngems in a mine area </string>
 
-    <string name="details_winery_bio_title_text"> Winery Bio </string>
-    <string name="details_winery_bio_preview_text"> Wineries Bio Preview </string>
+    <string name="details_winery_bio_title_text"> Winery Information </string>
+    <string name="details_winery_bio_preview_text"> Wineries can place their information here to provide the users with an overview of accomplishments, accolades or pertinent information. </string>
 
     <string name="details_favorite_button_text"> Favorite </string>
     <string name="details_get_button_text"> Get! </string>
@@ -76,7 +76,7 @@
     <string name="profile_gender_hint"> Gender </string>
 
     <string name="profile_birthday_title"> Birthday </string>
-    <string name="profile_birthday_hint"> m/d/yr </string>
+    <string name="profile_birthday_hint"> Birthday </string>
 
     <string name="profile_email_title"> Email </string>
     <string name="profile_email_hint"> Email </string>

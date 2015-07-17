@@ -13,6 +13,8 @@
     <color name="off_white">#fdf9f3</color>
     <color name="shadow_color">#b1afb3</color>
 
+    <color name="drawer_header_background"> #531d36 </color>
+
     <color name="headline">#000000</color>
     <color name="address_miles_walkIn_buys">#615f5f</color>
     <color name="reduced_price">#8db60e</color>

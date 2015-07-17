@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/favoritesFragmentContainer">
 
-    <ListView android:id="@id/android:list"
+    <android.support.v7.widget.Toolbar
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/my_awesome_toolbar_favorite"
+        android:layout_height="?attr/actionBarSize"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:minHeight="?attr/actionBarSize"
+        android:background="@drawable/navbar" >
+
+    </android.support.v7.widget.Toolbar>
+
+    <ListView android:id="@id/android:list"
+        android:layout_below="@id/my_awesome_toolbar_favorite"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:drawSelectorOnTop="false"/>
 
@@ -18,4 +29,4 @@
         android:src="@drawable/ws"/>
     -->
 
-</RelativeLayout>
+</LinearLayout>

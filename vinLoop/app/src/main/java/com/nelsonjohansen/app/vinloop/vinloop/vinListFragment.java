@@ -1,6 +1,6 @@
 package com.nelsonjohansen.app.vinloop.vinloop;
 
-import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -77,10 +77,18 @@ public class vinListFragment extends ListFragment
     public static final int TEMPORARILY_UNAVAILABLE = 1;
     public static final int AVAILABLE = 2;
 
+    Typeface fontANDB;
+    Typeface fontMPR;
+    Typeface fontMPSB;
+    Typeface fontANR;
+    Typeface fontANB;
+
+    //info@vinloop.com
+
     public static final double meterToMileConversionValue = 0.000621371;
 
-    String TITLES[] = {"Profile", "Favorites", "Settings", "About vinLoop"};
-    int ICONS[] = {R.drawable.ic_account_circle_black_48dp, R.drawable.ic_favorite_border_black_48dp, R.drawable.ic_more_vert_black_24dp, R.drawable.ic_bug_report_black_48dp};
+    String TITLES[] = {"Profile", "Favorites", "Contact", "About vinLoop"};
+    int ICONS[] = {R.drawable.ic_account_circle_black_48dp, R.drawable.ic_favorite_border_black_48dp, R.drawable.ic_email_black_48dp, R.drawable.ic_bug_report_black_48dp};
 
     RecyclerView mRecyclerView;                           // Declaring RecyclerView
     RecyclerView.Adapter rAdapter;                        // Declaring Adapter For Recycler View
@@ -90,7 +98,7 @@ public class vinListFragment extends ListFragment
 
     String NAME = "Nelson Johansen";
     String EMAIL = "njjohansen@ucdavis.edu";
-    int PROFILE = R.drawable.ic_account_circle_black_48dp;
+    int PROFILE = R.drawable.logo_480;
 
     // Winery json url
     private static final String url = "http://zoomonby.com/vinLoop/dealTable.php";
@@ -397,6 +405,12 @@ public class vinListFragment extends ListFragment
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         // Sync the toggle state after onRestoreInstanceState has occurred.
+        fontANDB = Typeface.createFromAsset(getActivity().getAssets(), "AvenirNext-DemiBold.ttf");
+        fontMPR = Typeface.createFromAsset(getActivity().getAssets(), "MyriadPro-Regular.otf");
+        fontMPSB = Typeface.createFromAsset(getActivity().getAssets(), "MyriadPro-Semibold.otf");
+        fontANR = Typeface.createFromAsset(getActivity().getAssets(), "AvenirNext-Regular.ttf");
+        fontANB = Typeface.createFromAsset(getActivity().getAssets(), "AvenirNext-Bold.ttf");
+
         mDrawerToggle.syncState();
     }
 
@@ -406,7 +420,7 @@ public class vinListFragment extends ListFragment
         // Pass any configuration change to the drawer toggles
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
-
+    //move all actionbar stuff to on activity created
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -424,7 +438,7 @@ public class vinListFragment extends ListFragment
 
         Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.my_awesome_toolbar);
 
-        toolbar.setTitle("");
+        //toolbar.setTitle("");
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
         //toolbar.setNavigationIcon(getActivity().getResources().getDrawable(R.drawable.ic_navdrawer));
 
@@ -844,8 +858,7 @@ public class vinListFragment extends ListFragment
         intent.putExtra("name", wineryDetailInfo.getName());
         intent.putExtra("distance", wineryDetailInfo.getDist());
         intent.putExtra("dealText", wineryDetailInfo.getDeal());
-        intent.putExtra("origPrice", wineryDetailInfo.getOrigPrice());
-        intent.putExtra("newPrice", wineryDetailInfo.getNewPrice());
+        intent.putExtra("image", wineryDetailInfo.getThumbnailUrl());
         startActivity(intent);
 
         /*if (mDualPane) {
@@ -942,12 +955,34 @@ public class vinListFragment extends ListFragment
             NetworkImageView thumbNail = (NetworkImageView) convertView
                    .findViewById(R.id.winery_list_item_iconNetworkImageView);
 
-            //move outside adapter perhaps
-            TextView name = (TextView) convertView.findViewById(R.id.winery_list_item_locTextView);
+
             TextView descr = (TextView) convertView.findViewById(R.id.winery_list_item_dealTextView);
+            descr.setTypeface(fontANDB);
+
+            TextView name = (TextView) convertView.findViewById(R.id.winery_list_item_locTextView);
+            name.setTypeface(fontMPR);
+
+            TextView locCity = (TextView) convertView.findViewById(R.id.winery_list_item_locCityTextView);
+            locCity.setTypeface(fontMPR);
+
+            TextView circle = (TextView) convertView.findViewById(R.id.dot);
+            circle.setTypeface(fontMPR);
+
             TextView dist = (TextView) convertView.findViewById(R.id.winery_list_item_locDistTextView);
-            TextView newPrice = (TextView) convertView.findViewById(R.id.winery_list_item_new_price);
-            TextView origPrice = (TextView) convertView.findViewById(R.id.winery_list_item_orig_price);
+            dist.setTypeface(fontMPR);
+
+            TextView type = (TextView) convertView.findViewById(R.id.walkInOrAppt);
+            type.setTypeface(fontMPR);
+
+            TextView buys = (TextView) convertView.findViewById(R.id.number_buys);
+            buys.setTypeface(fontMPSB);
+
+            TextView oldPrice = (TextView) convertView.findViewById(R.id.oldPrice);
+            oldPrice.setTypeface(fontANR);
+
+            TextView newPrice = (TextView) convertView.findViewById(R.id.new_price);
+            newPrice.setTypeface(fontANDB);
+
 
             //TextView dist = (TextView) convertView.findViewById(R.id.winery_list_item_distTextView);
 
@@ -974,15 +1009,11 @@ public class vinListFragment extends ListFragment
             wineryLoc.setLongitude(Double.valueOf(w.getLongitude()));
             wineryLoc.setLatitude(Double.valueOf(w.getLatitude()));
 
-            Log.d("Lat", String.valueOf(deviceLoc.getLatitude()));
-            Log.d("Lng", String.valueOf(deviceLoc.getLongitude()));
+            //Log.d("Lat", String.valueOf(deviceLoc.getLatitude()));
+            //Log.d("Lng", String.valueOf(deviceLoc.getLongitude()));
 
             //dist
             dist.setText(String.format("%.2f mi", deviceLoc.distanceTo(wineryLoc) * meterToMileConversionValue));
-
-            origPrice.setText("$" + w.getOrigPrice());
-            origPrice.setPaintFlags(origPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            newPrice.setText("$" + w.getNewPrice());
 
             // release year
             //dist.setText(String.valueOf(w.getDist()));

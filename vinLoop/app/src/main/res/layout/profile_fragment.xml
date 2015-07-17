@@ -5,19 +5,27 @@
     android:layout_height="match_parent"
     android:focusable="true"
     android:clickable="true"
-    android:focusableInTouchMode="true"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp">
+    android:background="@color/off_white"
+    android:focusableInTouchMode="true">
+
+    <android.support.v7.widget.Toolbar
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/my_awesome_toolbar_profile"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_width="match_parent"
+        android:minHeight="?attr/actionBarSize"
+        android:background="@drawable/navbar" >
+
+    </android.support.v7.widget.Toolbar>
 
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:id="@+id/imageView"
+        android:layout_below="@id/my_awesome_toolbar_profile"
         android:contentDescription="@string/profile_image_text"
-        android:src="@drawable/logo_glass_xxhdpi"
-        android:layout_marginTop="30dp"
+        android:src="@drawable/ic_account_circle_black_48dp"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="30dp"
         android:layout_centerHorizontal="true"/>
 
@@ -27,7 +35,7 @@
         android:id="@+id/LL1"
         android:layout_below="@id/imageView"
         android:layout_centerInParent="true"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp">
 
@@ -89,8 +97,6 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"/>
 
-
-
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -103,23 +109,17 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"/>
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="fill_parent"
+    <ImageView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/emailInput"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp">
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:id="@+id/imageView4"
+        android:src="@drawable/logo_480"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
-        <Switch
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/profile_notifications_switch"
-            android:id="@+id/notificationSwitch" />
 
-    </LinearLayout>
 
 
 </RelativeLayout>

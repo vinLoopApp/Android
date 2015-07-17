@@ -11,14 +11,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.Switch;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
- * Created by NelsonJ on 5/29/2015.
+ * Created by NelsonJ on 5/31/2015.
  */
 public class filterPickerDialogFragment extends DialogFragment {
 
@@ -42,7 +42,7 @@ public class filterPickerDialogFragment extends DialogFragment {
 
     CharSequence[] arrayDist = {"0.5", "1.0", "2.5", "5", "10", "25", "50+"};
     CharSequence[] arrayVarietals = {"Cabernet Savignon", "Merlot", "Syrah", "Cabernet Franc", "Red Zinfandel",
-                                        "Chardonnay", "Sauvignon Blanc", "Pinot Grigio", "Riesling", "Viognier"};
+            "Chardonnay", "Sauvignon Blanc", "Pinot Grigio", "Riesling", "Viognier"};
     CharSequence[] arraySort = {"Distance","Gets"};
 
     boolean itemSelected[] = new boolean[arrayVarietals.length];
@@ -102,7 +102,7 @@ public class filterPickerDialogFragment extends DialogFragment {
         final View v = getActivity().getLayoutInflater()
                 .inflate(R.layout.filter_page, null);
 
-        getDialog().setTitle("Filters");
+        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 
         final Button okButton = (Button) v.findViewById(R.id.okButton);
 

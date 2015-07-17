@@ -7,24 +7,24 @@ package com.nelsonjohansen.app.vinloop.vinloop;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class DrawerRecyclerAdapter extends RecyclerView.Adapter<DrawerRecyclerAdapter.ViewHolder> {
 
     private static final int TYPE_HEADER = 0;  // Declaring Variable to Understand which View is being worked on
     private static final int TYPE_ITEM = 1;    // IF the view under inflation and population is header or Item;
+    private static final int TYPE_FOOTER = 2;
 
     private static final int HEADER_POSITION = 0;
     private static final int PROFILE_POSITION = 1;
     private static final int FAVORITES_POSITION = 2;
     private static final int SETTINGS_POSITION = 3;
     private static final int ABOUT_POSITION = 4;
+    //private static final int CONTACT_POSITION = 5;
 
     private String mNavTitles[]; // String Array to store the passed titles Value from MainActivity.java
     private int mIcons[];       // Int Array to store the passed icons resource value from MainActivity.java
@@ -44,8 +44,6 @@ public class DrawerRecyclerAdapter extends RecyclerView.Adapter<DrawerRecyclerAd
         TextView textView;
         ImageView imageView;
         ImageView profile;
-        TextView Name;
-        TextView email;
         Context contxt;
 
         // Creating ViewHolder Constructor with View and viewType As a parameter
@@ -63,13 +61,11 @@ public class DrawerRecyclerAdapter extends RecyclerView.Adapter<DrawerRecyclerAd
                 imageView = (ImageView) itemView.findViewById(R.id.drawer_icon);// Creating ImageView object with the id of ImageView from item_row.xml
                 Holderid = 1;                                               // setting holder id as 1 as the object being populated are of type item row
             }
-            else{
-
-
-                Name = (TextView) itemView.findViewById(R.id.name);         // Creating Text View object from header.xml for name
-                email = (TextView) itemView.findViewById(R.id.email);       // Creating Text View object from header.xml for email
+            else if(ViewType == TYPE_HEADER){
                 profile = (ImageView) itemView.findViewById(R.id.circleView);// Creating Image view object from header.xml for profile pic
                 Holderid = 0;                                                // Setting holder id = 0 as the object being populated are of type header view
+            } else {
+                Holderid = 2;
             }
         }
 
@@ -95,11 +91,14 @@ public class DrawerRecyclerAdapter extends RecyclerView.Adapter<DrawerRecyclerAd
                     contxt.startActivity(intent);
                     break;
                 case SETTINGS_POSITION:
-                    intent.setClass(contxt, vinSettingsActivity.class);
+                    intent.setClass(contxt, vinContactActivity.class);
                     intent.putExtra("index", 3);
                     contxt.startActivity(intent);
                     break;
                 case ABOUT_POSITION:
+                    intent.setClass(contxt, vinAboutActivity.class);
+                    intent.putExtra("index", 4);
+                    contxt.startActivity(intent);
                     break;
                 default:
                     break;
@@ -147,6 +146,14 @@ public class DrawerRecyclerAdapter extends RecyclerView.Adapter<DrawerRecyclerAd
                 return vhHeader; //returning the object created
 
 
+            } else if(viewType == TYPE_FOOTER) {
+
+                View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_drawer_footer,parent,false); //Inflating the layout
+
+                ViewHolder vhFooter = new ViewHolder(v, viewType, context); //Creating ViewHolder and passing the object of type view
+
+                return vhFooter; //returning the object created
+
             }
             return null;
 
@@ -157,23 +164,21 @@ public class DrawerRecyclerAdapter extends RecyclerView.Adapter<DrawerRecyclerAd
         // which view type is being created 1 for item row
         @Override
         public void onBindViewHolder(DrawerRecyclerAdapter.ViewHolder holder, int position) {
-            if(holder.Holderid ==1) {                              // as the list view is going to be called after the header view so we decrement the
+            if(holder.Holderid == 1) {                              // as the list view is going to be called after the header view so we decrement the
                 // position by 1 and pass it to the holder while setting the text and image
                 holder.textView.setText(mNavTitles[position - 1]); // Setting the Text with the array of our Titles
-                holder.imageView.setImageResource(mIcons[position -1]);// Settimg the image with array of our icons
+                holder.imageView.setImageResource(mIcons[position - 1]);// Settimg the image with array of our icons
             }
-            else{
-
+            else if(holder.Holderid == 0){
                 holder.profile.setImageResource(profile);           // Similarly we set the resources for header view
-                holder.Name.setText(name);
-                holder.email.setText(email);
+            }else{
             }
         }
 
         // This method returns the number of items present in the list
         @Override
         public int getItemCount() {
-            return mNavTitles.length+1; // the number of items in the list will be +1 the titles including the header view.
+            return mNavTitles.length+2; // the number of items in the list will be +1 the titles including the header view.
         }
 
 
@@ -182,6 +187,8 @@ public class DrawerRecyclerAdapter extends RecyclerView.Adapter<DrawerRecyclerAd
         public int getItemViewType(int position) {
             if (isPositionHeader(position))
                 return TYPE_HEADER;
+            else if(isPositionFooter(position))
+                return TYPE_FOOTER;
 
             return TYPE_ITEM;
         }
@@ -189,5 +196,7 @@ public class DrawerRecyclerAdapter extends RecyclerView.Adapter<DrawerRecyclerAd
         private boolean isPositionHeader(int position) {
             return position == 0;
         }
+
+        private boolean isPositionFooter(int position) { return position == 5; }
 
 }

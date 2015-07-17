@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -52,6 +53,16 @@ public class vinProfileFragment extends Fragment implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState){
+        super.onActivityCreated(savedInstanceState);
+        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.my_awesome_toolbar_profile);
+        toolbar.setTitleTextColor(getActivity().getResources().getColor(R.color.text_white));
+        toolbar.setTitle("Profile");
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
@@ -364,26 +375,6 @@ public class vinProfileFragment extends Fragment implements View.OnClickListener
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
                     hideKeyboard(v);
-                }
-            }
-        });
-
-        final Switch notifications = (Switch) v.findViewById(R.id.notificationSwitch);
-        Boolean notificationsBoolean = sharedPref.getBoolean(profileNotificationsKey, false);
-
-        if(notificationsBoolean){
-            notifications.setChecked(true);
-        }
-
-        notifications.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    editor.putBoolean(profileNotificationsKey, true);
-                    editor.apply();
-                }else{
-                    editor.putBoolean(profileNotificationsKey, false);
-                    editor.apply();
                 }
             }
         });
