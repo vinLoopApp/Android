@@ -4,6 +4,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -60,8 +61,10 @@ public class vinDetailFragment extends Fragment implements View.OnClickListener,
     TextView dealAddr;
     TextView dealPhoneNum;
     TextView dealWebsiteURL;
+    TextView origPriceTextV;
+    TextView newPriceTextV;
 
-    public static vinDetailFragment newInstance(int index, String name, String distance, String dealText, String url) {
+    public static vinDetailFragment newInstance(int index, String name, String distance, String dealText, String origPrice, String newPrice) {
 
         vinDetailFragment f = new vinDetailFragment();
 
@@ -72,6 +75,8 @@ public class vinDetailFragment extends Fragment implements View.OnClickListener,
         args.putString("distance", distance);
         args.putString("dealText", dealText);
         args.putString("image", url);
+        args.putString("origPrice", origPrice);
+        args.putString("newPrice", newPrice);
 
         f.setArguments(args);
 
@@ -85,6 +90,8 @@ public class vinDetailFragment extends Fragment implements View.OnClickListener,
     private String getShownDist(){ return getArguments().getString("distance", null); }
     private String getShownDealText(){ return getArguments().getString("dealText", null); }
     private String getShownURLText(){ return getArguments().getString("image", null); }
+    private String getOrigPrice(){return getArguments().getString("origPrice", null); }
+    private String getNewPrice(){return getArguments().getString("newPrice", null); }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -163,7 +170,7 @@ public class vinDetailFragment extends Fragment implements View.OnClickListener,
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState){
+    public void onActivityCreated(Bundle savedInstanceState) {
 
         super.onActivityCreated(savedInstanceState);
         Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.my_awesome_toolbar_details);
@@ -190,6 +197,10 @@ public class vinDetailFragment extends Fragment implements View.OnClickListener,
     private void initialize(){
         dealTitle.setText(getShownDealText());
         dealLoc.setText(w.getName());
+
+        //origPriceTextV.setText("$" + getOrigPrice());
+        //origPriceTextV.setPaintFlags(origPriceTextV.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        //newPriceTextV.setText("$" + getNewPrice());
 
         dealAddr.setText(w.getAddress());
         dealAddr.setFocusableInTouchMode(false);
@@ -268,6 +279,10 @@ public class vinDetailFragment extends Fragment implements View.OnClickListener,
         dealTitle = (TextView) v.findViewById(R.id.details_deal_title);
 
         dealLoc = (TextView) v.findViewById(R.id.details_deal_location);
+
+        //origPriceTextV = (TextView) v.findViewById(R.id.details_deal_orig_price);
+
+        //newPriceTextV = (TextView) v.findViewById(R.id.details_deal_new_price);
 
         dealAddr = (TextView) v.findViewById(R.id.winery_street_address);
 

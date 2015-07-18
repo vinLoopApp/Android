@@ -411,29 +411,6 @@ public class vinListFragment extends ListFragment
         fontANR = Typeface.createFromAsset(getActivity().getAssets(), "AvenirNext-Regular.ttf");
         fontANB = Typeface.createFromAsset(getActivity().getAssets(), "AvenirNext-Bold.ttf");
 
-        mDrawerToggle.syncState();
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        // Pass any configuration change to the drawer toggles
-        mDrawerToggle.onConfigurationChanged(newConfig);
-    }
-    //move all actionbar stuff to on activity created
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-        //setRetainInstance(true);
-
-        //listView = (ListView) findViewById(R.id.listView);
-        //final WineryAdapter adapter = new WineryAdapter(wineryList);
-        adapter = new WineryAdapter(wineryList);
-        setListAdapter(adapter);
-
-        //LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
         mDrawerLayout = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
 
         Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.my_awesome_toolbar);
@@ -488,10 +465,199 @@ public class vinListFragment extends ListFragment
             }
         };
 
-       //mDrawerToggle.setHomeAsUpIndicator(R.drawable.ic_drawer);
+        //mDrawerToggle.setHomeAsUpIndicator(R.drawable.ic_drawer);
 
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
+
+        mFilterHelper = new filterHelper();
+
+        //RelativeLayout mActionBarLayout = (RelativeLayout) inflater.inflate(R.layout.action_bar_custom, null);
+
+        final SearchView searchView = (SearchView) getActivity().findViewById(R.id.search);
+        final int id = searchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
+        final int magId = getResources().getIdentifier("android:id/search_mag_icon", null, null);
+        final EditText textView = (EditText) searchView.findViewById(id);
+
+        //remove magnifying glass in searchView hint field
+        //ImageView magImage = (ImageView) searchView.findViewById(magId);
+        //magImage.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
+
+        //remove blue line below search text in search view.
+        int searchPlateId = searchView.getContext().getResources()
+                .getIdentifier("android:id/search_plate", null, null);
+        View searchPlateView = searchView.findViewById(searchPlateId);
+
+        try {
+            searchPlateView.setBackgroundColor(getResources().getColor(R.color.searchbar_background_color_lighter));
+        } catch (Throwable t) {
+            t.printStackTrace();
+        }
+        searchView.setQueryHint(" Search for vinLoop Deals");
+        searchView.clearFocus();
+        searchView.setIconifiedByDefault(false);
+        searchView.setIconified(false);
+
+        //Applies white color on searchview text
+        textView.setTextSize(14);
+        textView.setHintTextColor(getResources().getColor(R.color.off_white));
+        textView.setTextColor(getResources().getColor(R.color.text_white));
+        textView.setCursorVisible(false);
+
+        searchView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                textView.setCursorVisible(true);
+            }
+        });
+
+        searchView.setOnSearchClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                textView.setCursorVisible(true);
+            }
+        });
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextChange(String query) {
+
+                textView.setCursorVisible(true);
+
+                if (!TextUtils.isEmpty(query)) {
+                    adapter.getFilter().filter(query);
+                    return true;
+                } else {
+                    adapter.getFilter().filter(query);
+                    searchView.clearFocus();
+                    textView.setCursorVisible(false);
+                    return true;
+                }
+            }
+
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                textView.setCursorVisible(true);
+
+                if (!TextUtils.isEmpty(query)) {
+                    adapter.getFilter().filter(query);
+                    searchView.clearFocus();
+                    return true;
+                }
+                searchView.clearFocus();
+                textView.setCursorVisible(false);
+                return false;
+            }
+
+        });
+
+        getActivity().getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
+        );
+
+        final ImageButton filterButton =  (ImageButton) getActivity().findViewById(R.id.filter_button);
+        filterButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                filterPickerDialogFragment filter =
+                        filterPickerDialogFragment.newInstance(
+                                mFilterHelper.isPriceButton1()
+                                , mFilterHelper.isPriceButton2()
+                                , mFilterHelper.isPriceButton3()
+                                , mFilterHelper.isPriceButton4()
+                                , mFilterHelper.getDistance()
+                                , mFilterHelper.isWalkIn()
+                                , mFilterHelper.isByAppt());
+
+                //setting up communication between list fragment and dialog fragment
+                filter.setTargetFragment(vinListFragment.this, REQUEST_FILTERS);
+                //call filter in here somewhere, must change filter code to handle booleans coming
+                //from user input via the dialog box, perhaps make a new class called filter to hold
+                //all the options the user can choose.
+                filter.show(fm, TEST_DIALOG);
+            }
+        });
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        // Pass any configuration change to the drawer toggles
+        mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+    //move all actionbar stuff to on activity created
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+        //setRetainInstance(true);
+
+        //listView = (ListView) findViewById(R.id.listView);
+        //final WineryAdapter adapter = new WineryAdapter(wineryList);
+        adapter = new WineryAdapter(wineryList);
+        setListAdapter(adapter);
+
+        //LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        /*mDrawerLayout = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
+
+        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.my_awesome_toolbar);
+
+        //toolbar.setTitle("");
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        //toolbar.setNavigationIcon(getActivity().getResources().getDrawable(R.drawable.ic_navdrawer));
+
+        //ViewGroup decor = (ViewGroup) getActivity().getWindow().getDecorView();
+        //View child = decor.getChildAt(0);
+        //decor.removeView(child);
+        //FrameLayout container = (FrameLayout) mDrawerLayout.findViewById(R.id.container);
+        //container.addView(child);
+
+        //decor.addView(mDrawerLayout);
+
+        mRecyclerView = (RecyclerView) getActivity().findViewById(R.id.left_drawer);
+        // / Assigning the RecyclerView Object to the xml View
+
+        mRecyclerView.setHasFixedSize(true);
+        // Letting the system know that the list objects are of fixed size
+
+        rAdapter = new DrawerRecyclerAdapter(getActivity(),TITLES,ICONS,NAME,EMAIL,PROFILE);
+
+        mRecyclerView.setAdapter(rAdapter);
+        // Setting the adapter to RecyclerView
+
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        // Creating a layout Manager
+
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        // Setting the layout Manager
+
+        mDrawerToggle = new ActionBarDrawerToggle(
+                getActivity(),
+                mDrawerLayout,
+                toolbar,
+                R.string.drawer_open,
+                R.string.drawer_close) {
+            public void onDrawerClosed(View view) {
+                //((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(mTitle);
+                //getActivity().invalidateOptionsMenu(); // creates call to
+                // onPrepareOptionsMenu()
+                getActivity().invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+
+            public void onDrawerOpened(View drawerView) {
+                //((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(mDrawerTitle);
+                //getActivity().invalidateOptionsMenu(); // creates call to
+                // onPrepareOptionsMenu()
+                getActivity().invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+        };
+
+        //mDrawerToggle.setHomeAsUpIndicator(R.drawable.ic_drawer);
+
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        mDrawerToggle.syncState();*/
 
         /*dataList = new ArrayList<drawerItem>();
 
@@ -567,7 +733,7 @@ public class vinListFragment extends ListFragment
             }
         });*/
 
-        mFilterHelper = new filterHelper();
+        /*mFilterHelper = new filterHelper();
 
         //RelativeLayout mActionBarLayout = (RelativeLayout) inflater.inflate(R.layout.action_bar_custom, null);
 
@@ -674,7 +840,7 @@ public class vinListFragment extends ListFragment
                 //all the options the user can choose.
                 filter.show(fm, TEST_DIALOG);
             }
-        });
+        });*/
 
         //THIS SHOULD BE DONE ASYNC AS ALL ANDROID NETWORKING IS ASYNC DON'T NEED TO IMPLEMENT MANUALLY
 
@@ -859,6 +1025,8 @@ public class vinListFragment extends ListFragment
         intent.putExtra("distance", wineryDetailInfo.getDist());
         intent.putExtra("dealText", wineryDetailInfo.getDeal());
         intent.putExtra("image", wineryDetailInfo.getThumbnailUrl());
+        intent.putExtra("origPrice", wineryDetailInfo.getOrigPrice());
+        intent.putExtra("newPrice", wineryDetailInfo.getNewPrice());
         startActivity(intent);
 
         /*if (mDualPane) {

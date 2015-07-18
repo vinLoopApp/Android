@@ -18,7 +18,7 @@ import android.widget.Switch;
 import java.util.ArrayList;
 
 /**
- * Created by NelsonJ on 5/31/2015.
+ * Created by NelsonJ on 7/17/2015.
  */
 public class filterPickerDialogFragment extends DialogFragment {
 

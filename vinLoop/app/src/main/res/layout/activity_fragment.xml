@@ -28,15 +28,23 @@
                 android:title="@string/search_title">
             </SearchView>
 
+            <LinearLayout
+                android:layout_width="50dp"
+                android:layout_height="?attr/actionBarSize">
+
             <ImageButton
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginRight="0dp"
-                android:layout_marginLeft="10dp"
-                android:gravity="right"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:layout_marginRight="11dp"
+                android:layout_marginLeft="11dp"
+                android:gravity="center"
                 android:id="@+id/filter_button"
                 android:background="@drawable/ic_filter_new">
             </ImageButton>
+
+            </LinearLayout>
 
         </android.support.v7.widget.Toolbar>
 
