@@ -78,6 +78,27 @@ public class vinFavoritesFragment extends ListFragment {
         mAdapter = new WineryAdapter(wineryList);
         setListAdapter(mAdapter);
 
+    }
+
+    /*@Override
+         public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                  Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.favorites_layout, container, false);
+
+        // Set the adapter
+        mListView = (AbsListView) view.findViewById(android.R.id.list);
+        ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
+
+        // Set OnItemClickListener so we can be notified on item clicks
+        //mListView.setOnItemClickListener(this);
+
+        return view;
+    }*/
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState){
+        super.onActivityCreated(savedInstanceState);
+
         Context context = getActivity();
         final SharedPreferences sharedPref = context.getSharedPreferences(
                 getString(R.string.get_favorites_list_file), Context.MODE_PRIVATE);
@@ -144,32 +165,16 @@ public class vinFavoritesFragment extends ListFragment {
         // Adding request to request queue
         volleySingleton.getInstance().addToRequestQueue(vinReq);
 
-    }
-
-    /*@Override
-         public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                  Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.favorites_layout, container, false);
-
-        // Set the adapter
-        mListView = (AbsListView) view.findViewById(android.R.id.list);
-        ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
-
-        // Set OnItemClickListener so we can be notified on item clicks
-        //mListView.setOnItemClickListener(this);
-
-        return view;
-    }*/
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState){
-
-        super.onActivityCreated(savedInstanceState);
         Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.my_awesome_toolbar_favorite);
         toolbar.setTitleTextColor(getActivity().getResources().getColor(R.color.text_white));
         toolbar.setTitle("Favorite");
-        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        try {
+            ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+            ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        } catch(NullPointerException e){
+            Log.d("Error setting toolbar: ", "In favorites fragment");
+        }
     }
 
     @Override

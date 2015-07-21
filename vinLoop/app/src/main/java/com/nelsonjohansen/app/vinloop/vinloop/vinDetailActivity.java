@@ -36,11 +36,11 @@ public class vinDetailActivity extends AppCompatActivity {
             //fragment.setArguments(getIntent().getExtras());
         }
 
-        SupportMapFragment mMapFragment = (SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.details_map);
+        /*SupportMapFragment mMapFragment = (SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.details_map);
 
         if (mMapFragment == null) {
             mMapFragment = SupportMapFragment.newInstance();
             fm.beginTransaction().replace(R.id.details_map, mMapFragment).commit();
-        }
+        }*/
     }
 }

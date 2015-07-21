@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,8 +40,12 @@ public class vinContactFragment extends Fragment {
         Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.my_awesome_toolbar_contact);
         toolbar.setTitleTextColor(getActivity().getResources().getColor(R.color.text_white));
         toolbar.setTitle("Contact Us");
-        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        try {
+            ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+            ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        } catch(NullPointerException e){
+            Log.d("Error setting toolbar: ", "In favorites fragment");
+        }
     }
 
 

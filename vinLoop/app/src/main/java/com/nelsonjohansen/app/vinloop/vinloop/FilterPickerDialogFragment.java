@@ -97,6 +97,12 @@ public class filterPickerDialogFragment extends DialogFragment {
     }
 
     @Override
+    public void onActivityCreated(Bundle savedInstanceState){
+        super.onActivityCreated(savedInstanceState);
+
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
         final View v = getActivity().getLayoutInflater()

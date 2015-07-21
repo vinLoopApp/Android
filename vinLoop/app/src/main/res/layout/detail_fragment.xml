@@ -250,22 +250,13 @@
                     android:layout_height="1dp"
                     android:background="@color/detail_spacer_line"/>
 
-                <fragment
-                    android:name="com.google.android.gms.maps.SupportMapFragment"
-                    android:id="@+id/details_map"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    map:cameraBearing="112.5"
-                    map:cameraTargetLat="-33.796923"
-                    map:cameraTargetLng="150.922433"
-                    map:cameraTilt="30"
-                    map:cameraZoom="13"
-                    map:mapType="normal"
-                    android:layout_marginBottom="1dp"
-                    android:layout_marginTop="0dp"
-                    android:layout_marginLeft="0dp"
-                    android:layout_marginRight="0dp">
-                </fragment>
+                <com.android.volley.toolbox.NetworkImageView
+                    android:id="@+id/details_winery_list_item_iconNetworkImageView_StaticGoogleMap"
+                    android:layout_width="fill_parent"
+                    android:layout_height="215dp"
+                    android:scaleType="fitXY"
+                    android:contentDescription="@string/details_static_google_map">
+                </com.android.volley.toolbox.NetworkImageView>
 
             </LinearLayout>
 

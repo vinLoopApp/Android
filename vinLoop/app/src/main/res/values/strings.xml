@@ -35,6 +35,8 @@
     <string name="details_favorite_button_text"> Favorite </string>
     <string name="details_get_button_text"> Get! </string>
 
+    <string name="details_static_google_map"> Static Google Map </string>
+
     <!-- Strings handling filter dialogFragment -->
     <string name="filter_price_title_text"> Price </string>
     <string name="filter_price_button_one_dollar"> $ </string>

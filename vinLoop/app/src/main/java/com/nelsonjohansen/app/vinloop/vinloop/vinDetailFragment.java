@@ -56,6 +56,7 @@ public class vinDetailFragment extends Fragment implements View.OnClickListener,
     private static final String url = "http://zoomonby.com/vinLoop/wineryTable.php";
 
     NetworkImageView thumbNail;
+    NetworkImageView staticGoogleMap;
     TextView dealLoc;
     TextView dealTitle;
     TextView dealAddr;
@@ -64,7 +65,13 @@ public class vinDetailFragment extends Fragment implements View.OnClickListener,
     TextView origPriceTextV;
     TextView newPriceTextV;
 
-    public static vinDetailFragment newInstance(int index, String name, String distance, String dealText, String origPrice, String newPrice) {
+    protected static final String STATIC_GOOGLE_MAP_API_ENDPOINT =
+            "https://maps.googleapis.com/maps/api/staticmap?";
+
+    public static vinDetailFragment newInstance(int index, String name, String distance,
+                                                String dealText, String origPrice,
+                                                String newPrice, String latitude,
+                                                String longitude) {
 
         vinDetailFragment f = new vinDetailFragment();
 
@@ -77,6 +84,8 @@ public class vinDetailFragment extends Fragment implements View.OnClickListener,
         args.putString("image", url);
         args.putString("origPrice", origPrice);
         args.putString("newPrice", newPrice);
+        args.putString("Lat", latitude);
+        args.putString("Long", longitude);
 
         f.setArguments(args);
 
@@ -92,6 +101,8 @@ public class vinDetailFragment extends Fragment implements View.OnClickListener,
     private String getShownURLText(){ return getArguments().getString("image", null); }
     private String getOrigPrice(){return getArguments().getString("origPrice", null); }
     private String getNewPrice(){return getArguments().getString("newPrice", null); }
+    private String getLat() { return getArguments().getString("Lat", null); }
+    private String getLong() { return getArguments().getString("Long", null); }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -176,8 +187,13 @@ public class vinDetailFragment extends Fragment implements View.OnClickListener,
         Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.my_awesome_toolbar_details);
         toolbar.setTitleTextColor(getActivity().getResources().getColor(R.color.text_white));
         toolbar.setTitle("Details");
-        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        try {
+            ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+            ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        } catch(NullPointerException e){
+            Log.d("Error setting toolbar: ", "In favorites fragment");
+        }
     }
 
     static final CameraPosition NAPA =
@@ -270,11 +286,27 @@ public class vinDetailFragment extends Fragment implements View.OnClickListener,
 
         thumbNail.setImageUrl(getShownURLText(), imageLoader);
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.details_map);
+        //SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.details_map);
 
-        mapFragment.getMapAsync(this);
+        //mapFragment.getMapAsync(this);
 
         //map.setMyLocationEnabled(true);
+
+        //perhaps do this async
+        staticGoogleMap = (NetworkImageView) v
+                .findViewById(R.id.details_winery_list_item_iconNetworkImageView_StaticGoogleMap);
+
+        String parameters = "";
+        String center = "center=" + getLat() + "," + getLong();
+        String zoom = "zoom=13";
+        String size = "size=600x300";
+        String type = "maptype=roadmap";
+
+        parameters = center + "&" + zoom + "&" + size + "&" + type;
+
+        staticGoogleMap.setImageUrl(STATIC_GOOGLE_MAP_API_ENDPOINT + parameters, imageLoader);
+
+        https://maps.googleapis.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&zoom=13&size=600x300&maptype=roadmap
 
         dealTitle = (TextView) v.findViewById(R.id.details_deal_title);
 
